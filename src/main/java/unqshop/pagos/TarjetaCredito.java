@@ -2,9 +2,9 @@ package src.main.java.unqshop.pagos;
 
 
 
-public class MetodoTarjetaCredito extends MetodoPago {
+public class TarjetaCredito extends MetodoPago {
 
-    public MetodoTarjetaCredito(double monto) {
+    public TarjetaCredito(double monto) {
         super(monto);
     }
 
