@@ -34,7 +34,7 @@ public class BilleteraVirtual extends MetodoPago {
     @Override
     public void reservarFondos() {
         if (!datosValidados) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Datos no validados Correctamente en el paso anterior.");
         }
         saldoDisponible -= getMonto();
         saldoReservado += getMonto();

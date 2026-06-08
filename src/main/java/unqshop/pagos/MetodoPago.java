@@ -1,4 +1,4 @@
-package src.main.java.unqshop.pagos;
+package unqshop.pagos;
 
 /**
  * Clase abstracta para encapsular el comportamiento del patrón Template Method,
@@ -24,8 +24,6 @@ public abstract class MetodoPago {
         reservarFondos();
         ejecutarTransaccion();
         notificarResultado();
-
-
     }
 
     //operaciones primitivas
@@ -44,7 +42,7 @@ public abstract class MetodoPago {
     protected void notificarResultado() {
         System.out.println("Pago notificado.");
     }
-    
+
 
     //-----------------
 

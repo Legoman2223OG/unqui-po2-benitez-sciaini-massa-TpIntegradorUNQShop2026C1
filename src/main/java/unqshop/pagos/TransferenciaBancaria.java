@@ -1,4 +1,4 @@
-package src.main.java.unqshop.pagos;
+package unqshop.pagos;
 
 public class
 TransferenciaBancaria extends MetodoPago {

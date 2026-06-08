@@ -1,5 +1,4 @@
-package src.main.java.unqshop.pagos;
-
+package unqshop.pagos;
 
 
 public class TarjetaCredito extends MetodoPago {
@@ -26,15 +25,12 @@ public class TarjetaCredito extends MetodoPago {
     }
 
 
-
     @Override
     protected void ejecutarTransaccion() {
 
         debitoDiferido();
 
     }
-
-
 
 
     @Override
