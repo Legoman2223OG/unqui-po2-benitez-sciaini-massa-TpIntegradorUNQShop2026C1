@@ -1,43 +1,54 @@
-package src.main.java.unqshop.pagos;
+package unqshop.pagos;
 
 public class BilleteraVirtual extends MetodoPago {
     //var. ins.:
     private double saldoDisponible;
     private double saldoReservado;
     private MobileUI mobileUI;
+    private boolean datosValidados = false;
 
-    public BilleteraVirtual(double monto, double saldoDisponible, double saldoReservado) {
+    //Constructor SIN mock:
+    public BilleteraVirtual(double monto, double saldoDisponible) {
         super(monto);
 
         this.saldoDisponible = saldoDisponible;
-        this.saldoReservado = saldoReservado;
         this.mobileUI = new MobileUI(); //posible Adapter
+    }
 
+    //Constructor CON dependency injection de Mock (testeado con Mockito):
+    public BilleteraVirtual(double monto, double saldoDisponible, MobileUI mobileUIM) {
+        super(monto);
+        this.saldoDisponible = saldoDisponible;
+        this.mobileUI = mobileUIM;
     }
 
 
     @Override
-    protected void validarDatos() {
+    public void validarDatos() {
 
         checkearSaldoSuficiente();
+        this.datosValidados = true;
+
     }
 
     @Override
-    protected void reservarFondos() {
-
+    public void reservarFondos() {
+        if (!datosValidados) {
+            throw new IllegalStateException();
+        }
         saldoDisponible -= getMonto();
         saldoReservado += getMonto();
 
     }
 
     @Override
-    protected void ejecutarTransaccion() {
+    public void ejecutarTransaccion() {
 
         enviarPago(this.getSaldoReservado());
         this.setSaldoReservado(0);
     }
 
-    protected void notificarResultado() {
+    public void notificarResultado() {
 
         mobileUI.push("Pago enviado: " + this.getMonto() + " pesos enviados de tu cuenta al destinatario.");
     }
