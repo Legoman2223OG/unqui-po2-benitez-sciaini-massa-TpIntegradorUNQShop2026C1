@@ -1,19 +1,26 @@
 package unqshop.pagos;
 
 public class
-TransferenciaBancaria extends MetodoPago implements EnteBancario {
+TransferenciaBancaria extends MetodoPago {
 
     Banco banco;
     String CBU_aEnviar;
     String alias_a_enviar;
 
-    //ahora TransferenciaBancaria Depende de una abstraccion (interfaz)
+    //ahora TransferenciaBancaria implementa una abstraccion (BANCO)
     // y no de un medio en concreto reduciendo acoplamiento.
     // en los correctos metodos del template hace las correspondientes llamadas al EnteBancario
-    // que entendera el protocolo de la q implementa tambien esta clase.
+    // que entendera el protocolo de la situacion.
 
     public TransferenciaBancaria(double monto) {
         super(monto);
+    }
+
+    public TransferenciaBancaria(double monto, String CBU_aEnviar, String alias_a_enviar, Banco banco) {
+        super(monto);
+        this.CBU_aEnviar = CBU_aEnviar;
+        this.alias_a_enviar = alias_a_enviar;
+        this.banco = banco;
     }
 
     public TransferenciaBancaria(double monto, String CBU_aEnviar, String alias_a_enviar) {
@@ -56,19 +63,19 @@ TransferenciaBancaria extends MetodoPago implements EnteBancario {
     //--------------------------------------
 
     //meth. concreto.
-    @Override
+
     public void validarCBU(String CBU) {
         //hace las correspondientes llamadas a la entidadBancaria correspondiente que entendera el protocolo de la q implementa tambien esta clase.
         this.getBanco().validarCBU(CBU);
 
     }
 
-    @Override
+
     public void validarAlias(String alias) {
         this.getBanco().validarAlias(alias);
     }
 
-    @Override
+
     public String realizarTransferencia(double monto, String origen, String destino) {
         return "";
     }

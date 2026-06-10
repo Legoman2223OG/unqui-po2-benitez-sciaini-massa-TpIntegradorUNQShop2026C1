@@ -1,6 +1,6 @@
 package unqshop.pagos;
 
-public class Banco implements EnteBancario {
+public class Banco implements EnteBancario, Protocolo_tarjeta_credito {
     private String CBU;
     private String alias;
     private double monto;
@@ -9,6 +9,9 @@ public class Banco implements EnteBancario {
         this.monto = monto;
     }
 
+    //  - - - - - - - - - - - - - - - - - - - - -
+    // PROTOCOLO TRANSFERENCIA BANCARIA
+    //  - - - - - - - - - - - - - - - - - - - - -
     @Override
     public void validarCBU(String CBU) {
 
@@ -41,6 +44,11 @@ public class Banco implements EnteBancario {
         System.out.println("Pago Aprobado por Entidad Bancaria");
     }
 
+    //  - - - - - - - - - - - - - - - - - - - - -
+    //  - - - - - - - - - - - - - - - - - - - - -
+    //  - - - - - - - - - - - - - - - - - - - - -
+
+
     // --------------
     // GETTER & SETTER
     // --------------
@@ -59,5 +67,56 @@ public class Banco implements EnteBancario {
     public double getMonto() {
         return monto;
     }
+
+    //---------
+    // PROTOCOLO TARJETA DE CREDITO {
+    @Override
+    public void validarVencimiento(int fechaVencimiento) {
+        //CONSEGUIR EL TIMPO ACTUAL
+        int aÑoActual = java.time.Year.now().getValue();
+
+        if (fechaVencimiento < aÑoActual) {
+            throw new IllegalArgumentException("Tarjeta vencida.");
+        }
+
+    }
+
+    @Override
+    public void validarCVV(String cvv) {
+        if (cvv == null || cvv.length() != 3) {
+            throw new IllegalArgumentException("CVV inválido.");
+        }
+    }
+
+    @Override
+    public void validarNumeroDeTarjeta(String numeroTarjeta) {
+        if (numeroTarjeta == null || numeroTarjeta.length() != 10) {
+            throw new IllegalArgumentException("Número de tarjeta inválido.");
+        }
+    }
+
+    //-------------------------
+    // reservarFondos:
+    @Override
+    public void preAutorizarBancoEmisor() {
+        System.out.println("Pre-Autorizando $" + this.getMonto() + "En el banco Emisor.");
+    }
+
+    //ejecutarTransaccion:
+
+    @Override
+    public void debitoDiferido() {
+        System.out.println("Débito diferido con monto $" + getMonto());
+    }
+
+    //}
+    @Override
+    public void tarjetaCreditoNotificacion() {
+        System.out.println(
+                "Cupón de pago generado."
+        );
+    }
+
+
 }
 

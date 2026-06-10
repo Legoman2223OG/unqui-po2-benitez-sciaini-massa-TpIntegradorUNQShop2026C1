@@ -7,12 +7,22 @@ public class TarjetaCredito extends MetodoPago {
     private final String cvv;
     private final int fechaVencimiento; // SOLO AÑO!
     private boolean datosValidados; //FLAG
+    private Protocolo_tarjeta_credito banco;
 
     public TarjetaCredito(double monto, String numeroTarjeta, String cvv, int fechaVencimiento) {
         super(monto);
         this.numeroTarjeta = numeroTarjeta;
         this.cvv = cvv;
         this.fechaVencimiento = fechaVencimiento;
+        this.banco = new Banco(this.getMonto());
+    }
+
+    public TarjetaCredito(double monto, String numeroTarjeta, String cvv, int fechaVencimiento, Protocolo_tarjeta_credito banco) {
+        super(monto);
+        this.numeroTarjeta = numeroTarjeta;
+        this.cvv = cvv;
+        this.fechaVencimiento = fechaVencimiento;
+        this.banco = banco;
     }
 
     //Metodos concretos
@@ -20,10 +30,11 @@ public class TarjetaCredito extends MetodoPago {
     @Override
     protected void validarDatos() {
 
+
         validarNumeroDeTarjeta();
         validarCVV();
         validarVencimiento();
-        this.setDatosValidados(true); // si todo pasa: FLAG ==TRUE
+        this.setDatosValidados(true); // si tdo pasa: FLAG ==TRUE
     }
 
 
@@ -45,60 +56,70 @@ public class TarjetaCredito extends MetodoPago {
 
     @Override
     protected void notificarResultado() {
-        System.out.println(
-                "Cupón de pago generado."
-        );
+        this.getBanco().tarjetaCreditoNotificacion();
+
     }
 
-    // ------------------------------------------
-    // ------------------------------------------
-    // ------------------------------------------
+
+    //  - - - - - - - - - - - - - - - - - - - - -
+    //  - - - - - - - - - - - - - - - - - - - - -
+    //  - - - - - - - - - - - - - - - - - - - - -
 
     //METODOS PARTICULARES DE LA CLASE:
-
+    //llama a protocolo_tarjeta_credito inyectado
     // validar_datos:
-    //--------------------
     private void validarVencimiento() {
-        //CONSEGUIR EL TIMPO ACTUAL
-        int aÑoActual = java.time.Year.now().getValue();
-
-        if (this.fechaVencimiento < aÑoActual) {
-            throw new IllegalArgumentException("Tarjeta vencida.");
-        }
-
+        this.getBanco().validarVencimiento(this.getFechaVencimiento());
     }
 
 
     private void validarCVV() {
-        if (cvv == null || cvv.length() != 3) {
-            throw new IllegalArgumentException("CVV inválido.");
-        }
+        this.getBanco().validarCVV(this.getCvv());
     }
 
     private void validarNumeroDeTarjeta() {
-        if (numeroTarjeta == null || numeroTarjeta.length() != 10) {
-            throw new IllegalArgumentException("Número de tarjeta inválido.");
-        }
+        this.getBanco().validarNumeroDeTarjeta(this.getNumeroTarjeta());
     }
 
-    //-------------------------
     // reservarFondos:
     private void preAutorizarBancoEmisor() {
-        System.out.println("Pre-Autorizando $" + this.getMonto() + "En el banco Emisor.");
+        this.getBanco().preAutorizarBancoEmisor();
+
     }
 
     //ejecutarTransaccion:
     private void debitoDiferido() {
-        System.out.println("Débito diferido con monto $" + getMonto());
+        this.getBanco().debitoDiferido();
     }
+
 
     public void setDatosValidados(boolean datosValidados) {
         this.datosValidados = datosValidados;
     }
 
-    // ------------------------------------------
-    // ------------------------------------------
-    // ------------------------------------------
+    //  - - - - - - - - - - - - - - - - - - - - -
+    //  - - - - - - - - - - - - - - - - - - - - -
+    //  - - - - - - - - - - - - - - - - - - - - -
 
+    // G&S:
 
+    public Protocolo_tarjeta_credito getBanco() {
+        return banco;
+    }
+
+    public boolean isDatosValidados() {
+        return datosValidados;
+    }
+
+    public int getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public String getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
 }
