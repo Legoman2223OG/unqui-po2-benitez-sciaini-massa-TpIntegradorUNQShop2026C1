@@ -1,9 +1,13 @@
 package unqshop.pagos;
 
+import java.util.UUID;
+
 public class Banco implements EnteBancario, Protocolo_tarjeta_credito {
     private String CBU;
     private String alias;
     private double monto;
+    //llamada al metodo estatico para crear un numero random para simular un numero de operacion
+    private String numeroOperacion = UUID.randomUUID().toString();
 
     public Banco(double monto) {
         this.monto = monto;
@@ -44,11 +48,20 @@ public class Banco implements EnteBancario, Protocolo_tarjeta_credito {
         System.out.println("Pago Aprobado por Entidad Bancaria");
     }
 
+    public void notificarResultado(String cbu) {
+        System.out.println("Transferencia enviada con" + cbu + "numero de transferencia" + this.getNumeroOperacion());
+    }
+
+    public String getNumeroOperacion() {
+
+        return this.numeroOperacion;
+    }
     //  - - - - - - - - - - - - - - - - - - - - -
     //  - - - - - - - - - - - - - - - - - - - - -
     //  - - - - - - - - - - - - - - - - - - - - -
 
 
+    // --------------
     // --------------
     // GETTER & SETTER
     // --------------

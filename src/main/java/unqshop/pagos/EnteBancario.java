@@ -11,5 +11,7 @@ public interface EnteBancario {
             String origen,
             String destino
     );
+
+    void notificarResultado(String CBU);
 }
 

@@ -55,6 +55,7 @@ TransferenciaBancaria extends MetodoPago {
 
     @Override
     protected void notificarResultado() {
+        this.getBanco().notificarResultado(this.getCBU_aEnviar());
 
     }
 
