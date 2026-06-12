@@ -1,18 +1,17 @@
 package main.java.unqshop.Pedido;
 
-public class Borrador implements Contexto {
+public class Confirmado implements Contexto {
 
 	@Override
 	public String contexto() {
 		// TODO Auto-generated method stub
-		return "BORRADOR";
+		return "CONFIRMADO";
 	}
 
 	@Override
 	public void confirmar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cambiarContexto(new Confirmado());
-		pedido.descrementarStock();
+		
 	}
 
 	@Override

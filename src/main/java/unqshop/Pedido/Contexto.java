@@ -16,5 +16,5 @@ public interface Contexto {
 	
 	void agregarItem(Pedido pedido, CatalogoItem item);
 	
-	void quitarItem(Pedido pedido, catalogoItem item);
+	void quitarItem(Pedido pedido, CatalogoItem item);
 }

@@ -1,5 +1,7 @@
 package main.java.unqshop.Pedido;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.*;
 
 public class Pedido {
 	private List <CatalogoItem> items; /*items que pide el cliente en el pedido*/
@@ -7,6 +9,16 @@ public class Pedido {
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
 	
+	
+	
+	public Pedido(List<CatalogoItem> items, List<ObserverPedido> subSistemas, Contexto contexto, Cliente cliente) {
+		super();
+		this.items = new ArrayList<>();
+		this.subSistemas = new ArrayList<>();
+		this.contexto = contexto;
+		this.cliente = cliente;
+	}
+
 	/*Operaciones del pedido durante su ciclo de vida*/
 	public void confirmar() {/*Valido solo en BORRADOR*/
 		this.getContexto().confirmar(this);
@@ -53,12 +65,16 @@ public class Pedido {
 	
 	public void cancelarPriv() {/*al cancelar un pedido se reinicia los items del pedido y se vuelve al BORRADOR*/
 		System.out.println("pedido cancelado");
-		this.getItems().clean();
+		this.getItems().clear();
 		this.cambiarContexto(contexto);/*por implementar*/
 	}
 	
 	public void cambiarContexto(Contexto contexto) {
 		this.setContexto(contexto);
+	}
+	
+	public void descrementarStock() {
+		this.getItems().stream().forEach(item -> item.decrementar());/*decrementar puede cambiar*/
 	}
 	
 	/*Getters y setters*/
