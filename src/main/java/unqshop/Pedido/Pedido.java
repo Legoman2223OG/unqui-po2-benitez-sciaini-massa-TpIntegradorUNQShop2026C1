@@ -19,15 +19,19 @@ public class Pedido {
 	private List <ObserverPedido> subSistemas; /*se les notifica cuando hay cambio de estado en el pedido*/
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
+	private PagoFacade pagofacade; //Facade de MetodoDePago
+	private MetodoPago metodoDePago;
 	
 	
 	
-	public Pedido(List<ItemCatalogo> items, List<ObserverPedido> subSistemas, Contexto contexto, Cliente cliente) {
+	public Pedido(List<ItemCatalogo> items, List<ObserverPedido> subSistemas, Contexto contexto, Cliente cliente, PagoFacade pagoFacade, MetodoPago metodoDePago) {
 		super();
-		this.items = new ArrayList<>();
+		this.items       = new ArrayList<>();
 		this.subSistemas = new ArrayList<>();
-		this.contexto = contexto;
-		this.cliente = cliente;
+		this.contexto     = contexto;
+		this.cliente      = cliente;
+		this.pagofacade   = pagoFacade;
+		this.metodoDePago = metodoDePago;
 	}
 
 	/*Operaciones del pedido durante su ciclo de vida*/
@@ -96,6 +100,7 @@ public class Pedido {
 						.getItems()
 						.stream()
 						.mapToDouble(item -> item.getPrecioFinal()).sum();
+		
 	}
 	
 	/*Getters y setters*/
@@ -130,6 +135,14 @@ public class Pedido {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public MetodoPago getMetodoDePago() {
+		return metodoDePago;
+	}
+
+	public void setMetodoDePago(MetodoPago metodoDePago) {
+		this.metodoDePago = metodoDePago;
 	}
 	
 	
