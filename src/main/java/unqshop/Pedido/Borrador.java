@@ -13,6 +13,7 @@ public class Borrador implements Contexto {
 		// TODO Auto-generated method stub
 		pedido.cambiarContexto(new Confirmado());
 		pedido.descrementarStock();
+		pedido.pagarPedido();
 		
 	}
 
@@ -44,12 +45,12 @@ public class Borrador implements Contexto {
 
 
 	@Override
-	public void quitarItem(Pedido pedido, CatalogoItem item) {
+	public void quitarItem(Pedido pedido, ItemCatalogo item) {
 		// TODO Auto-generated method stub
 		pedido.quitarItemPriv(item);
 	}
 	
-	public void agregarItem(Pedido pedido, CatalogoItem item) {
+	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		pedido.agregarItemPriv(item);
 	}
 

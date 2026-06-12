@@ -15,14 +15,14 @@ import java.util.stream.*;
 	 * */
 
 public class Pedido {
-	private List <CatalogoItem> items; /*items que pide el cliente en el pedido*/
+	private List <ItemCatalogo> items; /*items que pide el cliente en el pedido*/
 	private List <ObserverPedido> subSistemas; /*se les notifica cuando hay cambio de estado en el pedido*/
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
 	
 	
 	
-	public Pedido(List<CatalogoItem> items, List<ObserverPedido> subSistemas, Contexto contexto, Cliente cliente) {
+	public Pedido(List<ItemCatalogo> items, List<ObserverPedido> subSistemas, Contexto contexto, Cliente cliente) {
 		super();
 		this.items = new ArrayList<>();
 		this.subSistemas = new ArrayList<>();
@@ -53,12 +53,12 @@ public class Pedido {
 	}
 	
 	
-	public void agregarItem(Pedido pedido, CatalogoItem item) {
+	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		this.getContexto().agregarItem(this, item);
 	}
 		
 	
-	public void quitarItem(Pedido pedido, CatalogoItem item) {
+	public void quitarItem(Pedido pedido, ItemCatalogo item) {
 		this.getContexto().quitarItem(this, item);
 	}
 	
@@ -66,12 +66,12 @@ public class Pedido {
 	
 	/*Operaciones internas*/
 	
-	public void agregarItemPriv(CatalogoItem item) {
+	public void agregarItemPriv(ItemCatalogo item) {
 		this.getItems().add(item);
 		
 	}
 	
-	public void quitarItemPriv(CatalogoItem item) {
+	public void quitarItemPriv(ItemCatalogo item) {
 		this.getItems().remove(item);
 	}
 	
@@ -86,16 +86,25 @@ public class Pedido {
 	}
 	
 	public void descrementarStock() {
-		this.getItems().stream().forEach(item -> item.decrementar());/*TODO: el metodo decrementar puede cambiar*/
+		this.getItems()
+			.stream()
+			.forEach(item -> item.decrementar());/*TODO: el metodo decrementar puede cambiar*/
+	}
+	
+	public void pagarPedido() {
+		double precio = this
+						.getItems()
+						.stream()
+						.mapToDouble(item -> item.getPrecioFinal()).sum();
 	}
 	
 	/*Getters y setters*/
 
-	public List<CatalogoItem> getItems() {
+	public List<ItemCatalogo> getItems() {
 		return items;
 	}
 
-	public void setItems(List<CatalogoItem> items) {
+	public void setItems(List<ItemCatalogo> items) {
 		this.items = items;
 	}
 

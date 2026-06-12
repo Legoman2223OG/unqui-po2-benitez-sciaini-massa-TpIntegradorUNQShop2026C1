@@ -42,12 +42,12 @@ public class Entregado implements Contexto {
 
 
 	@Override
-	public void quitarItem(Pedido pedido, CatalogoItem item) {
+	public void quitarItem(Pedido pedido, ItemCatalogo item) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("Solo se pueden quitar items del pedido en BORRADOR");
 	}
 	
-	public void agregarItem(Pedido pedido, CatalogoItem item) {
+	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
 	}
 
