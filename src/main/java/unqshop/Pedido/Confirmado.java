@@ -11,7 +11,7 @@ public class Confirmado implements Contexto {
 	@Override
 	public void confirmar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		
+		throw new RuntimeException("No se puede confirmar un pedido ya confirmado");
 	}
 
 	@Override
@@ -44,11 +44,11 @@ public class Confirmado implements Contexto {
 	@Override
 	public void quitarItem(Pedido pedido, CatalogoItem item) {
 		// TODO Auto-generated method stub
-		pedido.quitarItemPriv(item);
+		throw new RuntimeException("Solo se pueden quitar items del pedido en BORRADOR");
 	}
 	
 	public void agregarItem(Pedido pedido, CatalogoItem item) {
-		pedido.agregarItemPriv(item);
+		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
 	}
 
 

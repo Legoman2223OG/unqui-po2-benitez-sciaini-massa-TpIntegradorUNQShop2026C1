@@ -3,6 +3,17 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.*;
 
+	/*
+	 * Clase que representa un pedido.
+	 * 
+	 * Se utiliza el patron de diseño State para controlar los diferentes comportamientos
+	 * dependiendo del contexto(estado) en el que se encuentre, sin que el pedido lo sepa.
+	 * 
+	 * Se utiliza el patron de diseño Observer para notificar a los subsistemas cuando 
+	 * ocurre un cambio de contexto en el pedido, sin que este conozca o dependa
+	 * de los subsistemas.
+	 * */
+
 public class Pedido {
 	private List <CatalogoItem> items; /*items que pide el cliente en el pedido*/
 	private List <ObserverPedido> subSistemas; /*se les notifica cuando hay cambio de estado en el pedido*/
@@ -20,6 +31,7 @@ public class Pedido {
 	}
 
 	/*Operaciones del pedido durante su ciclo de vida*/
+	
 	public void confirmar() {/*Valido solo en BORRADOR*/
 		this.getContexto().confirmar(this);
 	}
@@ -63,10 +75,10 @@ public class Pedido {
 		this.getItems().remove(item);
 	}
 	
-	public void cancelarPriv() {/*al cancelar un pedido se reinicia los items del pedido y se vuelve al BORRADOR*/
-		System.out.println("pedido cancelado");
+	public void cancelarPriv() {
+		System.out.println("pedido cancelado, volviendo a BORRADOR");
 		this.getItems().clear();
-		this.cambiarContexto(contexto);/*por implementar*/
+		this.cambiarContexto(contexto);
 	}
 	
 	public void cambiarContexto(Contexto contexto) {
@@ -74,7 +86,7 @@ public class Pedido {
 	}
 	
 	public void descrementarStock() {
-		this.getItems().stream().forEach(item -> item.decrementar());/*decrementar puede cambiar*/
+		this.getItems().stream().forEach(item -> item.decrementar());/*TODO: el metodo decrementar puede cambiar*/
 	}
 	
 	/*Getters y setters*/

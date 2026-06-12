@@ -13,6 +13,7 @@ public class Borrador implements Contexto {
 		// TODO Auto-generated method stub
 		pedido.cambiarContexto(new Confirmado());
 		pedido.descrementarStock();
+		
 	}
 
 	@Override
