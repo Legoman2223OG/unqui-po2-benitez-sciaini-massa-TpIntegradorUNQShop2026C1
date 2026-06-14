@@ -23,7 +23,7 @@ public class En_Preparacion implements Contexto {
 	@Override
 	public void enviar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede enviar un pedido en EN_PREPARACION");
+		pedido.cambiarContexto(new Enviado());
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class En_Preparacion implements Contexto {
 	@Override
 	public void cancelar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cancelarEn_Preparacion();
+		pedido.cancelarEnEn_Preparacion();
 		
 		
 	}

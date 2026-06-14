@@ -5,37 +5,38 @@ public class Enviado implements Contexto {
 	@Override
 	public String contexto() {
 		// TODO Auto-generated method stub
-		return "BORRADOR";
+		return "ENVIADO";
 	}
 
 	@Override
 	public void confirmar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cambiarContexto(new Confirmado());
+		throw new RuntimeException("No se puede enviar un pedido que se esta enviando");
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede preparar un envio que aun no fue CONFIRMADO");
+		throw new RuntimeException("No se puede preparar un pedido que esta siendo enviado");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede enviar un pedido en BORRADOR");
+		throw new RuntimeException("No se puede enviar un pedido que esta siendo enviado");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede se puede entregar un pedido en BORRADOR");
+		pedido.cambiarContexto(new Entregado());
+		System.out.println("pedido entregado");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cancelarPriv();
+		pedido.cancelarEnEnvio();
 		
 		
 	}

@@ -5,4 +5,6 @@ public interface ItemCatalogo {/*interface solo para que no salte error por mome
 	void decrementar();
 	
 	double getPrecioFinal();
+
+	void aumentarStock();
 }

@@ -35,6 +35,11 @@ public class Pedido {
 
 	/*Operaciones del pedido durante su ciclo de vida*/
 	
+	public void agregarSubsistema(ObserverPedido subsistema) {
+		this.getSubSistemas().add(subsistema);
+	}
+	
+	
 	public void confirmar() {/*Valido solo en BORRADOR*/
 		this.getContexto().confirmar(this);
 	}
@@ -79,9 +84,8 @@ public class Pedido {
 	}
 	
 	public void cancelarPriv() {
-		System.out.println("pedido cancelado, volviendo a BORRADOR");
-		this.getItems().clear();
-		this.cambiarContexto(contexto);
+		System.out.println("pedido cancelado");
+		this.cambiarContexto(new Cancelado());
 	}
 	
 	public void cambiarContexto(Contexto contexto) {
@@ -110,13 +114,31 @@ public class Pedido {
 		this.getNotasDeCredito().add(notaDeCredito);
 	}
 	
-	public void cancelarEn_Preparacion() {//TODO por implementar costoEnvio y reponerStock
-		this.agregarNotaDeCredito(new NotaDeCredito(this.precioPedido()));
-		this.agregarNotaDeCredito(new NotaDeCredito(this.costoEnvio()));
+	public void cancelarEnConfirmado() {
 		this.reponerStock();
 		this.cancelarPriv();
 	}
 	
+	public void cancelarEnEn_Preparacion() {//TODO por implementar costoEnvio y reponerStock
+		this.generarReembolso(this.precioPedido());
+		this.generarReembolso(this.costoEnvio());//falta aun el envio
+		this.reponerStock();
+		this.cancelarPriv();
+	}
+	
+	public void cancelarEnEnvio() {
+		this.generarReembolso(this.precioPedido());
+		this.reponerStock();
+		this.cancelarPriv();
+	}
+	
+	public void generarReembolso(double montoDeReembolso) {
+		this.agregarNotaDeCredito(new NotaDeCredito(montoDeReembolso));
+	}
+	
+	public void reponerStock() {
+		this.getItems().stream().forEach(item -> item.aumentarStock());
+	}
 	
 	/*Getters y setters*/
 
@@ -148,9 +170,6 @@ public class Pedido {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 	public MetodoPago getMetodoDePago() {
 		return metodoDePago;
