@@ -98,13 +98,8 @@ public class Pedido {
 	}
 	
 	
-	public void pagarPedido() {
-		double precio = this
-						.getItems()
-						.stream()
-						.mapToDouble(item -> item.getPrecioFinal()).sum();
-		 
-		this.pagofacade()//TODO por concordar su implementacion
+	public void pagarPedido(MetodoDePago metodoDePago, Envio envio) { 
+		this.pagofacade(metodoDePago);
 		//TODO aun falta saber la implementacion de envio
 	}
 	
