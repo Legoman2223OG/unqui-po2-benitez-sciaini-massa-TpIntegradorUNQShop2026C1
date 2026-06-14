@@ -94,7 +94,7 @@ public class Pedido {
 			.forEach(item -> item.decrementar());/*TODO: el metodo decrementar puede cambiar*/
 	}
 	
-	public double precioPedido() {/*parpasar como parametro al constructor del MetodoDePago a usar*/
+	public double precioPedido() {/*para pasar como parametro al constructor del MetodoDePago a usar*/
 		return this
 				.getItems()
 				.stream()
