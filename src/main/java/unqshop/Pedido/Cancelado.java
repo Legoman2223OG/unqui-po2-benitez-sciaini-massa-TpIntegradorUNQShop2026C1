@@ -51,12 +51,6 @@ public class Cancelado implements Contexto {
 		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
 	}
 	
-	public double precioPedido(Pedido pedido) {
-		return pedido
-				.getItems()
-				.stream()
-				.mapToDouble(item -> item.getPrecioFinal()).sum();
-	}
 
 
 }

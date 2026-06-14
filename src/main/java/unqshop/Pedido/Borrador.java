@@ -53,9 +53,6 @@ public class Borrador implements Contexto {
 		pedido.agregarItemPriv(item);
 	}
 	
-	public double precioPedido(Pedido pedido) {
-		throw new RuntimeException("No se puede saber el precio final del pedido si no se confirma");
-	}
 
 
 }

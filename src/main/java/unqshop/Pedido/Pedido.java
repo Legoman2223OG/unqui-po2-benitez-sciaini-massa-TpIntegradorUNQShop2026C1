@@ -20,6 +20,7 @@ public class Pedido {
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
 	private PagoFacade pagofacade; //Facade de MetodoDePago
+	private List <NotaDeCredito> notasDeCredito;
 	
 	
 	
@@ -63,11 +64,7 @@ public class Pedido {
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
 		this.getContexto().quitarItem(this, item);
 	}
-	
-	public double precioPedido(Pedido pedido) {
-		this.getContexto().precioPedido(this);
-	}
-	
+		
 
 	
 	/*Operaciones internas*/
@@ -97,10 +94,20 @@ public class Pedido {
 			.forEach(item -> item.decrementar());/*TODO: el metodo decrementar puede cambiar*/
 	}
 	
+	public double precioPedido() {/*parpasar como parametro al constructor del MetodoDePago a usar*/
+		return this
+				.getItems()
+				.stream()
+				.mapToDouble(item -> item.getPrecioFinal()).sum();
+	}
 	
 	public void pagarPedido(MetodoDePago metodoDePago, Envio envio) { 
-		this.pagofacade(metodoDePago);
+		this.pagofacade.pagarCon_(metodoDePago);
 		//TODO aun falta saber la implementacion de envio
+	}
+	
+	public void agregarNotaDeCredito(NotaDeCredito notaDeCredito) {
+		this.getNotasDeCredito().add(notaDeCredito);
 	}
 	
 	
@@ -145,6 +152,10 @@ public class Pedido {
 
 	public void setMetodoDePago(MetodoPago metodoDePago) {
 		this.metodoDePago = metodoDePago;
+	}
+	
+	public List <NotaDeCredito> getNotasDeCredito() {
+		return this.notasDeCredito;
 	}
 	
 	

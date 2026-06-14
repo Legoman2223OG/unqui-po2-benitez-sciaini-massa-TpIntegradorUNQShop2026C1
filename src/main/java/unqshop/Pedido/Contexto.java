@@ -18,5 +18,5 @@ public interface Contexto {
 	
 	void quitarItem(Pedido pedido, ItemCatalogo item);
 	
-	double precioPedido(Pedido pedido);/*para poder crear una instancia de metodo de pago con el monto a pagar del pedido. */
+	
 }
