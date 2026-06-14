@@ -90,6 +90,7 @@ public class Pedido {
 	
 	public void cambiarContexto(Contexto contexto) {
 		this.setContexto(contexto);
+		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(contexto));
 	}
 	
 	public void descrementarStock() {

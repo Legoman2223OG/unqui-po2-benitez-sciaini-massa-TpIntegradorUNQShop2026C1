@@ -1,5 +1,5 @@
 package main.java.unqshop.Pedido;
 
 public interface ObserverPedido {
-	void actualizar();
+	void actualizar(Contexto estado);
 }
