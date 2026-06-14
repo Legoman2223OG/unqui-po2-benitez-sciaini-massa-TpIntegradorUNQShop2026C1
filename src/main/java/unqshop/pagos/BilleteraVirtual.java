@@ -24,7 +24,7 @@ public class BilleteraVirtual extends MetodoPago {
 
 
     @Override
-    public void validarDatos() {
+    protected void validarDatos() {
 
         checkearSaldoSuficiente();
         this.datosValidados = true;
@@ -32,7 +32,7 @@ public class BilleteraVirtual extends MetodoPago {
     }
 
     @Override
-    public void reservarFondos() {
+    protected void reservarFondos() {
         if (!datosValidados) {
             throw new IllegalStateException("Datos no validados Correctamente en el paso anterior.");
         }
@@ -42,13 +42,14 @@ public class BilleteraVirtual extends MetodoPago {
     }
 
     @Override
-    public void ejecutarTransaccion() {
+    protected void ejecutarTransaccion() {
 
         enviarPago(this.getSaldoReservado());
         this.setSaldoReservado(0);
     }
 
-    public void notificarResultado() {
+    @Override
+    protected void notificarResultado() {
 
         mobileUI.push("Pago enviado: " + this.getMonto() + " pesos enviados de tu cuenta al destinatario.");
     }

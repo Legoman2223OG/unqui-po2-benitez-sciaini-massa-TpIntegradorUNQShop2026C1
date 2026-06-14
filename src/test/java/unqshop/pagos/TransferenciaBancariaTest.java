@@ -70,6 +70,11 @@ class TransferenciaBancariaTest {
     // ---- reservarFondos ----
 
     @Test
+    void reservarFondosLanzaExcepcionSiDatosNoFueronValidados() {
+        assertThrows(IllegalStateException.class, () -> transferencia.reservarFondos());
+    }
+
+    @Test
     void reservarFondosDelegaSeñalDeAprobacionAlBanco() {
         // a diferencia de otros medios de pago, acá no hay fondos que bloquear:
         // la "reserva" es simplemente la señal de aprobación de la entidad bancaria.

@@ -6,6 +6,7 @@ TransferenciaBancaria extends MetodoPago {
     Banco banco;
     String CBU_aEnviar;
     String alias_a_enviar;
+    private boolean datosValidados;
 
     //ahora TransferenciaBancaria implementa una abstraccion (BANCO)
     // y no de un medio en concreto reduciendo acoplamiento.
@@ -32,14 +33,16 @@ TransferenciaBancaria extends MetodoPago {
 
     @Override
     protected void validarDatos() {
-        validarCBU(this.CBU_aEnviar);
-
-        validarAlias(this.alias_a_enviar);
-
+        validarCBU(this.getCBU_aEnviar());
+        validarAlias(this.getAlias_a_enviar());
+        this.datosValidados = true;
     }
 
     @Override
     protected void reservarFondos() {
+        if (!datosValidados) {
+            throw new IllegalStateException("Datos no validados correctamente en el paso anterior.");
+        }
         System.out.println(
                 "|| No requerido, Transferencia directa...||"
         );
