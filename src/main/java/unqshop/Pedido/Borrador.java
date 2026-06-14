@@ -19,7 +19,7 @@ public class Borrador implements Contexto {
 	@Override
 	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede preparar un envio que aun no fue CONFIRMADO");
+		throw new RuntimeException("No se puede preparar un pedido que aun no fue CONFIRMADO");
 	}
 
 	@Override
