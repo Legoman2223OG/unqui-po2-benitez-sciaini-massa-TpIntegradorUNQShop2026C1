@@ -20,18 +20,16 @@ public class Pedido {
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
 	private PagoFacade pagofacade; //Facade de MetodoDePago
-	private MetodoPago metodoDePago;
 	
 	
 	
-	public Pedido(List<ItemCatalogo> items, List<ObserverPedido> subSistemas, Contexto contexto, Cliente cliente, PagoFacade pagoFacade, MetodoPago metodoDePago) {
+	public Pedido(Cliente cliente) {
 		super();
 		this.items       = new ArrayList<>();
 		this.subSistemas = new ArrayList<>();
-		this.contexto     = contexto;
+		this.contexto     = new Borrador();
 		this.cliente      = cliente;
-		this.pagofacade   = pagoFacade;
-		this.metodoDePago = metodoDePago;
+		this.pagofacade   = new pagoFacade();
 	}
 
 	/*Operaciones del pedido durante su ciclo de vida*/
@@ -40,8 +38,8 @@ public class Pedido {
 		this.getContexto().confirmar(this);
 	}
 	
-	public void prepararEnvio() {/*Valido solo en CONFIRMADO*/
-		this.getContexto().prepararEnvio(this);
+	public void prepararPedido(MetodoDePago metodoDePago, Envio envio) {/*Valido solo en CONFIRMADO*/
+		this.getContexto().prepararPedido(this, metodoDePago, envio);
 	}
 	
 	public void enviar() {/*Valido solo eb EN_PREPARACION*/
@@ -64,6 +62,10 @@ public class Pedido {
 	
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
 		this.getContexto().quitarItem(this, item);
+	}
+	
+	public double precioPedido(Pedido pedido) {
+		this.getContexto().precioPedido(this);
 	}
 	
 
@@ -95,13 +97,18 @@ public class Pedido {
 			.forEach(item -> item.decrementar());/*TODO: el metodo decrementar puede cambiar*/
 	}
 	
+	
 	public void pagarPedido() {
 		double precio = this
 						.getItems()
 						.stream()
 						.mapToDouble(item -> item.getPrecioFinal()).sum();
-		
+		 
+		this.pagofacade()//TODO por concordar su implementacion
+		//TODO aun falta saber la implementacion de envio
 	}
+	
+	
 	
 	/*Getters y setters*/
 

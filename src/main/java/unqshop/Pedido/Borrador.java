@@ -13,12 +13,11 @@ public class Borrador implements Contexto {
 		// TODO Auto-generated method stub
 		pedido.cambiarContexto(new Confirmado());
 		pedido.descrementarStock();
-		pedido.pagarPedido();
 		
 	}
 
 	@Override
-	public void prepararEnvio(Pedido pedido) {
+	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("No se puede preparar un envio que aun no fue CONFIRMADO");
 	}
@@ -52,6 +51,10 @@ public class Borrador implements Contexto {
 	
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		pedido.agregarItemPriv(item);
+	}
+	
+	public double precioPedido(Pedido pedido) {
+		throw new RuntimeException("No se puede saber el precio final del pedido si no se confirma");
 	}
 
 

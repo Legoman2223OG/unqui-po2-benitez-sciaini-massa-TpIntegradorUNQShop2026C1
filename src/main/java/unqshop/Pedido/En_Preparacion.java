@@ -11,25 +11,25 @@ public class En_Preparacion implements Contexto {
 	@Override
 	public void confirmar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cambiarContexto(new Confirmado());
+		throw new RuntimeException("No se puede confirmar un pedido en preparacion");
 	}
 
 	@Override
-	public void prepararEnvio(Pedido pedido) {
+	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede preparar un envio que aun no fue CONFIRMADO");
+		throw new RuntimeException("No se puede preparar un pedido que esta siendo preparado");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede enviar un pedido en BORRADOR");
+		throw new RuntimeException("No se puede enviar un pedido en EN_PREPARACION");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede se puede entregar un pedido en BORRADOR");
+		throw new RuntimeException("No se puede se puede entregar un pedido en EN_PREPARACION");
 	}
 
 	@Override
@@ -49,6 +49,13 @@ public class En_Preparacion implements Contexto {
 	
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
+	}
+	
+	public double precioPedido(Pedido pedido) {
+		return pedido
+				.getItems()
+				.stream()
+				.mapToDouble(item -> item.getPrecioFinal()).sum();
 	}
 
 

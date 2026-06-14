@@ -6,7 +6,7 @@ public interface Contexto {
 	
 	void confirmar(Pedido pedido);
 	
-	void prepararEnvio(Pedido pedido);
+	void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio);
 	
 	void enviar(Pedido pedido);
 	
@@ -17,4 +17,6 @@ public interface Contexto {
 	void agregarItem(Pedido pedido, ItemCatalogo item);
 	
 	void quitarItem(Pedido pedido, ItemCatalogo item);
+	
+	double precioPedido(Pedido pedido);/*para poder crear una instancia de metodo de pago con el monto a pagar del pedido. */
 }

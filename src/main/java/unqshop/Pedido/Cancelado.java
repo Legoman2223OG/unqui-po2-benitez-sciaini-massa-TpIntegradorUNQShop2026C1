@@ -15,7 +15,7 @@ public class Cancelado implements Contexto {
 	}
 
 	@Override
-	public void prepararEnvio(Pedido pedido) {
+	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("No se puede preparar un envio que aun no fue CONFIRMADO");
 	}
@@ -49,6 +49,13 @@ public class Cancelado implements Contexto {
 	
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
+	}
+	
+	public double precioPedido(Pedido pedido) {
+		return pedido
+				.getItems()
+				.stream()
+				.mapToDouble(item -> item.getPrecioFinal()).sum();
 	}
 
 
