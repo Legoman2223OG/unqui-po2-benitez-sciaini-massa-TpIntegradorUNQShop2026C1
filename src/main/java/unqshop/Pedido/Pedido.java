@@ -110,6 +110,12 @@ public class Pedido {
 		this.getNotasDeCredito().add(notaDeCredito);
 	}
 	
+	public void cancelarEn_Preparacion() {//TODO por implementar costoEnvio y reponerStock
+		this.agregarNotaDeCredito(new NotaDeCredito(this.precioPedido()));
+		this.agregarNotaDeCredito(new NotaDeCredito(this.costoEnvio()));
+		this.reponerStock();
+		this.cancelarPriv();
+	}
 	
 	
 	/*Getters y setters*/

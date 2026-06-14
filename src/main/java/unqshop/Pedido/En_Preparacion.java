@@ -33,12 +33,9 @@ public class En_Preparacion implements Contexto {
 	}
 
 	@Override
-	public void cancelar(Pedido pedido) {//TODO por implementar costoEnvio y reponerStock
+	public void cancelar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.agregarNotaDeCredito(new NotaDeCredito(pedido.precioPedido()));
-		pedido.agregarNotaDeCredito(new NotaDeCredito(pedido.costoEnvio()));
-		pedido.reponerStock();
-		pedido.cancelarPriv();
+		pedido.cancelarEn_Preparacion();
 		
 		
 	}
