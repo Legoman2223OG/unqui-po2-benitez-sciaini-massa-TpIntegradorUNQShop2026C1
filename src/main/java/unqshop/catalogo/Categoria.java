@@ -7,9 +7,9 @@ package main.java.unqshop.catalogo;
  * @see Producto
  */
 public enum Categoria {
-	ELECTRONICA("Electrónica y Tecnología"),
+	ELECTRONICA("Electronica y Tecnologia"),
     ROPA("Indumentaria y Accesorios"),
-    HOGAR("Artículos para el Hogar"),
+    HOGAR("Articulos para el Hogar"),
     ALIMENTOS("Alimentos y Bebidas"),
     JUGUETES("Juguetes y Entretenimiento");
 

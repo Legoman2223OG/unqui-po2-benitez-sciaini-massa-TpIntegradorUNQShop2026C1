@@ -44,6 +44,7 @@ public class Producto implements ItemCatalogo {
 		this.descuento = descuento;
 		this.atributos = atributos;
 		this.stock = stock;
+		this.peso = peso;
 	}
 	
 	/**
@@ -69,6 +70,7 @@ public class Producto implements ItemCatalogo {
 		this.descuento = descuento;
 		this.atributos = new AtributoDinamico();
 		this.stock = stock;
+		this.peso = peso;
 	}
 	
 	/**
@@ -76,7 +78,7 @@ public class Producto implements ItemCatalogo {
 	 * @param sku, no puede ser vacío.
 	 * @param nombre, no puede ser vacío.
 	 * @param marca, no puede ser vacío.
-	 * @param precio, Debe ser > 0.
+	 * @param precio, Debe ser >= 0.
 	 * @param descuento, Debe ser >= 0.
 	 * @param stock, Debe ser >= 0.
 	 * @param peso, Debe ser >= 0.
@@ -108,8 +110,8 @@ public class Producto implements ItemCatalogo {
 	}
 
 	private void validarPrecioPositivo(double num) throws Exception {
-		if(num <= 0)
-			throw new Exception("El precio no puede ser negativo o 0");
+		if(num < 0)
+			throw new Exception("El precio no puede ser negativo");
 	}
 
 	private void validarStringNoVacio(String st) throws Exception {
@@ -175,8 +177,14 @@ public class Producto implements ItemCatalogo {
 		return this.stock;
 	}
 
-	public void setStock(int stock) {
+	public void setStock(int stock) throws Exception {
+		validarNumeroPositivoOCero(stock);
 		this.stock = stock;
+	}
+
+	private void validarNumeroPositivoOCero(int n) throws Exception {
+		if(n < 0)
+			throw new Exception("No se puede settear el stock a numeros negativos");
 	}
 
 	public double getDescuento() {
