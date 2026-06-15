@@ -13,6 +13,20 @@ class ProductoTest {
 	private Producto sutProd;
 	private AtributoDinamico docAtrD;
 
+	/**
+	 * Crea un escenario donde hay un Producto del cual tenemos la siguiente información:
+	 * Producto: Jabon
+	 * SKU: SKU-0
+	 * Marca: ABC
+	 * Categoria: Articulos para el Hogar
+	 * Peso: 1.4
+	 * Productos Quimicos: Etc
+	 *
+	 * Stock actual: 3
+	 * Precio Base: 4000.0
+	 * Precio Final: 3600.0
+	 * @throws Exception
+	 */
 	@BeforeEach
 	void setUp() throws Exception {
 		docAtrD = mock(AtributoDinamico.class);

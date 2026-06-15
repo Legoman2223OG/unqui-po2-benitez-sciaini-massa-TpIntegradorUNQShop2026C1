@@ -18,7 +18,7 @@ public class Paquete implements ItemCatalogo {
 	
 	private ArrayList<ItemCatalogo> items = new ArrayList<ItemCatalogo>();
 	private String sku,nombre;
-	private float descuento;
+	private double descuento;
 	private Categoria categoria;
 	/**
 	 * Crea una instancia de Paquete sin ningun producto u otros paquetes asignados.
@@ -28,7 +28,7 @@ public class Paquete implements ItemCatalogo {
 	 * @param La categoria del paquete.
 	 * @throws Si uno de los datos ingresados no respeta las condiciones necesarias.
 	 */
-	public Paquete(String sku, String nombre, float descuento, Categoria categoria) throws Exception {
+	public Paquete(String sku, String nombre, double descuento, Categoria categoria) throws Exception {
 		validarPaquete(sku, nombre, descuento);
 		this.sku = sku;
 		this.nombre = nombre;
@@ -45,7 +45,7 @@ public class Paquete implements ItemCatalogo {
 	 * @param Los items del catalogo que se desean incluir en el paquete. No pueden ser null
 	 * @throws Si uno de los datos ingresados no respeta las condiciones necesarias.
 	 */
-	public Paquete(String sku, String nombre, float descuento, Categoria categoria, ItemCatalogo ... items ) throws Exception {
+	public Paquete(String sku, String nombre, double descuento, Categoria categoria, ItemCatalogo ... items ) throws Exception {
 		validarPaquete(sku, nombre, descuento);
 		this.sku = sku;
 		this.nombre = nombre;
@@ -61,16 +61,13 @@ public class Paquete implements ItemCatalogo {
 	 * @param descuento, Debe ser >= 0.
 	 * @throws Exception Si uno de los parametros no cumple las condiciones requeridas.
 	 */
-	private void validarPaquete(String sku, String nombre, float descuento) throws Exception {
+	private void validarPaquete(String sku, String nombre, double descuento) throws Exception {
 		validarStringNoVacio(sku);
 		validarStringNoVacio(nombre);
 		validarDescuentoPositivoO0(descuento);
-		this.sku = sku;
-		this.nombre = nombre;
-		this.descuento = descuento;
 	}
 
-	private void validarDescuentoPositivoO0(float num) throws Exception {
+	private void validarDescuentoPositivoO0(double num) throws Exception {
 		if(num < 0)
 			throw new Exception("El descuento indicado no es positivo o 0");
 	}
@@ -102,14 +99,15 @@ public class Paquete implements ItemCatalogo {
 	@Override
 	public String getDescripcion() {
 		// TODO Auto-generated method stub
-		String descripcionesItems = "--------------------" + this.items.stream().map(i -> i.getDescripcion()).collect(Collectors.joining("\n")) + "--------------------";
+		String descripcionesItems = "--------------------\n" + this.items.stream().map(i -> i.getDescripcion()).collect(Collectors.joining("\n\n")) + "\n--------------------";
 		
 		return "Paquete: " + this.nombre + "\n" +
 			   "SKU: " + this.sku + "\n" +
+			   "Categoria: " + this.categoria.getDescripcion() + "\n" +
 			   "Peso: " + this.getPeso() + "\n" + 
 			   "Precio Base: " + this.getPrecioBase() + "\n" +
 			   "Precio Final: " + this.getPrecioFinal() + "\n" + 
-			   "Items Incluidos: " + "\n" +
+			   "Items Incluidos:\n"+
 			   descripcionesItems;
 	}
 
@@ -121,7 +119,7 @@ public class Paquete implements ItemCatalogo {
 
 	@Override
 	public double getPrecioFinal() {
-		double descuento = (this.getPrecioBase() * this.descuento) / 100;
+		double descuento = (this.getPrecioBase() * this.descuento) / 100.0;
 		return this.getPrecioBase() - descuento;
 	}
 
@@ -140,7 +138,7 @@ public class Paquete implements ItemCatalogo {
 	@Override
 	public Categoria getCategoria() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.categoria;
 	}
 
 	@Override
@@ -148,5 +146,13 @@ public class Paquete implements ItemCatalogo {
 		// TODO Auto-generated method stub
 		return this.items.stream().allMatch(i -> i.tieneStock());
 	}
-
+	
+	/**
+	 * Agrega un nuevo item al paquete.
+	 * 
+	 * @param El item a agregar en ItemCatalogo.
+	 */
+	public void agregarItem(ItemCatalogo item) {
+		this.items.add(item);
+	}
 }

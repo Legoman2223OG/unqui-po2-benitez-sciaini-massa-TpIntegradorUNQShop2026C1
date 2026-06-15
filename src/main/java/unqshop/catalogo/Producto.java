@@ -153,7 +153,7 @@ public class Producto implements ItemCatalogo {
 		return "Producto: " + this.nombre + "\n" +
 			   "SKU: " + this.sku + "\n" +
 			   "Marca: " + this.marca + "\n" +
-			   "Categoria: " + this.categoria + "\n" +
+			   "Categoria: " + this.categoria.getDescripcion() + "\n" +
 			   "Peso: " + this.peso + "\n" +
 			   this.atributos +
 			   "Stock actual: " + this.stock + "\n" +
