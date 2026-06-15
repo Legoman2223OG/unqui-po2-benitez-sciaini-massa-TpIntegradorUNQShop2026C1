@@ -19,19 +19,21 @@ public class Paquete implements ItemCatalogo {
 	private ArrayList<ItemCatalogo> items = new ArrayList<ItemCatalogo>();
 	private String sku,nombre;
 	private float descuento;
-	
+	private Categoria categoria;
 	/**
 	 * Crea una instancia de Paquete sin ningun producto u otros paquetes asignados.
 	 * @param El SKU del paquete. Debe ser no vacío.
 	 * @param El nombre del paquete. Debe ser no vacío.
 	 * @param El descuento del paquete. Debe ser >= 0.
+	 * @param La categoria del paquete.
 	 * @throws Si uno de los datos ingresados no respeta las condiciones necesarias.
 	 */
-	public Paquete(String sku, String nombre, float descuento) throws Exception {
+	public Paquete(String sku, String nombre, float descuento, Categoria categoria) throws Exception {
 		validarPaquete(sku, nombre, descuento);
 		this.sku = sku;
 		this.nombre = nombre;
 		this.descuento = descuento;
+		this.categoria = categoria;
 	}
 	
 	/**
@@ -39,14 +41,16 @@ public class Paquete implements ItemCatalogo {
 	 * @param El SKU del paquete. Debe ser no vacío.
 	 * @param El nombre del paquete. Debe ser no vacío.
 	 * @param El descuento del paquete. Debe ser >= 0.
+	 * @param La categoria del paquete.
 	 * @param Los items del catalogo que se desean incluir en el paquete. No pueden ser null
 	 * @throws Si uno de los datos ingresados no respeta las condiciones necesarias.
 	 */
-	public Paquete(String sku, String nombre, float descuento, ItemCatalogo ... items ) throws Exception {
+	public Paquete(String sku, String nombre, float descuento, Categoria categoria, ItemCatalogo ... items ) throws Exception {
 		validarPaquete(sku, nombre, descuento);
 		this.sku = sku;
 		this.nombre = nombre;
 		this.descuento = descuento;
+		this.categoria = categoria;
 		this.items.addAll(Arrays.asList(items));
 	}
 	
@@ -131,6 +135,18 @@ public class Paquete implements ItemCatalogo {
 		for(ItemCatalogo i : this.items) {
 			i.decrementarStock();
 		}
+	}
+
+	@Override
+	public Categoria getCategoria() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean tieneStock() {
+		// TODO Auto-generated method stub
+		return this.items.stream().allMatch(i -> i.tieneStock());
 	}
 
 }

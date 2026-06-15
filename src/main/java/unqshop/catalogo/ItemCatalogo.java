@@ -55,6 +55,13 @@ public interface ItemCatalogo {
 	public double getPrecioFinal();
 	
 	/**
+	 * Describe la categoria a la que pertenece el item de catalogo.
+	 * 
+	 * @return La categoria del item en Categoria.
+	 */
+	public Categoria getCategoria();
+	
+	/**
 	 * Incrementa el Stock del item.
 	 */
 	public void incrementarStock();
@@ -66,4 +73,11 @@ public interface ItemCatalogo {
 	 * @exception Si ya no habia Stock disponible.
 	 */
 	public void decrementarStock() throws Exception;
+	
+	/**
+	 * Indica si el item posee stock.
+	 * 
+	 * @return La validación de si el item tiene Stock en boolean.
+	 */
+	public boolean tieneStock();
 }

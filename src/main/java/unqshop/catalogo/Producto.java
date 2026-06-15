@@ -202,4 +202,9 @@ public class Producto implements ItemCatalogo {
 		if(this.stock == 0)
 			throw new Exception("No es posible desincrementar el Stock, ya que no hay mas stock disponible para el item");
 	}
+
+	@Override
+	public boolean tieneStock() {
+		return this.stock > 0;
+	}
 }
