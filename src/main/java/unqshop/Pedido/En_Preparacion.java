@@ -35,7 +35,9 @@ public class En_Preparacion implements Contexto {
 	@Override
 	public void cancelar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cancelarEnEn_Preparacion();
+		pedido.generarReembolso(pedido.precioPedido());
+		pedido.reponerStock();
+		pedido.cancelarPriv();
 		
 		
 	}

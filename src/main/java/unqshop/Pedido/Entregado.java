@@ -36,8 +36,6 @@ public class Entregado implements Contexto {
 	public void cancelar(Pedido pedido) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("el pedido ya fue entregado");
-		
-		
 	}
 
 

@@ -1,5 +1,8 @@
 package main.java.unqshop.Pedido;
-
+/*
+ * Interace con la cual se definen los diferentes estados de un pedido
+ * durante su ciclo de vida.
+ * */
 public interface Contexto {
 	
 	String contexto();/*posible cambio*/

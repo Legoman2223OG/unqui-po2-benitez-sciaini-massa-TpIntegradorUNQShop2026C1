@@ -36,7 +36,9 @@ public class Enviado implements Contexto {
 	@Override
 	public void cancelar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cancelarEnEnvio();
+		pedido.generarReembolso(pedido.precioItems());
+		pedido.reponerStock();
+		pedido.cancelarPriv();
 		
 		
 	}

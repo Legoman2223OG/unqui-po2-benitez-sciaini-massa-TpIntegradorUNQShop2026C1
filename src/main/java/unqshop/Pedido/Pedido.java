@@ -20,17 +20,19 @@ public class Pedido {
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
 	private PagoFacade pagofacade; //Facade de MetodoDePago
+	private Envio modoDeEnvio;
 	private List <NotaDeCredito> notasDeCredito;
 	
 	
 	
-	public Pedido(Cliente cliente) {
+	public Pedido(Cliente cliente,Envio envio) {
 		super();
-		this.items       = new ArrayList<>();
-		this.subSistemas = new ArrayList<>();
+		this.items        = new ArrayList<>();
+		this.subSistemas  = new ArrayList<>();
 		this.contexto     = new Borrador();
 		this.cliente      = cliente;
 		this.pagofacade   = new pagoFacade();
+		this.modoDeEnvio  = envio;
 	}
 
 	/*Operaciones del pedido durante su ciclo de vida*/
@@ -96,19 +98,27 @@ public class Pedido {
 	public void descrementarStock() {
 		this.getItems()
 			.stream()
-			.forEach(item -> item.decrementar());/*TODO: el metodo decrementar puede cambiar*/
+			.forEach(item -> item.decrementarStock());
 	}
 	
-	public double precioPedido() {/*para pasar como parametro al constructor del MetodoDePago a usar*/
+	public double precioItems() {
 		return this
 				.getItems()
 				.stream()
 				.mapToDouble(item -> item.getPrecioFinal()).sum();
 	}
 	
-	public void pagarPedido(MetodoDePago metodoDePago, Envio envio) { 
+	public double precioEnvio() {
+		return this.getModoDeEnvio().calcularCosto(this);
+	}
+	
+	public double precioPedido() {/*para pasar como parametro al constructor del MetodoDePago a usar*/
+		return this.precioItems() + this.precioEnvio();
+	}
+	
+	public void pagarPedido(MetodoDePago metodoDePago) { 
 		this.pagofacade.pagarCon_(metodoDePago);
-		//TODO aun falta saber la implementacion de envio
+		
 	}
 	
 	public void agregarNotaDeCredito(NotaDeCredito notaDeCredito) {
@@ -120,15 +130,14 @@ public class Pedido {
 		this.cancelarPriv();
 	}
 	
-	public void cancelarEnEn_Preparacion() {//TODO por implementar costoEnvio y reponerStock
-		this.generarReembolso(this.precioPedido());
-		this.generarReembolso(this.costoEnvio());//falta aun el envio
+	public void cancelarEnEn_Preparacion() {
+		this.generarReembolso(this.precioItems());
 		this.reponerStock();
 		this.cancelarPriv();
 	}
 	
 	public void cancelarEnEnvio() {
-		this.generarReembolso(this.precioPedido());
+		this.generarReembolso(this.precioItems());
 		this.reponerStock();
 		this.cancelarPriv();
 	}
@@ -138,7 +147,7 @@ public class Pedido {
 	}
 	
 	public void reponerStock() {
-		this.getItems().stream().forEach(item -> item.aumentarStock());
+		this.getItems().stream().forEach(item -> item.incrementarStock());
 	}
 	
 	/*Getters y setters*/
@@ -147,16 +156,8 @@ public class Pedido {
 		return items;
 	}
 
-	public void setItems(List<ItemCatalogo> items) {
-		this.items = items;
-	}
-
 	public List<ObserverPedido> getSubSistemas() {
 		return subSistemas;
-	}
-
-	public void setSubSistemas(List<ObserverPedido> subSistemas) {
-		this.subSistemas = subSistemas;
 	}
 
 	public Contexto getContexto() {
@@ -171,17 +172,12 @@ public class Pedido {
 		return cliente;
 	}
 
-
-	public MetodoPago getMetodoDePago() {
-		return metodoDePago;
-	}
-
-	public void setMetodoDePago(MetodoPago metodoDePago) {
-		this.metodoDePago = metodoDePago;
-	}
-	
 	public List <NotaDeCredito> getNotasDeCredito() {
 		return this.notasDeCredito;
+	}
+	
+	public Envio getModoDeEnvio() {
+		return this.modoDeEnvio;
 	}
 	
 	
