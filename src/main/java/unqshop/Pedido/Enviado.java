@@ -3,9 +3,8 @@ package main.java.unqshop.Pedido;
 public class Enviado implements Contexto {
 
 	@Override
-	public String contexto() {
-		// TODO Auto-generated method stub
-		return "ENVIADO";
+	public ContextoTipo contexto() {
+		return ContextoTipo.ENVIADO;
 	}
 
 	@Override

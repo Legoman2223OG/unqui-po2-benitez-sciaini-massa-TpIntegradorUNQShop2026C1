@@ -3,9 +3,8 @@ package main.java.unqshop.Pedido;
 public class Cancelado implements Contexto {
 
 	@Override
-	public String contexto() {
-		// TODO Auto-generated method stub
-		return "CANCELADO";
+	public ContextoTipo contexto() {
+		return ContextoTipo.CANCELADO;
 	}
 
 	@Override

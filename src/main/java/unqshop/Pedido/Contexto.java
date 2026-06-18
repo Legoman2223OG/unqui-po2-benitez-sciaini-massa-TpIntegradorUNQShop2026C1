@@ -5,7 +5,7 @@ package main.java.unqshop.Pedido;
  * */
 public interface Contexto {
 	
-	String contexto();/*posible cambio*/
+	ContextoTipo contexto();/*posible cambio*/
 	
 	void confirmar(Pedido pedido);
 	

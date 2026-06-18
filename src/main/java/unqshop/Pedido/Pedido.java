@@ -91,8 +91,14 @@ public class Pedido {
 	}
 	
 	public void cambiarContexto(Contexto contexto) {
+		CambioContexto evento = new CambioContexto();
+		evento.setAnterior(this.getContextoTipo());
+		
 		this.setContexto(contexto);
-		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(contexto));
+		
+		evento.setNuevo(this.getContextoTipo());
+		
+		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(evento, this));
 	}
 	
 	public void descrementarStock() {
@@ -150,6 +156,11 @@ public class Pedido {
 		this.getItems().stream().forEach(item -> item.incrementarStock());
 	}
 	
+	
+	public String getMailCliente() {
+		return this.getCliente().getMail();
+	}
+	
 	/*Getters y setters*/
 
 	public List<ItemCatalogo> getItems() {
@@ -178,6 +189,10 @@ public class Pedido {
 	
 	public Envio getModoDeEnvio() {
 		return this.modoDeEnvio;
+	}
+	
+	public ContextoTipo getContextoTipo() {
+		return this.getContexto().contexto();
 	}
 	
 	

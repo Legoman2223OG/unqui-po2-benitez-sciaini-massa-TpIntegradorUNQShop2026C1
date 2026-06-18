@@ -3,9 +3,8 @@ package main.java.unqshop.Pedido;
 public class Confirmado implements Contexto {
 
 	@Override
-	public String contexto() {
-		// TODO Auto-generated method stub
-		return "CONFIRMADO";
+	public ContextoTipo contexto() {
+		return ContextoTipo.CONFIRMADO;
 	}
 
 	@Override
