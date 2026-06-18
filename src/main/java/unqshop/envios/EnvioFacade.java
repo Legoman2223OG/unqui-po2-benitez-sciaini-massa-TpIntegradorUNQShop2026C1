@@ -8,7 +8,7 @@ public class EnvioFacade {
     }
 
     public MetodoEnvio envioExpress() {
-        return new EnvioExpress();
+        return new EnvioExpress(new EnvioExpressAPI());
     }
 
     public MetodoEnvio retiroEnSucursal(

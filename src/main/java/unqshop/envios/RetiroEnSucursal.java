@@ -1,5 +1,7 @@
 package unqshop.envios;
 
+//Concrete Strategy
+//implementa el algoritmo de retiro en sucursal, sobreescribiendo los métodos de la interfaz MetodoEnvio(abstract strategy).
 public class RetiroEnSucursal implements MetodoEnvio {
 
     private Sucursal sucursal;
@@ -15,7 +17,7 @@ public class RetiroEnSucursal implements MetodoEnvio {
 
     @Override
     public int calcularTiempoEnvio(Pedido pedido) {
-        return sucursal.tieneStock()
+        return sucursal.tieneStock(pedido)
                 ? 0
                 : 3;
         //*
