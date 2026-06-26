@@ -189,9 +189,9 @@ class PaqueteTest {
 	void test04_DescripcionDelPaquete() {
 		//DOC
 		when(docProd.getPeso()).thenReturn(50.0);
-		when(docProd.getPrecioBase()).thenReturn(100000.0);
+		when(docProd.getPrecioFinal()).thenReturn(90000.0);
 		when(docPaq.getPeso()).thenReturn(52.2);
-		when(docPaq.getPrecioBase()).thenReturn(100000.0);
+		when(docPaq.getPrecioFinal()).thenReturn(81000.0);
 		when(docProd.getDescripcion()).thenReturn(
 				   "Producto: Gabinete Gamer\n" +
 				   "SKU: SKU-100\n" +
@@ -209,8 +209,8 @@ class PaqueteTest {
 				   "SKU: SKU-30\n" +
 				   "Categoria: Electronica y Tecnologia\n" +
 				   "Peso: 52.2\n" +
-				   "Precio Base: 100000.0\n" +
-				   "Precio Final: 90000.0\n" +
+				   "Precio Base: 90000.0\n" +
+				   "Precio Final: 81000.0\n" +
 				   "Items Incluidos:\n" +
 				   "--------------------\n" +
 				   "Producto: Monitor\n" +
@@ -246,8 +246,8 @@ class PaqueteTest {
 				   "SKU: SKU-09\n" +
 				   "Categoria: Electronica y Tecnologia\n" +
 				   "Peso: 102.2\n" +
-				   "Precio Base: 200000.0\n" +
-				   "Precio Final: 180000.0\n" +
+				   "Precio Base: 171000.0\n" +
+				   "Precio Final: 153900.0\n" +
 				   "Items Incluidos:\n" +
 				   "--------------------\n" +
 				   "Producto: Gabinete Gamer\n" +
@@ -265,8 +265,8 @@ class PaqueteTest {
 				   "SKU: SKU-30\n" +
 				   "Categoria: Electronica y Tecnologia\n" +
 				   "Peso: 52.2\n" +
-				   "Precio Base: 100000.0\n" +
-				   "Precio Final: 90000.0\n" +
+				   "Precio Base: 90000.0\n" +
+				   "Precio Final: 81000.0\n" +
 				   "Items Incluidos:\n" +
 				   "--------------------\n" +
 				   "Producto: Monitor\n" +
@@ -303,12 +303,12 @@ class PaqueteTest {
 	@Test
 	void test05_PrecioBasePaquete() {
 		//DOC
-		when(docProd.getPrecioBase()).thenReturn(100000.0);
-		when(docPaq.getPrecioBase()).thenReturn(100000.0);
+		when(docProd.getPrecioFinal()).thenReturn(90000.0);
+		when(docPaq.getPrecioFinal()).thenReturn(81000.0);
 		//EXERCISE
 		double precioBase = sutPaq.getPrecioBase();
 		//VERIFY
-		Assertions.assertEquals(100000.0 + 100000.0, precioBase);
+		Assertions.assertEquals(90000.0 + 81000.0, precioBase);
 	}
 	
 	/**
@@ -317,12 +317,12 @@ class PaqueteTest {
 	@Test
 	void test06_PrecioFinalPaquete() {
 		//DOC
-		when(docProd.getPrecioBase()).thenReturn(100000.0);
-		when(docPaq.getPrecioBase()).thenReturn(100000.0);
+		when(docProd.getPrecioFinal()).thenReturn(90000.0);
+		when(docPaq.getPrecioFinal()).thenReturn(81000.0);
 		//EXERCISE
 		double precioFinal = sutPaq.getPrecioFinal();
 		//VERIFY
-		Assertions.assertEquals((100000.0 + 100000.0) - (((100000.0 + 100000.0) * 10.0) / 100.0), precioFinal);
+		Assertions.assertEquals((90000.0 + 81000.0) - (((90000.0 + 81000.0) * 10.0) / 100.0), precioFinal);
 	}
 	
 	/**

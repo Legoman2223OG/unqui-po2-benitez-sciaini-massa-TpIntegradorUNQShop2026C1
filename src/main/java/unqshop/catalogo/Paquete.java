@@ -114,7 +114,7 @@ public class Paquete implements ItemCatalogo {
 	@Override
 	public double getPrecioBase() {
 		// TODO Auto-generated method stub
-		return items.stream().mapToDouble(i -> i.getPrecioBase()).sum();
+		return items.stream().mapToDouble(i -> i.getPrecioFinal()).sum();
 	}
 
 	@Override
