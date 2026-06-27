@@ -6,7 +6,7 @@ import main.java.unqshop.catalogo.ItemCatalogo;
 /**
  * Una clase que representa un criterio de verificar si el item tiene stock o no.
  *
- * <p>Patrón de diseño: Specification - Concrete Specification</p>
+ * <p>Patrón de diseño: Composite - Leaf</p>
  *
  * @author Fabrizio Lautaro Massa
  * @see CriterioCatalogo

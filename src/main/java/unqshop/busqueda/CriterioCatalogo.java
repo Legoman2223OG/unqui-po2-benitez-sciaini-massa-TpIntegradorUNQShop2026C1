@@ -4,9 +4,9 @@ import main.java.unqshop.catalogo.ItemCatalogo;
 
 /**
  * Una interfaz que representa el criterio para determinar si un item del catalogo cumple con los criterios indicados.
- * Esta interfaz permite hacer consultas anidadas usando "AND", "OR" y "NOT".
+ * Esta interfaz permite hacer consultas anidadas usando "AND", "OR" y "NOT" combinandolas con diferentes criterios para items de catalogo.
  *
- * <p>Patrón de diseño: Specification - Interface</p>
+ * <p>Patrón de diseño: Composite - Component</p>
  *
  * @author Fabrizio Lautaro Massa
  * 

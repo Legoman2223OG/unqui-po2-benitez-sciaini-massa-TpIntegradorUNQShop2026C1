@@ -5,7 +5,7 @@ import main.java.unqshop.catalogo.ItemCatalogo;
 /**
  * Una clase que representa un combinador de criterio NOT para la busqueda de items del catalogo.
  *
- * <p>Patrón de diseño: Specification - Composite Specification</p>
+ * <p>Patrón de diseño: Composite - Composite</p>
  *
  * @author Fabrizio Lautaro Massa
  * @see CriterioCatalogo

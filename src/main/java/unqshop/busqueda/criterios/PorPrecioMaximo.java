@@ -7,7 +7,7 @@ import main.java.unqshop.catalogo.ItemCatalogo;
  * Una clase que representa un criterio por precio maximo para la busqueda de items del catalogo.
  * Se considera valido un item que tenga un precio maximo base menor o igual al valor indicado.
  *
- * <p>Patrón de diseño: Specification - Concrete Specification</p>
+ * <p>Patrón de diseño: Composite - Leaf</p>
  *
  * @author Fabrizio Lautaro Massa
  * @see CriterioCatalogo
