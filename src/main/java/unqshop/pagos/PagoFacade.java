@@ -27,7 +27,7 @@ package unqshop.pagos;
  *
  * // Tarjeta de crédito: monto a debitar
  * // EJEMPLO:
- * MetodoPago tarjeta = new MetodoTarjetaCredito(1500.0);
+ * MetodoPago tarjeta = new TarjetaCredito(1500.0);
  * facade.pagarCon_(tarjeta);
  *
  */
