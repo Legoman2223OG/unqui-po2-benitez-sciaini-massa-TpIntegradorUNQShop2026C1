@@ -7,7 +7,7 @@ package unqshop.pagos;
  * Esta sección del Template Method, define el flujo de acción;
  * Las subclases definen el comportamiento específico.
  */
-//(abstract class - Template Method).
+//(abstract class - Template Method)
 public abstract class MetodoPago {
     private double monto;
 
@@ -47,7 +47,7 @@ public abstract class MetodoPago {
     //-----------------
 
     //GETTER & SETTER
-    protected void setMonto(double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
