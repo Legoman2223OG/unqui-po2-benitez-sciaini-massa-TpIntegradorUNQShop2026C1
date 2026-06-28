@@ -9,7 +9,7 @@ public interface Contexto {
 	
 	void confirmar(Pedido pedido);
 	
-	void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio);
+	void prepararPedido(Pedido pedido);
 	
 	void enviar(Pedido pedido);
 	

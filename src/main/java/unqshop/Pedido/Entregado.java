@@ -14,7 +14,7 @@ public class Entregado implements Contexto {
 	}
 
 	@Override
-	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
+	public void prepararPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("el pedido ya fue entregado");
 	}

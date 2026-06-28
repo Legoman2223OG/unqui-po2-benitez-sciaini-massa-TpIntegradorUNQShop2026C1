@@ -14,7 +14,7 @@ public class Cancelado implements Contexto {
 	}
 
 	@Override
-	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
+	public void prepararPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("El pedido ah sido cancelado");
 	}

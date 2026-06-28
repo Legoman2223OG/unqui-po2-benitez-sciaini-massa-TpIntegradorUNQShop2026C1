@@ -14,7 +14,7 @@ public class En_Preparacion implements Contexto {
 	}
 
 	@Override
-	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
+	public void prepararPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("No se puede preparar un pedido que esta siendo preparado");
 	}

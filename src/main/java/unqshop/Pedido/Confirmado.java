@@ -14,9 +14,9 @@ public class Confirmado implements Contexto {
 	}
 
 	@Override
-	public void prepararPedido(Pedido pedido, MetodoDePago metodoDePago, Envio envio) {
+	public void prepararPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.pagarPedido(metodoDePago, envio);
+		pedido.pagarPedido();
 		pedido.cambiarContexto(new En_Preparacion());
 	}
 

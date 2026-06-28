@@ -120,13 +120,13 @@ public class Pedido {
 		return this.getModoDeEnvio().calcularCosto(this);
 	}
 	
-	public double precioPedido() {/*para pasar como parametro al constructor del MetodoDePago a usar*/
+	public double precioPedido() {
 		return this.precioItems() + this.precioEnvio();
 	}
 	
-	public void pagarPedido(MetodoDePago metodoDePago) { 
-		this.pagofacade.pagarCon_(metodoDePago);
-		
+	public void pagarPedido() { 
+		this.getMetodoDePago().setMonto(this.precioPedido());
+		this.getMetodoDePago().procesar_el_pago();	
 	}
 	
 	
