@@ -53,6 +53,18 @@ public class Enviado implements Contexto {
 		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
 	}
 
+	@Override
+	public void notificarCambio(Pedido pedido) {
+		pedido.notificarCambioACliente(this.contexto());
+		
+	}
+	
+	@Override
+	public void notificarCupon5Porciento(Pedido pedido) {}
+	
+	@Override
+	public void generarComprobanteFizcal(Pedido pedido) {}
+
 
 
 }

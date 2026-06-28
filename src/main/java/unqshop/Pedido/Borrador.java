@@ -51,6 +51,15 @@ public class Borrador implements Contexto {
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		pedido.agregarItemPriv(item);
 	}
+
+	@Override
+	public void notificarCambio(Pedido pedido) {}
+
+	@Override
+	public void notificarCupon5Porciento(Pedido pedido) {}
+
+	@Override
+	public void generarComprobanteFizcal(Pedido pedido) {}
 	
 
 

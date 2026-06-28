@@ -14,11 +14,15 @@ public class NotificadorDeEmail implements ObserverPedido{
 	}
 
 	@Override
-	public void actualizar(CambioContexto evento, Pedido pedido) {
+	public void actualizar(Contexto estadoAnterior, Contexto estadoNuevo, Pedido pedido) {
+		estadoNuevo.notificarCambio(pedido);
+		
+		/*
 		ContextoTipo nuevo = evento.getNuevo();
 		if (nuevo.equals(ContextoTipo.CONFIRMADO) || nuevo.equals(ContextoTipo.ENVIADO) || nuevo.equals(ContextoTipo.ENTREGADO)) {
 			this.getMailSender().enviarMail(pedido.getMailCliente(), "Pedido " + nuevo , "su pedido se encuentra " + nuevo, null);
 		}
+		*/
 
 	}
 

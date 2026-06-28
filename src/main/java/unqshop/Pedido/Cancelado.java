@@ -49,6 +49,18 @@ public class Cancelado implements Contexto {
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		throw new RuntimeException("El pedido ah sido cancelado");
 	}
+
+	@Override
+	public void notificarCambio(Pedido pedido) {}
+
+	@Override
+	public void notificarCupon5Porciento(Pedido pedido) {
+		pedido.notificarClienteCupon(5);
+		
+	}
+	
+	@Override
+	public void generarComprobanteFizcal(Pedido pedido) {}
 	
 
 

@@ -13,11 +13,14 @@ public class Fidelizacion implements ObserverPedido{
 	}
 
 	@Override
-	public void actualizar(CambioContexto evento, Pedido pedido) {
+	public void actualizar(Contexto estadoAnterior, Contexto estadoNuevo, Pedido pedido) {
+		estadoNuevo.notificarCupon5Porciento(pedido);
+		/*
 		ContextoTipo nuevo = evento.getNuevo();
 		if (nuevo.equals(ContextoTipo.CANCELADO)) {
 			this.getMailSender().enviarMail(pedido.getMailCliente(), "Cupon de Descuento", "Por la cancelacion de su pedido se le envia un cupon del 5%", null);
 		}
+		*/
 
 	}
 

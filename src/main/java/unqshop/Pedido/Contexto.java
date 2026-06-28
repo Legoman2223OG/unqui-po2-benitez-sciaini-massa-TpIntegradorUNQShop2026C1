@@ -21,5 +21,9 @@ public interface Contexto {
 	
 	void quitarItem(Pedido pedido, ItemCatalogo item);
 	
+	void notificarCambio(Pedido pedido);
 	
+	void notificarCupon5Porciento(Pedido pedido);
+	
+	void generarComprobanteFizcal(Pedido pedido);
 }

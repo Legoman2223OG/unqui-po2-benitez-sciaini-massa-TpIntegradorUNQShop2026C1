@@ -22,10 +22,11 @@ public class Pedido {
 	private PagoFacade pagofacade; //Facade de MetodoDePago
 	private Envio modoDeEnvio;
 	private List <NotaDeCredito> notasDeCredito;
+	private MailSender mailSender;
 	
 	
 	
-	public Pedido(Cliente cliente,Envio envio) {
+	public Pedido(Cliente cliente, Envio envio, MailSender mailSender) {
 		super();
 		this.items        = new ArrayList<>();
 		this.subSistemas  = new ArrayList<>();
@@ -33,6 +34,7 @@ public class Pedido {
 		this.cliente      = cliente;
 		this.pagofacade   = new pagoFacade();
 		this.modoDeEnvio  = envio;
+		this.mailSender   = mailSender;
 	}
 
 	/*Operaciones del pedido durante su ciclo de vida*/
@@ -91,6 +93,13 @@ public class Pedido {
 	}
 	
 	public void cambiarContexto(Contexto contexto) {
+		Contexto estadoAnterior = this.getContexto();
+		this.setContexto(contexto);
+		this.actualizarSubsistemas(estadoAnterior, contexto, this);
+		
+		
+		
+		/*
 		CambioContexto evento = new CambioContexto();
 		evento.setAnterior(this.getContextoTipo());
 		
@@ -99,6 +108,11 @@ public class Pedido {
 		evento.setNuevo(this.getContextoTipo());
 		
 		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(evento, this));
+		*/
+	}
+	
+	public void actualizarSubsistemas(Contexto estadoAnterior, Contexto estadoNuevo) {
+		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(estadoAnterior, estadoNuevo));
 	}
 	
 	public void descrementarStock() {
@@ -106,6 +120,7 @@ public class Pedido {
 			.stream()
 			.forEach(item -> item.decrementarStock());
 	}
+	
 	
 	public double precioItems() {
 		return this
@@ -126,6 +141,7 @@ public class Pedido {
 		this.pagofacade.pagarCon_(metodoDePago);
 		
 	}
+	
 	
 	public void agregarNotaDeCredito(NotaDeCredito notaDeCredito) {
 		this.getNotasDeCredito().add(notaDeCredito);
@@ -161,6 +177,20 @@ public class Pedido {
 		return this.getCliente().getMail();
 	}
 	
+	//Metodos relacionados a subSistemas
+	
+	public void notificarCambioACliente(ContextoTipo contexto) {
+		this.getMailSender().enviarMail(this.getMailCliente(), "Pedido " + contexto , "su pedido se encuentra " + contexto, null);
+	}
+	
+	public void notificarClienteCupon(double porcientoCupon) {
+		this.getMailSender().enviarMail(this.getMailCliente(), "Cupon de Descuento", "Por la cancelacion de su pedido se le envia un cupon del " + porcientoCupon + "%", null);
+	}
+	
+	public void generarComprobanteFizcal() {
+		System.out.print("Generando Comprobante fizcal");
+	}
+	
 	/*Getters y setters*/
 
 	public List<ItemCatalogo> getItems() {
@@ -193,6 +223,10 @@ public class Pedido {
 	
 	public ContextoTipo getContextoTipo() {
 		return this.getContexto().contexto();
+	}
+	
+	public MailSender getMailSender() {
+		return this.mailSender;
 	}
 	
 	

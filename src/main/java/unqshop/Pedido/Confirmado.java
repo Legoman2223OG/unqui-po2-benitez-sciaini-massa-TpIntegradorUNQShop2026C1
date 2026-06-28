@@ -51,6 +51,17 @@ public class Confirmado implements Contexto {
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
 		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
 	}
+
+	@Override
+	public void notificarCambio(Pedido pedido) {
+		pedido.notificarCambioACliente(this.contexto());
+		
+	}
 	
+	@Override
+	public void notificarCupon5Porciento(Pedido pedido) {}
+	
+	@Override
+	public void generarComprobanteFizcal(Pedido pedido) {}
 
 }
