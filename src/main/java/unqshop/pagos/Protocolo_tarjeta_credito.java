@@ -1,4 +1,4 @@
-package unqshop.pagos;
+package main.java.unqshop.pagos;
 
 /*
  * Cualquier Objeto que adihera a este protocolo podra utilizar el

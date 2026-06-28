@@ -1,4 +1,4 @@
-package unqshop.reportes.datosAuxiliaresPorAhora;
+package main.java.unqshop.reportes.datosAuxiliaresPorAhora;
 
 public class ItemReporte {
 

@@ -1,4 +1,4 @@
-package unqshop.reportes.datosAuxiliaresPorAhora;
+package main.java.unqshop.reportes.datosAuxiliaresPorAhora;
 
 // producto o paquete tal como lo necesita reportes (hasta que integremos catalogo).
 public class ProductoReporte {

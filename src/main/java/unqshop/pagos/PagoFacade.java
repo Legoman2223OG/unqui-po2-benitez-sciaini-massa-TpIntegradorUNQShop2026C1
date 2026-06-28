@@ -1,4 +1,4 @@
-package unqshop.pagos;
+package main.java.unqshop.pagos;
 
 /**
  * Fachada del módulo pagos.

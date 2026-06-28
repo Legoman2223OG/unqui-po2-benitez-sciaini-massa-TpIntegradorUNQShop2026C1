@@ -1,13 +1,13 @@
-package unqshop.reportes;
+package main.java.unqshop.reportes;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
-import unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
-import unqshop.reportes.datosAuxiliaresPorAhora.ProductoReporte;
-import unqshop.reportes.formatosDeSalida.FormatoCSV;
-import unqshop.reportes.formatosDeSalida.FormatoDeTexto;
-import unqshop.reportes.formatosDeSalida.FormatoHTML;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ProductoReporte;
+import main.java.unqshop.reportes.formatosDeSalida.FormatoCSV;
+import main.java.unqshop.reportes.formatosDeSalida.FormatoDeTexto;
+import main.java.unqshop.reportes.formatosDeSalida.FormatoHTML;
 
 import java.time.LocalDate;
 import java.util.List;

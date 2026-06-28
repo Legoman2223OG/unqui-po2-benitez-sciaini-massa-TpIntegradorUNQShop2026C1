@@ -1,8 +1,8 @@
-package unqshop.reportes.formatosDeSalida;
+package main.java.unqshop.reportes.formatosDeSalida;
 
-import unqshop.reportes.ReporteDeProductosMasVendidos;
-import unqshop.reportes.ReporteVisitor;
-import unqshop.reportes.estructurasDelReporte.FilaProductoVendido;
+import main.java.unqshop.reportes.ReporteDeProductosMasVendidos;
+import main.java.unqshop.reportes.ReporteVisitor;
+import main.java.unqshop.reportes.estructurasDelReporte.FilaProductoVendido;
 
 /*
  * Segun GoF == 'CONCRETE_VISITOR'

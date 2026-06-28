@@ -1,4 +1,4 @@
-package unqshop.envios;
+package main.java.unqshop.envios;
 
 //Concrete Strategy
 //implementa el algoritmo de envío estándar, sobreescribiendo los métodos de la interfaz MetodoEnvio(abstract strategy).

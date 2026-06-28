@@ -1,4 +1,4 @@
-package unqshop.envios;
+package main.java.unqshop.envios;
 
 public class EnvioFacade {
 

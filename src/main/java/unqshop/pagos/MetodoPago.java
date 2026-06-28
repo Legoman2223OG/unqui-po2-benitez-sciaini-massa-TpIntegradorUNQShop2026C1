@@ -1,4 +1,4 @@
-package unqshop.pagos;
+package main.java.unqshop.pagos;
 
 /**
  * Clase abstracta para encapsular el comportamiento del patrón Template Method,

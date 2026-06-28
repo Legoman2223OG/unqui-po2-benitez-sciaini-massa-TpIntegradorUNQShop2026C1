@@ -1,4 +1,4 @@
-package unqshop.reportes;
+package main.java.unqshop.reportes;
 
 /*
 Visitor (NodeVisitor):

@@ -1,4 +1,4 @@
-package unqshop.pagos;
+package main.java.unqshop.pagos;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

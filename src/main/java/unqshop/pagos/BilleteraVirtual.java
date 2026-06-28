@@ -1,4 +1,4 @@
-package unqshop.pagos;
+package main.java.unqshop.pagos;
 
 public class BilleteraVirtual extends MetodoPago {
     //var. ins.:

@@ -1,10 +1,10 @@
-package unqshop.reportes;
+package main.java.unqshop.reportes;
 
 import main.java.unqshop.Pedido.Pedido;
 import main.java.unqshop.catalogo.ItemCatalogo;
-import unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
-import unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
-import unqshop.reportes.datosAuxiliaresPorAhora.ProductoReporte;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ProductoReporte;
 
 import java.time.LocalDate;
 import java.util.List;

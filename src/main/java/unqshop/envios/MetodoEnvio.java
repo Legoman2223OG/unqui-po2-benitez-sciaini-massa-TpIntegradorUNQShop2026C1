@@ -1,4 +1,4 @@
-package unqshop.envios;
+package main.java.unqshop.envios;
 
 //Abstract Strategy Pattern
 //define el contrato de los algoritmos de envío

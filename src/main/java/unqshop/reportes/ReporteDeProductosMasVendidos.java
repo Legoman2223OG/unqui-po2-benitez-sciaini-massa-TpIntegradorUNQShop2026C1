@@ -1,8 +1,8 @@
-package unqshop.reportes;
+package main.java.unqshop.reportes;
 
-import unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
-import unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
-import unqshop.reportes.estructurasDelReporte.FilaProductoVendido;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
+import main.java.unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
+import main.java.unqshop.reportes.estructurasDelReporte.FilaProductoVendido;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

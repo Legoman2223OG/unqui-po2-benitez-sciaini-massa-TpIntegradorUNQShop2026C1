@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.stream.*;
 
 import main.java.unqshop.catalogo.ItemCatalogo;
+import main.java.unqshop.envios.MetodoEnvio;
+import main.java.unqshop.pagos.MetodoPago;
+
 import java.time.LocalDate;
 
 	/*
@@ -23,14 +26,14 @@ public class Pedido {
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
 	private MetodoPago metodoDePago;
-	private Envio modoDeEnvio;
+	private MetodoEnvio modoDeEnvio;
 	private List <NotaDeCredito> notasDeCredito;
 	private MailSender mailSender;
 	private LocalDate fechaEntrega;
 	
 	
 	
-	public Pedido(Cliente cliente, MetodoPago metodoDePago, Envio envio, MailSender mailSender) {
+	public Pedido(Cliente cliente, MetodoPago metodoDePago, MetodoEnvio envio, MailSender mailSender) {
 		super();
 		this.items        = new ArrayList<>();
 		this.subSistemas  = new ArrayList<>();
@@ -52,7 +55,7 @@ public class Pedido {
 		this.getContexto().confirmar(this);
 	}
 	
-	public void prepararPedido(MetodoDePago metodoDePago, Envio envio) {/*Valido solo en CONFIRMADO*/
+	public void prepararPedido(MetodoPago metodoDePago, MetodoEnvio envio) {/*Valido solo en CONFIRMADO*/
 		this.getContexto().prepararPedido(this, metodoDePago, envio);
 	}
 	
@@ -207,7 +210,7 @@ public class Pedido {
 		return cliente;
 	}
 	
-	public MetodoDePago getMetodoDePago() {
+	public MetodoPago getMetodoDePago() {
 		return this.metodoDePago;
 	}
 
@@ -215,7 +218,7 @@ public class Pedido {
 		return this.notasDeCredito;
 	}
 	
-	public Envio getModoDeEnvio() {
+	public MetodoEnvio getModoDeEnvio() {
 		return this.modoDeEnvio;
 	}
 	

@@ -1,4 +1,4 @@
-package unqshop.envios;
+package main.java.unqshop.envios;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

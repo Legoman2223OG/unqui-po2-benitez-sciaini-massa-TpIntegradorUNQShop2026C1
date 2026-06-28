@@ -1,4 +1,4 @@
-package unqshop.reportes.datosAuxiliaresPorAhora;
+package main.java.unqshop.reportes.datosAuxiliaresPorAhora;
 
 import java.time.LocalDate;
 import java.util.List;

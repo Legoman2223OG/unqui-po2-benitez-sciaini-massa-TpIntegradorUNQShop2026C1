@@ -1,4 +1,4 @@
-package unqshop.reportes.estructurasDelReporte;
+package main.java.unqshop.reportes.estructurasDelReporte;
 
 // una fila del reporte de productos mas vendidos.
 public class FilaProductoVendido {
