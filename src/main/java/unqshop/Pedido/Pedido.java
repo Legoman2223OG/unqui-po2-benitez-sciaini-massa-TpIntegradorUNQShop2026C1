@@ -19,20 +19,20 @@ public class Pedido {
 	private List <ObserverPedido> subSistemas; /*se les notifica cuando hay cambio de estado en el pedido*/
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
-	private PagoFacade pagofacade; //Facade de MetodoDePago
+	private MetodoPago metodoDePago; //Facade de MetodoDePago
 	private Envio modoDeEnvio;
 	private List <NotaDeCredito> notasDeCredito;
 	private MailSender mailSender;
 	
 	
 	
-	public Pedido(Cliente cliente, Envio envio, MailSender mailSender) {
+	public Pedido(Cliente cliente, MetodoPago metodoDePago, Envio envio, MailSender mailSender) {
 		super();
 		this.items        = new ArrayList<>();
 		this.subSistemas  = new ArrayList<>();
 		this.contexto     = new Borrador();
 		this.cliente      = cliente;
-		this.pagofacade   = new pagoFacade();
+		this.metodoDePago = metodoDePago;
 		this.modoDeEnvio  = envio;
 		this.mailSender   = mailSender;
 	}
@@ -95,24 +95,11 @@ public class Pedido {
 	public void cambiarContexto(Contexto contexto) {
 		Contexto estadoAnterior = this.getContexto();
 		this.setContexto(contexto);
-		this.actualizarSubsistemas(estadoAnterior, contexto, this);
-		
-		
-		
-		/*
-		CambioContexto evento = new CambioContexto();
-		evento.setAnterior(this.getContextoTipo());
-		
-		this.setContexto(contexto);
-		
-		evento.setNuevo(this.getContextoTipo());
-		
-		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(evento, this));
-		*/
+		this.actualizarSubsistemas(estadoAnterior, contexto);
 	}
 	
 	public void actualizarSubsistemas(Contexto estadoAnterior, Contexto estadoNuevo) {
-		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(estadoAnterior, estadoNuevo));
+		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(estadoAnterior, estadoNuevo, this));
 	}
 	
 	public void descrementarStock() {
@@ -147,22 +134,25 @@ public class Pedido {
 		this.getNotasDeCredito().add(notaDeCredito);
 	}
 	
+	//encapsulamiento de cancelacion en los estados 
+	//-------------------------------------------
 	public void cancelarEnConfirmado() {
 		this.reponerStock();
 		this.cancelarPriv();
 	}
 	
 	public void cancelarEnEn_Preparacion() {
-		this.generarReembolso(this.precioItems());
+		this.generarReembolso(this.precioPedido());
 		this.reponerStock();
 		this.cancelarPriv();
 	}
 	
 	public void cancelarEnEnvio() {
 		this.generarReembolso(this.precioItems());
-		this.reponerStock();
 		this.cancelarPriv();
 	}
+	
+	//-------------------------------------------
 	
 	public void generarReembolso(double montoDeReembolso) {
 		this.agregarNotaDeCredito(new NotaDeCredito(montoDeReembolso));
@@ -211,6 +201,10 @@ public class Pedido {
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+	
+	public MetodoDePago getMetodoDePago() {
+		return this.metodoDePago;
 	}
 
 	public List <NotaDeCredito> getNotasDeCredito() {

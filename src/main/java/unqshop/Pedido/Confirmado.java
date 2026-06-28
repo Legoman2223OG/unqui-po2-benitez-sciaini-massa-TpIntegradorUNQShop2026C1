@@ -34,10 +34,11 @@ public class Confirmado implements Contexto {
 
 	@Override
 	public void cancelar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		pedido.cancelarEnConfirmado();
+		/*
 		pedido.reponerStock();
 		pedido.cancelarPriv();
-		
+		*/
 		
 	}
 
