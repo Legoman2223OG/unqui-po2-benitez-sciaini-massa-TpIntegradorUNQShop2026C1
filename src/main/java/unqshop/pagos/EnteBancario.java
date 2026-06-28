@@ -6,10 +6,7 @@ public interface EnteBancario {
 
     void validarAlias(String alias);
 
-    String realizarTransferencia(
-            double monto,
-            String origen,
-            String destino
+    String realizarTransferencia(double monto, String origen, String destino
     );
 
     void notificarResultado(String CBU);
