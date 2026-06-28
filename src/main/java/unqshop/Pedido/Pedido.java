@@ -2,7 +2,10 @@ package main.java.unqshop.Pedido;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.*;
+
+import main.java.unqshop.catalogo.ItemCatalogo;
 import java.time.LocalDate;
+
 	/*
 	 * Clase que representa un pedido.
 	 * 
