@@ -1,5 +1,7 @@
 package main.java.unqshop.Pedido;
 
+import java.time.LocalDate;
+
 public class Enviado implements Contexto {
 
 	@Override
@@ -27,7 +29,7 @@ public class Enviado implements Contexto {
 
 	@Override
 	public void entregar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		pedido.setFechaEntrega(LocalDate.now());
 		pedido.cambiarContexto(new Entregado());
 		System.out.println("pedido entregado");
 	}

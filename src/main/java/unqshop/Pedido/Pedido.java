@@ -2,7 +2,7 @@ package main.java.unqshop.Pedido;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.*;
-
+import java.time.LocalDate;
 	/*
 	 * Clase que representa un pedido.
 	 * 
@@ -19,10 +19,11 @@ public class Pedido {
 	private List <ObserverPedido> subSistemas; /*se les notifica cuando hay cambio de estado en el pedido*/
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
 	private Cliente cliente; /*cliente que realizo el pedido*/
-	private MetodoPago metodoDePago; //Facade de MetodoDePago
+	private MetodoPago metodoDePago;
 	private Envio modoDeEnvio;
 	private List <NotaDeCredito> notasDeCredito;
 	private MailSender mailSender;
+	private LocalDate fechaEntrega;
 	
 	
 	
@@ -221,6 +222,14 @@ public class Pedido {
 	
 	public MailSender getMailSender() {
 		return this.mailSender;
+	}
+	
+	public LocalDate getFechaEntrega() {
+	    return fechaEntrega;
+	}
+	
+	public void setFechaEntrega(LocalDate fecha) {
+	    this.fechaEntrega = fecha;
 	}
 	
 	
