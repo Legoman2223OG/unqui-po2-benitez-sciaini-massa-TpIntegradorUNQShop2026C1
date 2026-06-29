@@ -7,6 +7,9 @@ import main.java.unqshop.catalogo.ItemCatalogo;
 import main.java.unqshop.envios.MetodoEnvio;
 import main.java.unqshop.pagos.MetodoPago;
 
+import main.java.unqshop.envios.Direccion;
+import main.java.unqshop.envios.PedidoEnviable;
+
 import java.time.LocalDate;
 
 	/*
@@ -27,13 +30,14 @@ public class Pedido {
 	private Cliente cliente; /*cliente que realizo el pedido*/
 	private MetodoPago metodoDePago;
 	private MetodoEnvio modoDeEnvio;
+	private Direccion direccion;
 	private List <NotaDeCredito> notasDeCredito;
 	private MailSender mailSender;
 	private LocalDate fechaEntrega;
-	
-	
-	
-	public Pedido(Cliente cliente, MetodoPago metodoDePago, MetodoEnvio envio, MailSender mailSender) {
+
+
+
+	public Pedido(Cliente cliente, MetodoPago metodoDePago, MetodoEnvio envio, MailSender mailSender, Direccion direccion) {
 		super();
 		this.items        = new ArrayList<>();
 		this.subSistemas  = new ArrayList<>();
@@ -42,6 +46,7 @@ public class Pedido {
 		this.metodoDePago = metodoDePago;
 		this.modoDeEnvio  = envio;
 		this.mailSender   = mailSender;
+		this.direccion    = direccion;
 	}
 
 	/*Operaciones del pedido durante su ciclo de vida*/
@@ -54,9 +59,9 @@ public class Pedido {
 	public void confirmar() {/*Valido solo en BORRADOR*/
 		this.getContexto().confirmar(this);
 	}
-	
-	public void prepararPedido(MetodoPago metodoDePago, MetodoEnvio envio) {/*Valido solo en CONFIRMADO*/
-		this.getContexto().prepararPedido(this, metodoDePago, envio);
+
+	public void prepararPedido() {/*Valido solo en CONFIRMADO*/
+		this.getContexto().prepararPedido(this);
 	}
 	
 	public void enviar() {/*Valido solo eb EN_PREPARACION*/
@@ -110,9 +115,13 @@ public class Pedido {
 	}
 	
 	public void descrementarStock() {
-		this.getItems()
-			.stream()
-			.forEach(item -> item.decrementarStock());
+		for (ItemCatalogo item : this.getItems()) {
+			try {
+				item.decrementarStock();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 	
 	
@@ -122,11 +131,12 @@ public class Pedido {
 				.stream()
 				.mapToDouble(item -> item.getPrecioFinal()).sum();
 	}
-	
+
 	public double precioEnvio() {
-		return this.getModoDeEnvio().calcularCosto(this);
+		return this.getModoDeEnvio().calcularCosto(new PedidoEnviable(this, this.direccion));
 	}
-	
+
+
 	public double precioPedido() {
 		return this.precioItems() + this.precioEnvio();
 	}
