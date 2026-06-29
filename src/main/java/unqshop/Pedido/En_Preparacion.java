@@ -1,5 +1,7 @@
 package main.java.unqshop.Pedido;
 
+import main.java.unqshop.catalogo.ItemCatalogo;
+
 public class En_Preparacion implements Contexto {
 
 	@Override

@@ -1,4 +1,7 @@
 package main.java.unqshop.Pedido;
+
+import main.java.unqshop.catalogo.ItemCatalogo;
+
 /*
  * Interace con la cual se definen los diferentes estados de un pedido
  * durante su ciclo de vida.

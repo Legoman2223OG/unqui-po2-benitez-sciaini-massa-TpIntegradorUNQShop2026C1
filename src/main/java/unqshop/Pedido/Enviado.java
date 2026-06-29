@@ -1,5 +1,7 @@
 package main.java.unqshop.Pedido;
 
+import main.java.unqshop.catalogo.ItemCatalogo;
+
 import java.time.LocalDate;
 
 public class Enviado implements Contexto {
