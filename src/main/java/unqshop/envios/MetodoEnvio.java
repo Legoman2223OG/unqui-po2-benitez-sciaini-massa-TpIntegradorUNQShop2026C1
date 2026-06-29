@@ -5,8 +5,8 @@ package main.java.unqshop.envios;
 public interface MetodoEnvio {
 
     //calcula el costo de envío del pedido
-    double calcularCosto(Pedido pedido);
+    double calcularCosto(Enviable pedido);
 
     //calcula el tiempo de envío del pedido
-    int calcularTiempoEnvio(Pedido pedido);
+    int calcularTiempoEnvio(Enviable pedido);
 }

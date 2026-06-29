@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 class EnvioEstandarTest {
 
     CorreoArgentina correoMock;
-    Pedido pedidoMock;
+    Enviable enviableMock;
     Direccion direccionMock;
 
     EnvioEstandar envioEstandar;
@@ -23,20 +23,20 @@ class EnvioEstandarTest {
     void setUp() {
 
         correoMock = mock(CorreoArgentina.class);
-        pedidoMock = mock(Pedido.class);
+        enviableMock = mock(Enviable.class);
         direccionMock = mock(Direccion.class);
 
         envioEstandar = new EnvioEstandar(correoMock);
 
         //lleno de contestaciones al mock:
-        when(pedidoMock.pesoTotal()).thenReturn(5.0);
-        when(pedidoMock.direccionEntrega()).thenReturn(direccionMock);
+        when(enviableMock.pesoTotal()).thenReturn(5.0);
+        when(enviableMock.direccionEntrega()).thenReturn(direccionMock);
     }
 
     // ---- calcularCosto: delega al correo ----
     @Test
     void calcularCostoDelegaAlCorreo() {
-        envioEstandar.calcularCosto(pedidoMock);
+        envioEstandar.calcularCosto(enviableMock);
 
         verify(correoMock).estimarEnvio(5.0, direccionMock);
     }
@@ -45,7 +45,7 @@ class EnvioEstandarTest {
     void calcularCostoDevuelveLoQueEstimaElCorreo() {
         when(correoMock.estimarEnvio(5.0, direccionMock)).thenReturn(25.0);
 
-        double costo = envioEstandar.calcularCosto(pedidoMock);
+        double costo = envioEstandar.calcularCosto(enviableMock);
 
         assertEquals(25.0, costo);
     }
@@ -54,7 +54,7 @@ class EnvioEstandarTest {
 
     @Test
     void calcularTiempoEnvioSiempreEsSieteDias() {
-        int dias = envioEstandar.calcularTiempoEnvio(pedidoMock);
+        int dias = envioEstandar.calcularTiempoEnvio(enviableMock);
 
         assertEquals(7, dias);
     }

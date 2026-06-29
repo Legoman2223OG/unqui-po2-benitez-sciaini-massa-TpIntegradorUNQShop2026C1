@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 class EnvioExpressTest {
 
     EnvioExpressAPI apiMock;
-    Pedido pedidoMock;
+    Enviable enviableMock;
 
     EnvioExpress envioExpress;
 
@@ -22,11 +22,11 @@ class EnvioExpressTest {
     void setUp() {
         //Creo el objeto MOCK:
         apiMock = mock(EnvioExpressAPI.class);
-        pedidoMock = mock(Pedido.class);
+        enviableMock = mock(Enviable.class);
 
         envioExpress = new EnvioExpress(apiMock);
 
-        when(pedidoMock.total()).thenReturn(10000.0);
+        when(enviableMock.total()).thenReturn(10000.0);
     }
 
     // ---- calcularCosto: delega a la API ----
@@ -35,7 +35,7 @@ class EnvioExpressTest {
     void calcularCostoDelegaALaAPI() {
         when(apiMock.calcularCosto(10000.0)).thenReturn(3000.0);
 
-        envioExpress.calcularCosto(pedidoMock);
+        envioExpress.calcularCosto(enviableMock);
 
         verify(apiMock).calcularCosto(10000.0);
     }
@@ -44,7 +44,7 @@ class EnvioExpressTest {
     void calcularCostoDevuelveLoQueCalculaLaAPI() {
         when(apiMock.calcularCosto(10000.0)).thenReturn(3000.0);
 
-        double costo = envioExpress.calcularCosto(pedidoMock);
+        double costo = envioExpress.calcularCosto(enviableMock);
 
         assertEquals(3000.0, costo);
     }
@@ -53,7 +53,7 @@ class EnvioExpressTest {
 
     @Test
     void calcularTiempoEnvioSiempreEsUnDia() {
-        int dias = envioExpress.calcularTiempoEnvio(pedidoMock);
+        int dias = envioExpress.calcularTiempoEnvio(enviableMock);
 
         assertEquals(1, dias);
     }

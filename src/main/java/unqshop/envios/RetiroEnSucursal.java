@@ -11,12 +11,12 @@ public class RetiroEnSucursal implements MetodoEnvio {
     }
 
     @Override
-    public double calcularCosto(Pedido pedido) {
+    public double calcularCosto(Enviable pedido) {
         return 0;
     }
 
     @Override
-    public int calcularTiempoEnvio(Pedido pedido) {
+    public int calcularTiempoEnvio(Enviable pedido) {
         return sucursal.tieneStock(pedido)
                 ? 0
                 : 3;

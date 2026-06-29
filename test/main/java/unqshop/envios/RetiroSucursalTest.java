@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 class RetiroSucursalTest {
 
     Sucursal sucursalMock;
-    Pedido pedidoMock;
+    Enviable enviableMock;
 
     RetiroEnSucursal retiroEnSucursal;
 
@@ -36,7 +36,7 @@ class RetiroSucursalTest {
     void setUp() {
         //Creo el objeto MOCK:
         sucursalMock = mock(Sucursal.class);
-        pedidoMock = mock(Pedido.class);
+        enviableMock = mock(Enviable.class);
 
         retiroEnSucursal = new RetiroEnSucursal(sucursalMock);
     }
@@ -45,7 +45,7 @@ class RetiroSucursalTest {
 
     @Test
     void calcularCostoSiempreEsCero() {
-        double costo = retiroEnSucursal.calcularCosto(pedidoMock);
+        double costo = retiroEnSucursal.calcularCosto(enviableMock);
 
         assertEquals(0, costo);
     }
@@ -55,21 +55,21 @@ class RetiroSucursalTest {
     @Test
     void calcularTiempoEnvioEsCeroCuandoHayStock() {
         //"si te llaman con estos parámetros,     devolvé esto..."
-        when(sucursalMock.tieneStock(pedidoMock)).thenReturn(true);
+        when(sucursalMock.tieneStock(enviableMock)).thenReturn(true);
 
-        int dias = retiroEnSucursal.calcularTiempoEnvio(pedidoMock);
+        int dias = retiroEnSucursal.calcularTiempoEnvio(enviableMock);
 
         assertEquals(0, dias);
-        verify(sucursalMock).tieneStock(pedidoMock);
+        verify(sucursalMock).tieneStock(enviableMock);
     }
 
     @Test
     void calcularTiempoEnvioEsTresCuandoNoHayStock() {
-        when(sucursalMock.tieneStock(pedidoMock)).thenReturn(false);
+        when(sucursalMock.tieneStock(enviableMock)).thenReturn(false);
 
-        int dias = retiroEnSucursal.calcularTiempoEnvio(pedidoMock);
+        int dias = retiroEnSucursal.calcularTiempoEnvio(enviableMock);
 
         assertEquals(3, dias);
-        verify(sucursalMock).tieneStock(pedidoMock);
+        verify(sucursalMock).tieneStock(enviableMock);
     }
 }

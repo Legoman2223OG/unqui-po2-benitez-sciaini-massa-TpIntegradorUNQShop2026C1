@@ -13,7 +13,7 @@ public class EnvioEstandar implements MetodoEnvio {
     }
 
     @Override
-    public double calcularCosto(Pedido pedido) {
+    public double calcularCosto(Enviable pedido) {
 
         return correoArgentina.estimarEnvio(
                 pedido.pesoTotal(),
@@ -21,7 +21,7 @@ public class EnvioEstandar implements MetodoEnvio {
     }
 
     @Override
-    public int calcularTiempoEnvio(Pedido pedido) {
+    public int calcularTiempoEnvio(Enviable pedido) {
         //por conveniencia, se asume que el tiempo de envío es de 7 días.
         return 7;
     }

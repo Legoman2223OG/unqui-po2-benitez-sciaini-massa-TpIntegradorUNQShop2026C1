@@ -1,6 +1,6 @@
 package main.java.unqshop.envios;
 
-public interface Pedido {
+public interface Enviable {
 
     double total();
 

@@ -12,14 +12,14 @@ public class EnvioExpress implements MetodoEnvio {
     }
 
     @Override
-    public double calcularCosto(Pedido pedido) {
+    public double calcularCosto(Enviable pedido) {
         return this.getEnvioExpressAPI().calcularCosto(
                 pedido.total()
         );
     }
 
     @Override
-    public int calcularTiempoEnvio(Pedido pedido) {
+    public int calcularTiempoEnvio(Enviable pedido) {
         return 1;
     }
     public EnvioExpressAPI getEnvioExpressAPI() {
