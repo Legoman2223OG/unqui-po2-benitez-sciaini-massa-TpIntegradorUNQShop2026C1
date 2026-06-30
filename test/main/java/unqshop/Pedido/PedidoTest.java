@@ -161,7 +161,7 @@ class PedidoTest {
 			pedidoUnq.agregarItem(null, null);
         });
 		assertEquals("el pedido ya fue entregado", ex.getMessage());
-	}
+	} 
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoCANCELADO() {

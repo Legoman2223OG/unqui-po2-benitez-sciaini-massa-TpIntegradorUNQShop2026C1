@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 class AtributoDinamicoTest {
 	
 	private AtributoDinamico sutAtrD;
-	
+	 
 	/**
 	 * Crea un escenario donde un atributo dinamico tiene 2 clave y valor:
 	 * Ancho: 2
 	 * Altura: 2
-	 * @throws Exception
-	 */
+	 * @throws Exception 
+	 */  
 	@BeforeEach
 	void setUp() throws Exception {
 		sutAtrD = new AtributoDinamico();
 		sutAtrD.ingresarAtributo("Ancho", "2");
 		sutAtrD.ingresarAtributo("Altura", "2");
-	}
+	} 
 
 	/**
 	 * Indica que al preguntarle sobre los dos atributos del atributo dinamico, sus valores son: 2 y 2.
