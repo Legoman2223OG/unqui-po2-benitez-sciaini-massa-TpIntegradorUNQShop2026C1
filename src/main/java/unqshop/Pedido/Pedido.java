@@ -27,7 +27,7 @@ public class Pedido {
 	private List <ItemCatalogo> items; /*items que pide el cliente en el pedido*/
 	private List <ObserverPedido> subSistemas; /*se les notifica cuando hay cambio de estado en el pedido*/
 	private Contexto contexto; /*etapa del ciclo de vida del pedido*/
-	private Cliente cliente; /*cliente que realizo el pedido*/
+	private String mailCliente;
 	private MetodoPago metodoDePago;
 	private MetodoEnvio modoDeEnvio;
 	private Direccion direccion;
@@ -37,12 +37,12 @@ public class Pedido {
 
 
 
-	public Pedido(Cliente cliente, MetodoPago metodoDePago, MetodoEnvio envio, MailSender mailSender, Direccion direccion) {
+	public Pedido(String mailCliente, MetodoPago metodoDePago, MetodoEnvio envio, MailSender mailSender, Direccion direccion) {
 		super();
 		this.items        = new ArrayList<>();
 		this.subSistemas  = new ArrayList<>();
 		this.contexto     = new Borrador();
-		this.cliente      = cliente;
+		this.mailCliente  = mailCliente;
 		this.metodoDePago = metodoDePago;
 		this.modoDeEnvio  = envio;
 		this.mailSender   = mailSender;
@@ -181,7 +181,7 @@ public class Pedido {
 	
 	
 	public String getMailCliente() {
-		return this.getCliente().getMail();
+		return this.mailCliente;
 	}
 	
 	//Metodos relacionados a subSistemas
@@ -214,10 +214,6 @@ public class Pedido {
 
 	public void setContexto(Contexto contexto) {
 		this.contexto = contexto;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
 	}
 	
 	public MetodoPago getMetodoDePago() {
