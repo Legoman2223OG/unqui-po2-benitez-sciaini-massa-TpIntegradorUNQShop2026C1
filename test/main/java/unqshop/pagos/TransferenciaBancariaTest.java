@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -101,6 +103,23 @@ class TransferenciaBancariaTest {
         verify(bancoMock).notificarResultado("12345678901");
     }
 
+    // ---- realizarTransferencia: metodo propio, siempre vacio ----
+
+    @Test
+    void realizarTransferenciaSiempreDevuelveNull() {
+        assertEquals("", transferencia.realizarTransferencia(1000, "origen", "destino"));
+    }
+
+    // ---- constructor con solo el monto: no inicializa el banco ----
+
+    @Test
+    void constructorConSoloMontoNoInicializaElBanco() {
+        TransferenciaBancaria transferenciaSimple = new TransferenciaBancaria(1000);
+
+        assertNull(transferenciaSimple.getBanco());
+        assertEquals(1000, transferenciaSimple.getMonto());
+    }
+
     // ---- flujo completo ----
 
     @Test
@@ -112,4 +131,6 @@ class TransferenciaBancariaTest {
         verify(bancoMock).emitirSeñalDeAprobacion();
         verify(bancoMock).notificarResultado("12345678901");
     }
+
+
 }

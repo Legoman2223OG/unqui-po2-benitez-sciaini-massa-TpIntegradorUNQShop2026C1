@@ -80,4 +80,13 @@ class BilleteraVirtualTest {
         verify(mobileUIMock, times(1)).push("Pago enviado: " + billeteraAprobada.getMonto() + " pesos enviados de tu cuenta al destinatario.");
     }
 
+    //--- Constructor sin mock: --- //
+    @Test
+    void constructorSinMockUsaUnaMobileUIRealYNoTiraExcepcion() {
+        //este constructor crea su propia MobileUI real (no mockeada)
+        BilleteraVirtual billeteraReal = new BilleteraVirtual(500, 5000);
+
+        assertDoesNotThrow(() -> billeteraReal.procesar_el_pago());
+    }
+
 }
