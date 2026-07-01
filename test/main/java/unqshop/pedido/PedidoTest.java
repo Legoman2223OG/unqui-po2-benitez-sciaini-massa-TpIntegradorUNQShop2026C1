@@ -272,6 +272,298 @@ class PedidoTest {
 	}
 	
 	
+	@Test
+	void estadoConfirmadoRecibeConfirmar() {
+		pedido.setContexto(confirmado);
+		pedido.confirmar();
+		
+		Mockito.verify(confirmado).confirmar(pedido);
+	}
+	
+	@Test
+	void estadoConfirmadoRecibePrepararPedido() {
+		pedido.setContexto(confirmado);
+		pedido.prepararPedido();
+		
+		Mockito.verify(confirmado).prepararPedido(pedido);
+	}
+	
+	@Test
+	void estadoConfirmadoRecibeEnviar() {
+		pedido.setContexto(confirmado);
+		pedido.enviar();
+		
+		Mockito.verify(confirmado).enviar(pedido);
+	}
+	
+	@Test
+	void estadoConfirmadoRecibeEntregar() {
+		pedido.setContexto(confirmado);
+		pedido.entregar();
+		
+		Mockito.verify(confirmado).entregar(pedido);
+	}
+	
+	@Test
+	void estadoConfirmadoRecibeCancelar() {
+		pedido.setContexto(confirmado);
+		pedido.cancelar();
+		
+		Mockito.verify(confirmado).cancelar(pedido);
+	}
+	
+	@Test
+	void estadoConfirmadoRecibeAgregarItem() {
+		pedido.setContexto(confirmado);
+		pedido.agregarItem(item1);
+		
+		Mockito.verify(confirmado).agregarItem(pedido, item1);
+	}
+	
+	@Test
+	void estadoConfirmadoRecibeQuitarItem() {
+		pedido.setContexto(confirmado);
+		pedido.agregarItem(item1);
+		pedido.quitarItem(item1);
+		
+		Mockito.verify(confirmado).quitarItem(pedido, item1);
+	}
+	
+	//
+	
+	@Test
+	void estadoEn_PreparacionRecibeConfirmar() {
+		pedido.setContexto(en_preparacion);
+		pedido.confirmar();
+		
+		Mockito.verify(en_preparacion).confirmar(pedido);
+	}
+	
+	@Test
+	void estadoEn_PreparacionRecibePrepararPedido() {
+		pedido.setContexto(en_preparacion);
+		pedido.prepararPedido();
+		
+		Mockito.verify(en_preparacion).prepararPedido(pedido);
+	}
+	
+	@Test
+	void estadoEn_PreparacionRecibeEnviar() {
+		pedido.setContexto(en_preparacion);
+		pedido.enviar();
+		
+		Mockito.verify(en_preparacion).enviar(pedido);
+	}
+	
+	@Test
+	void estadoEn_PreparacionRecibeEntregar() {
+		pedido.setContexto(en_preparacion);
+		pedido.entregar();
+		
+		Mockito.verify(en_preparacion).entregar(pedido);
+	}
+	
+	@Test
+	void estadoEn_PreparacionRecibeCancelar() {
+		pedido.setContexto(en_preparacion);
+		pedido.cancelar();
+		
+		Mockito.verify(en_preparacion).cancelar(pedido);
+	}
+	
+	@Test
+	void estadoEn_PreparacionRecibeAgregarItem() {
+		pedido.setContexto(en_preparacion);
+		pedido.agregarItem(item1);
+		
+		Mockito.verify(en_preparacion).agregarItem(pedido, item1);
+	}
+	
+	@Test
+	void estadoEn_PreparacionRecibeQuitarItem() {
+		pedido.setContexto(en_preparacion);
+		pedido.agregarItem(item1);
+		pedido.quitarItem(item1);
+		
+		Mockito.verify(en_preparacion).quitarItem(pedido, item1);
+	}
+	
+	//
+	
+	@Test
+	void estadoEnviadoRecibeConfirmado() {
+		pedido.setContexto(enviado);
+		pedido.confirmar();
+		
+		Mockito.verify(enviado).confirmar(pedido);
+	}
+	
+	@Test
+	void estadoEnviadoRecibePrepararPedido() {
+		pedido.setContexto(enviado);
+		pedido.prepararPedido();
+		
+		Mockito.verify(enviado).prepararPedido(pedido);
+	}
+	
+	@Test
+	void estadoEnviadoRecibeEnviar() {
+		pedido.setContexto(enviado);
+		pedido.enviar();
+		
+		Mockito.verify(enviado).enviar(pedido);
+	}
+	
+	@Test
+	void estadoEnviadoRecibeEntreagr() {
+		pedido.setContexto(enviado);
+		pedido.entregar();
+		
+		Mockito.verify(enviado).entregar(pedido);
+	}
+	
+	@Test
+	void estadoEnviadoRecibeCancelar() {
+		pedido.setContexto(enviado);
+		pedido.cancelar();
+		
+		Mockito.verify(enviado).cancelar(pedido);
+	}
+	
+	@Test
+	void estadoEnviadoRecibeAgregarItem() {
+		pedido.setContexto(enviado);
+		pedido.agregarItem(item1);
+		
+		Mockito.verify(enviado).agregarItem(pedido, item1);
+	}
+	
+	@Test
+	void estadoEnviadoRecibeQuitarItem() {
+		pedido.setContexto(enviado);
+		pedido.agregarItem(item1);
+		pedido.quitarItem(item1);
+		
+		Mockito.verify(enviado).quitarItem(pedido, item1);
+	}
+	
+	//
+	
+	@Test
+	void estadoEntregadoRecibeConfirmar() {
+		pedido.setContexto(entregado);
+		pedido.confirmar();
+		
+		Mockito.verify(entregado).confirmar(pedido);
+	}
+	
+	@Test
+	void estadoEntregadoRecibePrepararPedido() {
+		pedido.setContexto(entregado);
+		pedido.prepararPedido();
+		
+		Mockito.verify(entregado).prepararPedido(pedido);
+	}
+	
+	@Test
+	void estadoEntregadoRecibeEnviar() {
+		pedido.setContexto(entregado);
+		pedido.enviar();
+		
+		Mockito.verify(entregado).enviar(pedido);
+	}
+	
+	@Test
+	void estadoEntregadoRecibeEntregar() {
+		pedido.setContexto(entregado);
+		pedido.entregar();
+		
+		Mockito.verify(entregado).entregar(pedido);
+	}
+	
+	@Test
+	void estadoEntregadoRecibeCancelar() {
+		pedido.setContexto(entregado);
+		pedido.cancelar();
+		
+		Mockito.verify(entregado).cancelar(pedido);
+	}
+	
+	@Test
+	void estadoEntregadoRecibeAgregarItem() {
+		pedido.setContexto(entregado);
+		pedido.agregarItem(item1);
+		
+		Mockito.verify(entregado).agregarItem(pedido, item1);
+	}
+	
+	@Test
+	void estadoEntregadoRecibeQuitarItem() {
+		pedido.setContexto(entregado);
+		pedido.agregarItem(item1);
+		pedido.quitarItem(item1);
+		
+		Mockito.verify(entregado).quitarItem(pedido, item1);
+	}
+	
+	//
+	
+	@Test
+	void estadoCanceladoRecibeConfirmar() {
+		pedido.setContexto(cancelado);
+		pedido.confirmar();
+		
+		Mockito.verify(cancelado).confirmar(pedido);
+	}
+	
+	@Test
+	void estadoCanceladoRecibePrepararPedido() {
+		pedido.setContexto(cancelado);
+		pedido.prepararPedido();
+		
+		Mockito.verify(cancelado).prepararPedido(pedido);
+	}
+	
+	@Test
+	void estadoCanceladoRecibeEnviar() {
+		pedido.setContexto(cancelado);
+		pedido.enviar();
+		
+		Mockito.verify(cancelado).enviar(pedido);
+	}
+	
+	@Test
+	void estadoCanceladoRecibeEntregar() {
+		pedido.setContexto(cancelado);
+		pedido.entregar();
+		
+		Mockito.verify(cancelado).entregar(pedido);
+	}
+	
+	@Test
+	void estadoCanceladoRecibeCancelar() {
+		pedido.setContexto(cancelado);
+		pedido.cancelar();
+		
+		Mockito.verify(cancelado).cancelar(pedido);
+	}
+	
+	@Test
+	void estadoCanceladoRecibeAgregarItem() {
+		pedido.setContexto(cancelado);
+		pedido.agregarItem(item1);
+		
+		Mockito.verify(cancelado).agregarItem(pedido, item1);
+	}
+	
+	@Test
+	void estadoCanceladoRecibeQuitarItem() {
+		pedido.setContexto(cancelado);
+		pedido.agregarItem(item1);
+		pedido.quitarItem(item1);
+		
+		Mockito.verify(cancelado).quitarItem(pedido, item1);
+	}
 	
 	// -----------------------------------------------------------
 	//Metodos Sin Mockito
