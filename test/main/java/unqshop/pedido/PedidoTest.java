@@ -73,6 +73,9 @@ class PedidoTest {
         Mockito.when(item1.getPrecioFinal()).thenReturn(100.0);
         Mockito.when(item2.getPrecioFinal()).thenReturn(250.0);
         
+        Mockito.when(item1.getPeso()).thenReturn(10.0);
+        Mockito.when(item2.getPeso()).thenReturn(5.0);
+        
         Mockito.when(metodoEnvio.calcularCosto(pedido)).thenReturn(100.0);
         
         borrador       = Mockito.mock(Borrador.class);
@@ -581,13 +584,44 @@ class PedidoTest {
 	}
 	
 	@Test
+	void seGeneraComprobandeFizcal() {
+		
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        
+		pedido.generarComprobanteFizcal();
+		
+		assertEquals("Generando Comprobante fizcal", output.toString());
+		
+	}
+	
+	@Test
 	void cambiarContextoFuncionaCorrectamente() {
-		pedido.cancelar();
+		pedido.cambiarContexto(new Cancelado());
 		
 		assertEquals(ContextoTipo.CANCELADO, pedido.getContextoTipo());
 	}
 	
+	@Test
+	void pesoTotalEslaSumaDelPesoDeLosItems() {
+		pedido.agregarItem(item1);
+		pedido.agregarItem(item2);
+		
+		assertEquals(15.0, pedido.pesoTotal());
+	}
 	
+	@Test
+	void totalEsIgualAlPrecioSumadoDeLosItems() {
+		pedido.agregarItem(item1);
+		pedido.agregarItem(item2);
+		
+		assertEquals(pedido.total(), pedido.precioItems());
+	}
+	
+	@Test
+	void pedidoEmpiezaEnBorrador() {
+		assertEquals(ContextoTipo.BORRADOR, pedido.getContextoTipo());
+	}
 	
 	// -----------------------------------------------------------
 	//Metodos Sin Mockito
