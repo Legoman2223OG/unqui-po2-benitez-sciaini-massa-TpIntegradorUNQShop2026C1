@@ -3,7 +3,6 @@ package main.java.unqshop;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import main.java.unqshop.busqueda.CriterioCatalogo;
 import main.java.unqshop.catalogo.ItemCatalogo;
@@ -132,9 +131,9 @@ public class UnqShop {
 	 * Busca un pedido según la id especificada. 
 	 * @param La id del pedido que se quiere buscar, no puede ser menor a 0.
 	 * @return El pedido que se necesita buscar.
-	 * @throws NoSuchElementException, Si el pedido no existe.
+	 * @throws Exception 
 	 */
-	private Pedido buscarPedido(int id) throws NoSuchElementException {
+	private Pedido buscarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		return this.pedidos.stream().filter(p -> p.getId() == id).findFirst().orElseThrow();
 	}
@@ -142,8 +141,9 @@ public class UnqShop {
 	/**
 	 * Confirma el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
+	 * @throws Exception 
 	 */
-	public void confirmarPedido(int id) {
+	public void confirmarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.confirmar();
@@ -152,8 +152,9 @@ public class UnqShop {
 	/**
 	 * Prepara el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
+	 * @throws Exception 
 	 */
-	public void prepararPedido(int id) {
+	public void prepararPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.prepararPedido();
@@ -162,8 +163,9 @@ public class UnqShop {
 	/**
 	 * Envia el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
+	 * @throws Exception 
 	 */
-	public void enviarPedido(int id) {
+	public void enviarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.enviar();
@@ -172,8 +174,9 @@ public class UnqShop {
 	/**
 	 * Entrega el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
+	 * @throws Exception 
 	 */
-	public void entregar(int id) {
+	public void entregar(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.entregar();
@@ -182,8 +185,9 @@ public class UnqShop {
 	/**
 	 * Cancela el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
+	 * @throws Exception 
 	 */
-	public void cancelar(int id) {
+	public void cancelar(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.cancelar();
@@ -193,8 +197,9 @@ public class UnqShop {
 	 * Agrega un item al pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @param Un sku de un item del catalogo valido. No puede ser nulo o vacio.
+	 * @throws Exception 
 	 */
-	public void agregarItem(int id, String sku) {
+	public void agregarItem(int id, String sku) throws Exception {
 		assertIdPositivoOCero(id);
 		assertStringNoVacio(sku);
 		Pedido pedido = this.buscarPedido(id);
@@ -220,9 +225,9 @@ public class UnqShop {
 	 * Busca el item del catalogo que corresponda con el SKU ingresado.
 	 * @param Un SKU de item, no puede ser nulo o vacio.
 	 * @return El item que se quiere buscar.
-	 * @throws NoSuchElementException, si el item no existe.
+	 * @throws Exception 
 	 */
-	private ItemCatalogo buscarItem(String sku) throws NoSuchElementException{
+	private ItemCatalogo buscarItem(String sku) throws Exception{
 		assertStringNoVacio(sku);
 		return this.inventario.stream().filter(i -> i.getSku().equals(sku)).findFirst().orElseThrow();
 	}
