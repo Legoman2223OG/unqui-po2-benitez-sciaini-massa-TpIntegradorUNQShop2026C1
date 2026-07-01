@@ -213,6 +213,66 @@ class PedidoTest {
 	}
 	
 	
+	//Test para confirmar que el estado recibe los mensajes de manera correcta
+	@Test
+	void estadoBorradorRecibeConfirmado() {
+		pedido.setContexto(borrador);
+		pedido.confirmar();
+		
+		Mockito.verify(borrador).confirmar(pedido);
+	}
+	
+	@Test
+	void estadoBorradorRecibePrepararPedido() {
+		pedido.setContexto(borrador);
+		pedido.prepararPedido();
+		
+		Mockito.verify(borrador).prepararPedido(pedido);
+	}
+	
+	@Test
+	void estadoBorradorRecibeEnviar() {
+		pedido.setContexto(borrador);
+		pedido.enviar();
+		
+		Mockito.verify(borrador).enviar(pedido);
+	}
+	
+	@Test
+	void estadoBorradorRecibeEntregar() {
+		pedido.setContexto(borrador);
+		pedido.entregar();
+		
+		Mockito.verify(borrador).entregar(pedido);
+	}
+	
+	@Test
+	void estadoBorradorRecibeCancelar() {
+		pedido.setContexto(borrador);
+		pedido.cancelar();
+		
+		Mockito.verify(borrador).cancelar(pedido);
+	}
+	
+	@Test
+	void estadoBorradorRecibeAgregarItem() {
+		pedido.setContexto(borrador);
+		pedido.agregarItem(item1);
+		
+		Mockito.verify(borrador).agregarItem(pedido, item1);
+	}
+	
+	@Test
+	void estadoBorradorRecibeQuitarItem() {
+		pedido.setContexto(borrador);
+		pedido.agregarItem(item1);
+		pedido.quitarItem(item1);
+		
+		Mockito.verify(borrador).quitarItem(pedido, item1);
+	}
+	
+	
+	
 	// -----------------------------------------------------------
 	//Metodos Sin Mockito
 	
