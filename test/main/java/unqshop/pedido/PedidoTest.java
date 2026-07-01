@@ -2,6 +2,8 @@ package main.java.unqshop.pedido;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -564,6 +566,28 @@ class PedidoTest {
 		
 		Mockito.verify(cancelado).quitarItem(pedido, item1);
 	}
+	
+	//
+	@Test
+	void seImprimeMensajeCorrectoAlCancelarPedido() {
+		
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        
+		pedido.cancelar();
+		
+		assertEquals("pedido cancelado" + System.lineSeparator(), output.toString());
+		
+	}
+	
+	@Test
+	void cambiarContextoFuncionaCorrectamente() {
+		pedido.cancelar();
+		
+		assertEquals(ContextoTipo.CANCELADO, pedido.getContextoTipo());
+	}
+	
+	
 	
 	// -----------------------------------------------------------
 	//Metodos Sin Mockito
