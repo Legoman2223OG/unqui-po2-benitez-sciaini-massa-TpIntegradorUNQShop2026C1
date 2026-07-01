@@ -1,4 +1,4 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +9,12 @@ import org.junit.jupiter.api.Test;
 
 import main.java.unqshop.pagos.BilleteraVirtual;
 import main.java.unqshop.pagos.MetodoPago;
+import main.java.unqshop.pedido.Cancelado;
+import main.java.unqshop.pedido.Confirmado;
+import main.java.unqshop.pedido.En_Preparacion;
+import main.java.unqshop.pedido.Entregado;
+import main.java.unqshop.pedido.Enviado;
+import main.java.unqshop.pedido.Pedido;
 
 
 class PedidoTest {

@@ -1,4 +1,4 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 /*clase que simula una nota de credito*/
 public class NotaDeCredito {
 	private double monto;

@@ -1,42 +1,44 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 
 import main.java.unqshop.catalogo.ItemCatalogo;
 
-public class Cancelado implements Contexto {
+public class Borrador implements Contexto {
 
 	@Override
 	public ContextoTipo contexto() {
-		return ContextoTipo.CANCELADO;
+		return ContextoTipo.BORRADOR;
 	}
 
 	@Override
 	public void confirmar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("El pedido ah sido cancelado");
+		pedido.cambiarContexto(new Confirmado());
+		pedido.descrementarStock();
+		
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("El pedido ah sido cancelado");
+		throw new RuntimeException("No se puede preparar un pedido que aun no fue CONFIRMADO");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("El pedido ah sido cancelado");
+		throw new RuntimeException("No se puede enviar un pedido en BORRADOR");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("El pedido ah sido cancelado");
+		throw new RuntimeException("No se puede se puede entregar un pedido en BORRADOR");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("El pedido ah sido cancelado");
+		pedido.cancelarPriv();
 		
 		
 	}
@@ -45,22 +47,19 @@ public class Cancelado implements Contexto {
 	@Override
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("El pedido ah sido cancelado");
+		pedido.quitarItemPriv(item);
 	}
 	
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
-		throw new RuntimeException("El pedido ah sido cancelado");
+		pedido.agregarItemPriv(item);
 	}
 
 	@Override
 	public void notificarCambio(Pedido pedido) {}
 
 	@Override
-	public void notificarCupon5Porciento(Pedido pedido) {
-		pedido.notificarClienteCupon(5);
-		
-	}
-	
+	public void notificarCupon5Porciento(Pedido pedido) {}
+
 	@Override
 	public void generarComprobanteFizcal(Pedido pedido) {}
 	

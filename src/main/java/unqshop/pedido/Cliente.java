@@ -1,4 +1,4 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 /*
  * Interface que simula un cliente para obtener su Mail
  * */

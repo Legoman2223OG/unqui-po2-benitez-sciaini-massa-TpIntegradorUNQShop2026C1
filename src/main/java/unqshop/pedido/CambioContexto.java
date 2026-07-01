@@ -1,4 +1,4 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 /*
  * clase la cual guarda el cambio de contexto de un pedido
  * guardando su estado anterior y nuevo. 

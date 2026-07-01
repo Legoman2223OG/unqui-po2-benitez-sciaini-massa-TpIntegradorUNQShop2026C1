@@ -1,4 +1,4 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 
 public class GeneradorDeFactura implements ObserverPedido {
 

@@ -1,58 +1,53 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 
 import main.java.unqshop.catalogo.ItemCatalogo;
 
-public class Confirmado implements Contexto {
+public class Entregado implements Contexto {
 
 	@Override
 	public ContextoTipo contexto() {
-		return ContextoTipo.CONFIRMADO;
+		return ContextoTipo.ENTREGADO;
 	}
 
 	@Override
 	public void confirmar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede confirmar un pedido ya confirmado");
+		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.pagarPedido();
-		pedido.cambiarContexto(new En_Preparacion());
+		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede enviar un pedido sin prepararlo");
+		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede se puede entregar un pedido en CONFIRMADO");
+		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
-		pedido.cancelarEnConfirmado();
-		/*
-		pedido.reponerStock();
-		pedido.cancelarPriv();
-		*/
-		
+		// TODO Auto-generated method stub
+		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 
 	@Override
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("Solo se pueden quitar items del pedido en BORRADOR");
+		throw new RuntimeException("el pedido ya fue entregado");
 	}
 	
 	public void agregarItem(Pedido pedido, ItemCatalogo item) {
-		throw new RuntimeException("Solo se pueden agregar items del pedido en BORRADOR");
+		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
@@ -63,8 +58,12 @@ public class Confirmado implements Contexto {
 	
 	@Override
 	public void notificarCupon5Porciento(Pedido pedido) {}
-	
+
 	@Override
-	public void generarComprobanteFizcal(Pedido pedido) {}
+	public void generarComprobanteFizcal(Pedido pedido) {
+		pedido.generarComprobanteFizcal();
+		
+	}
+	
 
 }

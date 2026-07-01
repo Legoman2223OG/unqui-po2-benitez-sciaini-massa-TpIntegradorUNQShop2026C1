@@ -1,10 +1,10 @@
 package main.java.unqshop.envios;
 
-import main.java.unqshop.Pedido.Pedido;
+import main.java.unqshop.pedido.Pedido;
 
 /*
  * Segun GoF == 'ADAPTER'
- * Adapta el Pedido real (main.java.unqshop.Pedido.Pedido) al contrato minimo
+ * Adapta el Pedido real (main.java.unqshop.pedido.Pedido) al contrato minimo
  * que necesita el modulo de envios (la interfaz envios.Enviable).
  *
  * El modulo de envios no depende de la clase Pedido completa (con su State,

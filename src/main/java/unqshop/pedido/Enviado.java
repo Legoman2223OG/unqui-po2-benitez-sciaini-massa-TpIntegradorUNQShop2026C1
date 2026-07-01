@@ -1,44 +1,46 @@
-package main.java.unqshop.Pedido;
+package main.java.unqshop.pedido;
 
 import main.java.unqshop.catalogo.ItemCatalogo;
 
-public class En_Preparacion implements Contexto {
+import java.time.LocalDate;
+
+public class Enviado implements Contexto {
 
 	@Override
 	public ContextoTipo contexto() {
-		return ContextoTipo.EN_PREPARACION;
+		return ContextoTipo.ENVIADO;
 	}
 
 	@Override
 	public void confirmar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede confirmar un pedido en preparacion");
+		throw new RuntimeException("No se puede enviar un pedido que se esta enviando");
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede preparar un pedido que esta siendo preparado");
+		throw new RuntimeException("No se puede preparar un pedido que esta siendo enviado");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
 		// TODO Auto-generated method stub
-		pedido.cambiarContexto(new Enviado());
+		throw new RuntimeException("No se puede enviar un pedido que esta siendo enviado");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("No se puede se puede entregar un pedido en EN_PREPARACION");
+		pedido.setFechaEntrega(LocalDate.now());
+		pedido.cambiarContexto(new Entregado());
+		System.out.println("pedido entregado");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
-		pedido.cancelarEnEn_Preparacion();
+		pedido.cancelarEnEnvio();
 		/*
-		pedido.generarReembolso(pedido.precioPedido());
-		pedido.reponerStock();
+		pedido.generarReembolso(pedido.precioItems());
 		pedido.cancelarPriv();
 		*/
 		
@@ -56,13 +58,17 @@ public class En_Preparacion implements Contexto {
 	}
 
 	@Override
-	public void notificarCambio(Pedido pedido) {}
+	public void notificarCambio(Pedido pedido) {
+		pedido.notificarCambioACliente(this.contexto());
+		
+	}
 	
 	@Override
 	public void notificarCupon5Porciento(Pedido pedido) {}
 	
 	@Override
 	public void generarComprobanteFizcal(Pedido pedido) {}
+
 
 
 }
