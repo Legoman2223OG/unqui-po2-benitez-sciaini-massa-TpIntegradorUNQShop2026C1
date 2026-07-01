@@ -3,9 +3,9 @@ package main.java.unqshop.reportes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
-import main.java.unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
-import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ProductoReporte;
+import main.java.unqshop.reportes.datosDeEntrada.ItemReporte;
+import main.java.unqshop.reportes.datosDeEntrada.PedidoReporte;
+import main.java.unqshop.reportes.datosDeEntrada.ProductoReporte;
 import main.java.unqshop.reportes.formatosDeSalida.FormatoCSV;
 import main.java.unqshop.reportes.formatosDeSalida.FormatoDeTexto;
 import main.java.unqshop.reportes.formatosDeSalida.FormatoHTML;

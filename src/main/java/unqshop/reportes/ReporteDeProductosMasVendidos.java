@@ -1,7 +1,7 @@
 package main.java.unqshop.reportes;
 
-import main.java.unqshop.reportes.datosAuxiliaresPorAhora.ItemReporte;
-import main.java.unqshop.reportes.datosAuxiliaresPorAhora.PedidoReporte;
+import main.java.unqshop.reportes.datosDeEntrada.ItemReporte;
+import main.java.unqshop.reportes.datosDeEntrada.PedidoReporte;
 import main.java.unqshop.reportes.estructurasDelReporte.FilaProductoVendido;
 
 import java.time.LocalDate;
