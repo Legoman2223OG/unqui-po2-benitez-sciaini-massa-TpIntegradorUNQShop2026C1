@@ -51,8 +51,8 @@ class PedidoTest {
         metodoPago   = Mockito.mock(MetodoPago.class);
         metodoEnvio  = Mockito.mock(MetodoEnvio.class);
         
-        ItemCatalogo item1 = Mockito.mock(ItemCatalogo.class);
-        ItemCatalogo item2 = Mockito.mock(ItemCatalogo.class);
+        item1 = Mockito.mock(ItemCatalogo.class);
+        item2 = Mockito.mock(ItemCatalogo.class);
         
         mailSender   = Mockito.mock(MailSender.class);
         direccion    = Mockito.mock(Direccion.class);
@@ -106,11 +106,6 @@ class PedidoTest {
 	
 	@Test
     void precioItemsEsLaSumaDelPrecioFinalDeCadaItem() {
-
-        ItemCatalogo item1 = Mockito.mock(ItemCatalogo.class);
-        ItemCatalogo item2 = Mockito.mock(ItemCatalogo.class);
-
-
         pedido.agregarItemPriv(item1);
         pedido.agregarItemPriv(item2);
 
@@ -122,7 +117,7 @@ class PedidoTest {
 		
 		pedido.agregarItemPriv(item1);
 		
-		assertEquals(200, pedido.precioPedido());
+		assertEquals(200.0, pedido.precioPedido());
 	}
 	
 	@Test
