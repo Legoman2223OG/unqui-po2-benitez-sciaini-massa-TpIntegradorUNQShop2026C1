@@ -51,8 +51,8 @@ class PedidoTest {
         metodoPago   = Mockito.mock(MetodoPago.class);
         metodoEnvio  = Mockito.mock(MetodoEnvio.class);
         
-        ItemCatalogo item1 = Mockito.mock(ItemCatalogo.class);
-        ItemCatalogo item2 = Mockito.mock(ItemCatalogo.class);
+        item1 = Mockito.mock(ItemCatalogo.class);
+        item2 = Mockito.mock(ItemCatalogo.class);
         
         mailSender   = Mockito.mock(MailSender.class);
         direccion    = Mockito.mock(Direccion.class);
