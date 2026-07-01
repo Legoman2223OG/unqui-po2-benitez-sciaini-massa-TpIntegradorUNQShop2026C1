@@ -35,10 +35,12 @@ class ReportesTest {
     LocalDate hasta;
     LocalDate fechaDentro;
     LocalDate fechaFuera;
+    LocalDate fechaAntes;
 
     PedidoReporte pedidoDentro;
     PedidoReporte pedidoFuera;
     PedidoReporte pedidoSinFecha;
+    PedidoReporte pedidoAntes;
 
     @BeforeEach
     void setUp() {
@@ -54,6 +56,7 @@ class ReportesTest {
         hasta = LocalDate.of(2025, 1, 31);
         fechaDentro = LocalDate.of(2025, 1, 15);
         fechaFuera = LocalDate.of(2025, 2, 15);
+        fechaAntes = LocalDate.of(2024, 12, 20);
 
         // 2 auriculares a $8000 + 3 cables a $800, entregado dentro del periodo:
         pedidoDentro = new PedidoReporte(fechaDentro, List.of(
@@ -68,6 +71,11 @@ class ReportesTest {
 
         // pedido que todavia no fue entregado (sin fecha):
         pedidoSinFecha = new PedidoReporte(null, List.of(
+                new ItemReporte(auricular, 1, 8000.0)
+        ));
+
+        // mismo contenido pero entregado antes de que arranque el periodo:
+        pedidoAntes = new PedidoReporte(fechaAntes, List.of(
                 new ItemReporte(auricular, 1, 8000.0)
         ));
     }
@@ -96,6 +104,14 @@ class ReportesTest {
     void ignoraPedidosSinFechaDeEntrega() {
         ReporteDeProductosMasVendidos reporte = new ReporteDeProductosMasVendidos(
                 List.of(pedidoSinFecha), desde, hasta);
+
+        assertTrue(reporte.getFilas().isEmpty());
+    }
+
+    @Test
+    void ignoraPedidosEntregadosAntesDeQueArranqueElPeriodo() {
+        ReporteDeProductosMasVendidos reporte = new ReporteDeProductosMasVendidos(
+                List.of(pedidoAntes), desde, hasta);
 
         assertTrue(reporte.getFilas().isEmpty());
     }
