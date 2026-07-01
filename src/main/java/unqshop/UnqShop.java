@@ -6,6 +6,16 @@ import java.util.List;
 
 import main.java.unqshop.busqueda.CriterioCatalogo;
 import main.java.unqshop.catalogo.ItemCatalogo;
+import main.java.unqshop.envios.CorreoArgentina;
+import main.java.unqshop.envios.EnvioEstandar;
+import main.java.unqshop.envios.EnvioExpress;
+import main.java.unqshop.envios.EnvioExpressAPI;
+import main.java.unqshop.envios.EnvioFacade;
+import main.java.unqshop.envios.MetodoEnvio;
+import main.java.unqshop.envios.RetiroEnSucursal;
+import main.java.unqshop.envios.Sucursal;
+import main.java.unqshop.pedido.Pedido;
+import main.java.unqshop.reportes.ReportesFacade;
 
 /**
  * Clase Root que se encarga de los pedidos del cliente hacia el sistema de Unq Shop.
@@ -19,7 +29,10 @@ import main.java.unqshop.catalogo.ItemCatalogo;
  */
 public class UnqShop {
 	private List<ItemCatalogo> inventario = new ArrayList<ItemCatalogo>();
-	
+	private EnvioFacade envioFacade = new EnvioFacade();
+	private ReportesFacade reportesFacade = new ReportesFacade();
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
+	private List<String> reportes = new ArrayList<String>();
 	/**
 	 * Crea una instancia de la clase Root de la UnqShop sin ningun item de catalogo cargado.
 	 */
@@ -49,4 +62,5 @@ public class UnqShop {
 	public List<ItemCatalogo> buscarItems(CriterioCatalogo criterio){
 		return inventario.stream().filter(i -> criterio.isSatisfiedBy(i)).toList();
 	}
+	
 }
