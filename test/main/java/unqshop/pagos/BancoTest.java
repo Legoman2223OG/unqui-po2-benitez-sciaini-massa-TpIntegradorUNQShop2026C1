@@ -110,6 +110,12 @@ class BancoTest {
         assertEquals("12345678901", banco.getCBU());
     }
 
+    @Test
+    void getAliasEsNuloPorDefectoYaQueNoExisteUnSetter() {
+        //el alias nunca se asigna: no hay setAlias() ni se setea en el constructor
+        assertNull(banco.getAlias());
+    }
+
     // ---- validarVencimiento ----
 
     @Test

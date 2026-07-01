@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -59,6 +61,20 @@ class TarjetaCreditoTest {
     @Test
     void validarDatosLanzaExcepcionSiTarjetaEstaVencida() {
         assertThrows(IllegalArgumentException.class, () -> tarjetaVencida.validarDatos());
+    }
+
+    // ---- isDatosValidados ----
+
+    @Test
+    void isDatosValidadosEsFalsoPorDefecto() {
+        assertFalse(tarjeta.isDatosValidados());
+    }
+
+    @Test
+    void isDatosValidadosEsVerdaderoLuegoDeValidarDatosCorrectamente() {
+        tarjeta.validarDatos();
+
+        assertTrue(tarjeta.isDatosValidados());
     }
 
     // ---- reservarFondos ----

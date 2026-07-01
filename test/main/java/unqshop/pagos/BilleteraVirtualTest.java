@@ -63,6 +63,14 @@ class BilleteraVirtualTest {
         assertEquals(0, billeteraAprobada.getSaldoReservado());
     }
 
+    //--- GETTER & SETTER: --- //
+    @Test
+    void setSaldoDisponibleDejaCorrectamenteSeteadoElAtrDeInstanciaSaldoDisponible() {
+        billeteraAprobada.setSaldoDisponible(9999);
+
+        assertEquals(9999, billeteraAprobada.getSaldoDisponible());
+    }
+
     //--- Mockito Tests: --- //
     @Test
     void notificarResultadoInvocaCorrectamenteAlPushDeMobileUI() {
