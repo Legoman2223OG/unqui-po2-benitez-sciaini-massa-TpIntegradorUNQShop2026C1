@@ -42,10 +42,10 @@ public class Pedido implements Enviable {
 	public Pedido(int id, String mailCliente, MetodoPago metodoDePago, MetodoEnvio envio, MailSender mailSender,
 			Direccion direccion) {
 		super();
-		this.items = new ArrayList<>();
-		this.subSistemas = new ArrayList<>();
+		this.items = new ArrayList<ItemCatalogo>();
+		this.subSistemas = new ArrayList<ObserverPedido>();
 		this.contexto = new Borrador();
-		this.notasDeCredito = new ArrayList<>();
+		this.notasDeCredito = new ArrayList<NotaDeCredito>();
 		this.mailCliente = mailCliente;
 		this.metodoDePago = metodoDePago;
 		this.modoDeEnvio = envio;

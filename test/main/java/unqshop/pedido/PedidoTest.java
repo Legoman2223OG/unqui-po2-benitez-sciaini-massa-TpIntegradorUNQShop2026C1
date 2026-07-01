@@ -106,11 +106,6 @@ class PedidoTest {
 	
 	@Test
     void precioItemsEsLaSumaDelPrecioFinalDeCadaItem() {
-
-        ItemCatalogo item1 = Mockito.mock(ItemCatalogo.class);
-        ItemCatalogo item2 = Mockito.mock(ItemCatalogo.class);
-
-
         pedido.agregarItemPriv(item1);
         pedido.agregarItemPriv(item2);
 
@@ -122,7 +117,7 @@ class PedidoTest {
 		
 		pedido.agregarItemPriv(item1);
 		
-		assertEquals(200, pedido.precioPedido());
+		assertEquals(200.0, pedido.precioPedido());
 	}
 	
 	@Test
