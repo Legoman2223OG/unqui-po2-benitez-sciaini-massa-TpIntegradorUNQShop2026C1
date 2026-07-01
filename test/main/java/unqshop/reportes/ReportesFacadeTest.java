@@ -54,7 +54,7 @@ class ReportesFacadeTest {
     }
 
     private Pedido crearPedidoConItem(LocalDate fechaEntrega, String sku, String nombre, double precioFinal) {
-        Pedido pedido = new Pedido("cliente@mail.com", metodoPagoMock, metodoEnvioMock, mailSenderMock, direccionMock);
+        Pedido pedido = new Pedido(10,"cliente@mail.com", metodoPagoMock, metodoEnvioMock, mailSenderMock, direccionMock);
         pedido.setFechaEntrega(fechaEntrega);
 
         ItemCatalogo item = mock(ItemCatalogo.class);

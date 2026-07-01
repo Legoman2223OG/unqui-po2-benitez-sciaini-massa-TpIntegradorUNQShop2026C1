@@ -39,7 +39,7 @@ class PedidoEnviableTest {
         metodoEnvioMock = mock(MetodoEnvio.class);
         mailSenderMock = mock(MailSender.class);
 
-        pedido = new Pedido("cliente@mail.com", metodoPagoMock, metodoEnvioMock, mailSenderMock, direccionMock);
+        pedido = new Pedido(10,"cliente@mail.com", metodoPagoMock, metodoEnvioMock, mailSenderMock, direccionMock);
 
         pedidoEnviable = new PedidoEnviable(pedido, direccionMock);
     }
