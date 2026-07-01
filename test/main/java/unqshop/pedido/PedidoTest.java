@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import main.java.unqshop.catalogo.ItemCatalogo;
+import main.java.unqshop.catalogo.Producto;
 import main.java.unqshop.envios.Direccion;
 import main.java.unqshop.envios.MetodoEnvio;
 import main.java.unqshop.pagos.BilleteraVirtual;
@@ -32,6 +33,8 @@ class PedidoTest {
     
     ItemCatalogo item1;
     ItemCatalogo item2;
+    Producto productoMock;
+    
     
     ObserverPedido notificadorMail;
     ObserverPedido generadorDeFactura;
@@ -55,6 +58,7 @@ class PedidoTest {
         
         item1 = Mockito.mock(ItemCatalogo.class);
         item2 = Mockito.mock(ItemCatalogo.class);
+        productoMock = Mockito.mock(Producto.class);
         
         mailSender   = Mockito.mock(MailSender.class);
         direccion    = Mockito.mock(Direccion.class);
@@ -76,6 +80,7 @@ class PedidoTest {
         Mockito.when(item1.getPeso()).thenReturn(10.0);
         Mockito.when(item2.getPeso()).thenReturn(5.0);
         
+        Mockito.when(productoMock.getStock()).thenReturn(0);
         Mockito.when(metodoEnvio.calcularCosto(pedido)).thenReturn(100.0);
         
         borrador       = Mockito.mock(Borrador.class);
@@ -621,6 +626,12 @@ class PedidoTest {
 	@Test
 	void pedidoEmpiezaEnBorrador() {
 		assertEquals(ContextoTipo.BORRADOR, pedido.getContextoTipo());
+	}
+	
+	@Test
+	void tiraExcepcionSiSeTrataDeDecrementarUnItemSinStock() {
+		pedido.agregarItem(productoMock);
+		assertThrows(RuntimeException.class, () -> pedido.descrementarStock());
 	}
 	
 	// -----------------------------------------------------------
