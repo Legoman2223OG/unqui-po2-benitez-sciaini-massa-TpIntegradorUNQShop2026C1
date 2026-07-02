@@ -81,6 +81,7 @@ class PedidoTest {
         Mockito.when(item2.getPeso()).thenReturn(5.0);
         
         Mockito.when(productoMock.getStock()).thenReturn(0);
+        
         Mockito.when(metodoEnvio.calcularCosto(pedido)).thenReturn(100.0);
         
         borrador       = Mockito.mock(Borrador.class);
@@ -113,6 +114,7 @@ class PedidoTest {
 		
 		assertTrue(pedido.getItems().isEmpty());
 	}
+	
 	
 	@Test
     void precioItemsEsLaSumaDelPrecioFinalDeCadaItem() {

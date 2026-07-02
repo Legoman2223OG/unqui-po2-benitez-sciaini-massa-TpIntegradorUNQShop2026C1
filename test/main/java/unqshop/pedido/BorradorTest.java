@@ -57,5 +57,26 @@ class BorradorTest {
 
         Mockito.verify(pedido).quitarItemPriv(item1);
     }
+	
+	@Test
+	void notificarCambioNoHaceNada() {
+		borrador.notificarCambio(pedido);
+
+		Mockito.verifyNoInteractions(pedido);
+	}
+
+	@Test
+	void notificarCuponNoHaceNada() {
+		borrador.notificarCupon5Porciento(pedido);
+
+		Mockito.verifyNoInteractions(pedido);
+	}
+
+	@Test
+	void generarComprobanteFiscalNoHaceNada() {
+		borrador.generarComprobanteFizcal(pedido);
+
+		Mockito.verifyNoInteractions(pedido);
+	}
 
 }
