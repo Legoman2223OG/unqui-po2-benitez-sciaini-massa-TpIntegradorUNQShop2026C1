@@ -51,6 +51,9 @@ public class Pedido implements Enviable {
 		this.modoDeEnvio = envio;
 		this.mailSender = mailSender;
 		this.direccion = direccion;
+		
+		this.agregarSubsistema(new NotificadorDeEmail());
+		
 	}
 
 	/* Operaciones del pedido durante su ciclo de vida */
