@@ -9,8 +9,9 @@ import main.java.unqshop.reportes.datosDeEntrada.ProductoReporte;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-
+// - - - - - - - - - -
+// FACADE + ADAPTER  |
+// - - - - - - - - - -
 /*
  *  * REPORTES FACADE — punto de entrada del módulo
  *
@@ -64,6 +65,7 @@ import java.util.stream.Collectors;
 /// La Facade oculta eso detrás de un solo method con los parámetros que cualquiera entiende:
 ///     dame la lista de pedidos, el rango de fechas y el formato, y te devuelvo el String
 
+//punto por donde pasa el acoplamiento externo:
 public class ReportesFacade {
 
     public String productosMasVendidos(List<Pedido> pedidos, LocalDate desde, LocalDate hasta, ReporteVisitor formato) {
