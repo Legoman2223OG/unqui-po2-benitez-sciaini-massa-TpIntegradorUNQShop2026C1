@@ -9,4 +9,5 @@ public interface MetodoEnvio {
 
     //calcula el tiempo de envío del pedido
     int calcularTiempoEnvio(Enviable pedido);
+
 }
