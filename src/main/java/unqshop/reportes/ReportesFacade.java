@@ -75,15 +75,11 @@ public class ReportesFacade {
                 .collect(Collectors.toList());
 
         Reporte reporte = new ReporteDeProductosMasVendidos(pedidosDTO, desde, hasta);
+        //'1ER' Dispatch:
+        //(el segundo ocurre en  visitor.visitarProductos(this); @ReporteVisitor)
         return reporte.aceptar(formato);
     }
 
-    private PedidoReporte adaptarPedido(Pedido pedido) {
-        List<ItemReporte> items = pedido.getItems().stream()
-                .map(this::adaptarItem)
-                .collect(Collectors.toList());
-        return new PedidoReporte(pedido.getFechaEntrega(), items);
-    }
     //aca se utiliza una especie de adapter directamente en la fachada.
     // esto es util ya que,si ReporteDeProductosMasVendidos dependiera directo
     // de las clases de mis compas, cualquier cambio que ellos hagan en su modulo (nombre de
@@ -99,6 +95,13 @@ public class ReportesFacade {
     // desacoplar el desarrollo en paralelo del TP.
 
     //especie de 'adapter':
+    private PedidoReporte adaptarPedido(Pedido pedido) {
+        List<ItemReporte> items = pedido.getItems().stream()
+                .map(this::adaptarItem)
+                .collect(Collectors.toList());
+        return new PedidoReporte(pedido.getFechaEntrega(), items);
+    }
+
     private ItemReporte adaptarItem(ItemCatalogo item) {
         ProductoReporte producto = new ProductoReporte(item.getSku(), item.getNombre());
         return new ItemReporte(producto, 1, item.getPrecioFinal());
