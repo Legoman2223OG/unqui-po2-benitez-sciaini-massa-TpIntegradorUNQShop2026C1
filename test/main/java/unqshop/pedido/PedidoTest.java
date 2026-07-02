@@ -651,6 +651,16 @@ class PedidoTest {
 		Assertions.assertEquals("No es posible desincrementar el Stock, ya que no hay mas stock disponible para el item", excepcion.getMessage());
 	}
 	
+	@Test
+	void direccionEntregaEsLaDirrecionDada() {
+		assertEquals(direccion, pedido.direccionEntrega());
+	}
+	
+	@Test
+	void idEsElIdDado() {
+		assertEquals(11, pedido.getId());
+	}
+	
 	// -----------------------------------------------------------
 	//Metodos Sin Mockito
 	
