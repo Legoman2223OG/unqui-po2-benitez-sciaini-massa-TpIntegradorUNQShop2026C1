@@ -22,6 +22,7 @@ import java.util.Map;
 
 /// /Reporte CONCRETO, con logica y datos propios:
 public class ReporteDeProductosMasVendidos implements Reporte {
+    // encargado *solamente* de saber QUE datos recolectar. no de como formatearlos luego.
 
     private final List<FilaProductoVendido> filas;
 
@@ -46,7 +47,10 @@ public class ReporteDeProductosMasVendidos implements Reporte {
 
     @Override
     public String aceptar(ReporteVisitor visitor) {
+        //---------------------------------------
+        //DOUBLE DISPATCH 'CLAVE' para el patron:
         return visitor.visitarProductos(this);
+        //---------------------------------------
     }
 
     public List<FilaProductoVendido> getFilas() {
