@@ -53,7 +53,8 @@ public class Pedido implements Enviable {
 		this.direccion = direccion;
 		
 		this.agregarSubsistema(new NotificadorDeEmail());
-		
+		this.agregarSubsistema(new GeneradorDeFactura());
+		this.agregarSubsistema(new Fidelizacion());
 	}
 
 	/* Operaciones del pedido durante su ciclo de vida */

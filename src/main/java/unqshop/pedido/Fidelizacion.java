@@ -2,7 +2,7 @@ package main.java.unqshop.pedido;
 
 public class Fidelizacion implements ObserverPedido{
 	
-	public Fidelizacion(MailSender mailSender) {
+	public Fidelizacion() {
 		super();
 	}
 	
