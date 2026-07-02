@@ -10,7 +10,7 @@ public class Borrador implements Contexto {
 	}
 
 	@Override
-	public void confirmar(Pedido pedido) {
+	public void confirmar(Pedido pedido) throws Exception {
 		// TODO Auto-generated method stub
 		pedido.cambiarContexto(new Confirmado());
 		pedido.descrementarStock();

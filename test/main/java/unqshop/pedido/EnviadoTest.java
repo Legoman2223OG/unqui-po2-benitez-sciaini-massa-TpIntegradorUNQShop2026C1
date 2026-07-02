@@ -1,6 +1,7 @@
 package main.java.unqshop.pedido;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.time.LocalDate;
 
@@ -28,7 +29,7 @@ class EnviadoTest {
 	void entregarCambiaAEntregadoYCambiaFechaDeEntrega() {
 		enviado.entregar(pedido);
 		
-		Mockito.verify(pedido).cambiarContexto(new Entregado());
+		Mockito.verify(pedido).cambiarContexto(any(Entregado.class));
 		Mockito.verify(pedido).setFechaEntrega(LocalDate.now());
 	}
 	
