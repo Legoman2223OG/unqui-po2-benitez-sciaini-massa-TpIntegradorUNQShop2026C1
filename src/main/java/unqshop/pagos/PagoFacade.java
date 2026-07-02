@@ -14,22 +14,20 @@ package main.java.unqshop.pagos;
  * <pre>{@code
  * PagoFacade facade = new PagoFacade();
  *
- * // Billetera virtual: monto a pagar, saldo disponible y saldo reservado inicial
- * // EJEMPLO:
+ * - Billetera virtual: monto a pagar, saldo disponible y saldo reservado inicial
+ * - EJEMPLO:
  * MetodoPago billetera = new BilleteraVirtual(1500.0, 5000.0, 0.0);
- *
  * facade.pagarCon_(billetera);
+ *-----------------------------------
+ * - Transferencia bancaria: monto a transferir
+ * -    EJEMPLO:
+ *  MetodoPago transferencia = new TransferenciaBancaria(1500.0);
+ *  facade.pagarCon_(transferencia);
  *
- * // Transferencia bancaria: monto a transferir
- * // EJEMPLO:
- * MetodoPago transferencia = new TransferenciaBancaria(1500.0);
- * facade.pagarCon_(transferencia);
- *
- * // Tarjeta de crédito: monto a debitar
- * // EJEMPLO:
- * MetodoPago tarjeta = new TarjetaCredito(1500.0);
- * facade.pagarCon_(tarjeta);
- *
+ * Tarjeta de crédito: monto a debitar
+ *  EJEMPLO:
+ *  MetodoPago tarjeta = new TarjetaCredito(1500.0);
+ *  facade.pagarCon_(tarjeta);
  */
 public class PagoFacade {
 
