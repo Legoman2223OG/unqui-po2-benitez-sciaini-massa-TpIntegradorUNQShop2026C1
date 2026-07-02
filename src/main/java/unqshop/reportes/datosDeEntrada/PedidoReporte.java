@@ -1,5 +1,5 @@
-package main.java.unqshop.reportes.datosAuxiliaresPorAhora;
-
+package main.java.unqshop.reportes.datosDeEntrada;
+//la Facade los usa para construir ReporteDeProductosMasVendidos (que calcula FilaProductoVendido
 import java.time.LocalDate;
 import java.util.List;
 
