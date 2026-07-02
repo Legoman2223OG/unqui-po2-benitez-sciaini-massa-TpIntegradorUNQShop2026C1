@@ -213,7 +213,7 @@ class PedidoTest {
 		pedido.getGestor().notificarClienteCupon(pedido, 5);
 //		pedido.notificarClienteCupon(50);
 		
-		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Cupon de Descuento" , "Por la cancelacion de su pedido se le envia un cupon del " + 50.0 + "%", null);
+		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Cupon de Descuento" , "Por la cancelacion de su pedido se le envia un cupon del " + 5.0 + "%", null);
 		
 	}
 	
@@ -659,6 +659,11 @@ class PedidoTest {
 	@Test
 	void idEsElIdDado() {
 		assertEquals(11, pedido.getId());
+	}
+	
+	@Test
+	void direccionDada() {
+		assertEquals(direccion,pedido.getDireccion());
 	}
 	
 	// -----------------------------------------------------------

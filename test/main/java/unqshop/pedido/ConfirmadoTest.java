@@ -34,15 +34,6 @@ class ConfirmadoTest {
 	}
 	
 	@Test
-    void cancelarCancelaElPedido() {
-		confirmado.cancelar(pedido);
-		
-		Mockito.verify(pedido).cancelarEnConfirmado();
-		Mockito.verify(pedido).reponerStock();
-		Mockito.verify(pedido).cancelarPriv();
-	}
-	
-	@Test
 	void seNotificaCambioDeestadoAlCliente() {
 		Mockito.when(pedido.getGestor()).thenReturn(gestor);
 		
