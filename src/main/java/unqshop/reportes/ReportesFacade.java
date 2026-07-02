@@ -82,8 +82,21 @@ public class ReportesFacade {
                 .collect(Collectors.toList());
         return new PedidoReporte(pedido.getFechaEntrega(), items);
     }
+    //aca se utiliza una especie de adapter directamente en la fachada.
+    // esto es util ya que,si ReporteDeProductosMasVendidos dependiera directo
+    // de las clases de mis compas, cualquier cambio que ellos hagan en su modulo (nombre de
+    // metodo, estructura interna, lo que sea) me romperia el reporte a mi.
+    // primigeniamente aparecio como solucion al desarrollo en parelelo, cuando no teniamos toodo en main.
+    // asi que ni siquiera tenia la garantia de que esas clases estuvieran terminadas, mientras yo desarrollaba este modulo.
 
-    //especie de 'adapter'
+    // entonces se decidio como decicion de dise;io que la facade haga de "traductor" en un solo lugar:
+    // agarra el Pedido real, lo pasa a mi PedidoReporte (en el subpaquete datosDeEntrada),
+    // y de ahi para adentro, reporte no sabe que existe Pedido ni ItemCatalogo.(quedando la app 'auto-contenida o lo mas posible, al menos.)
+    // es basicamente lo mismo que resuelve un Adapter — adapto la interfaz
+    // de ellos a la que necesito yo solo que ademas sirve para
+    // desacoplar el desarrollo en paralelo del TP.
+
+    //especie de 'adapter':
     private ItemReporte adaptarItem(ItemCatalogo item) {
         ProductoReporte producto = new ProductoReporte(item.getSku(), item.getNombre());
         return new ItemReporte(producto, 1, item.getPrecioFinal());

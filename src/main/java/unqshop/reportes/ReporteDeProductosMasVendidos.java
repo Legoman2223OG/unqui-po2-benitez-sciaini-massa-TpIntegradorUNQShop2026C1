@@ -22,6 +22,7 @@ import java.util.Map;
 
 /// /Reporte CONCRETO, con logica y datos propios:
 public class ReporteDeProductosMasVendidos implements Reporte {
+    // encargado *solamente* de saber QUE datos recolectar. no de como formatearlos luego.
 
     private final List<FilaProductoVendido> filas;
 
