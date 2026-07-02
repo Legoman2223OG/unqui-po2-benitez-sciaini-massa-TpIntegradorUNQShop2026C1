@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 class ConfirmadoTest {
 	Confirmado confirmado;
     Pedido pedido;
-    
+     
 	@BeforeEach
 	void setUp() throws Exception {
 		confirmado = new Confirmado();

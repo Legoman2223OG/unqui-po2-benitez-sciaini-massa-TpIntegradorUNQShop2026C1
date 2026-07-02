@@ -105,7 +105,7 @@ public class Pedido implements Enviable {
 		System.out.println("pedido cancelado");
 		this.cambiarContexto(new Cancelado());
 	}
-
+ 
 	public void cambiarContexto(Contexto contexto) {
 		Contexto estadoAnterior = this.getContexto();
 		this.setContexto(contexto);
@@ -120,7 +120,7 @@ public class Pedido implements Enviable {
 		for (ItemCatalogo item : this.getItems()) {
 			item.decrementarStock();
 		}
-	}
+	} 
 
 	public double precioItems() {
 		return this.getItems().stream().mapToDouble(item -> item.getPrecioFinal()).sum();

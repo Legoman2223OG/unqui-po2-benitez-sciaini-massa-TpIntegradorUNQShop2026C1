@@ -51,9 +51,9 @@ class PedidoTest {
     Contexto enviado;
     Contexto entregado;
     Contexto cancelado;
+	 
 	
-	
-	@BeforeEach
+	@BeforeEach 
     void setUp() {
 		
         metodoPago   = Mockito.mock(MetodoPago.class);
@@ -231,7 +231,7 @@ class PedidoTest {
 	
 	//Test para confirmar que el estado recibe los mensajes de manera correcta
 	@Test
-	void estadoBorradorRecibeConfirmado() {
+	void estadoBorradorRecibeConfirmado() throws Exception {
 		pedido.setContexto(borrador);
 		pedido.confirmar();
 		
@@ -289,7 +289,7 @@ class PedidoTest {
 	
 	
 	@Test
-	void estadoConfirmadoRecibeConfirmar() {
+	void estadoConfirmadoRecibeConfirmar() throws Exception { 
 		pedido.setContexto(confirmado);
 		pedido.confirmar();
 		
@@ -348,7 +348,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoEn_PreparacionRecibeConfirmar() {
+	void estadoEn_PreparacionRecibeConfirmar() throws Exception {
 		pedido.setContexto(en_preparacion);
 		pedido.confirmar();
 		
@@ -407,7 +407,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoEnviadoRecibeConfirmado() {
+	void estadoEnviadoRecibeConfirmado() throws Exception {
 		pedido.setContexto(enviado);
 		pedido.confirmar();
 		
@@ -466,7 +466,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoEntregadoRecibeConfirmar() {
+	void estadoEntregadoRecibeConfirmar() throws Exception {
 		pedido.setContexto(entregado);
 		pedido.confirmar();
 		
@@ -525,7 +525,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoCanceladoRecibeConfirmar() {
+	void estadoCanceladoRecibeConfirmar() throws Exception {
 		pedido.setContexto(cancelado);
 		pedido.confirmar();
 		
@@ -675,7 +675,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoCONFIRMADO() {
-		pedidoUnq.cambiarContexto(new Confirmado());
+		pedidoUnq.setContexto(new Confirmado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -704,7 +704,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoEN_PREPARACION() {
-		pedidoUnq.cambiarContexto(new En_Preparacion());
+		pedidoUnq.setContexto(new En_Preparacion());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -733,7 +733,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoENVIADO() {
-		pedidoUnq.cambiarContexto(new Enviado());
+		pedidoUnq.setContexto(new Enviado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -762,7 +762,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoENTREGADO() {
-		pedidoUnq.cambiarContexto(new Entregado());
+		pedidoUnq.setContexto(new Entregado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -801,7 +801,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoCANCELADO() {
-		pedidoUnq.cambiarContexto(new Cancelado());
+		pedidoUnq.setContexto(new Cancelado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
