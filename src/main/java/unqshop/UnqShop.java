@@ -123,16 +123,6 @@ public class UnqShop {
 	}
 	
 	/**
-	 * Describe la lista de sucursales que hay.
-	 * @return Una lista de las sucursales de la tienda.
-	 */
-	public List<Sucursal> listaDeSucursales(){
-		//Hago un toList para no pasarle la lista original al cliente.
-		return sucursales.stream().toList();
-	}
-
-
-	/**
 	 * Busca un pedido según la id especificada. 
 	 * @param La id del pedido que se quiere buscar, no puede ser menor a 0.
 	 * @return El pedido que se necesita buscar.
@@ -181,7 +171,7 @@ public class UnqShop {
 	 * @param El id del pedido, debe ser un id valido.
 	 * @throws Exception 
 	 */
-	public void entregar(int id) throws Exception {
+	public void entregarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.entregar();
@@ -192,7 +182,7 @@ public class UnqShop {
 	 * @param El id del pedido, debe ser un id valido.
 	 * @throws Exception 
 	 */
-	public void cancelar(int id) throws Exception {
+	public void cancelarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.cancelar();
@@ -204,7 +194,7 @@ public class UnqShop {
 	 * @param Un sku de un item del catalogo valido. No puede ser nulo o vacio.
 	 * @throws Exception 
 	 */
-	public void agregarItem(int id, String sku) throws Exception {
+	public void agregarItemPedido(int id, String sku) throws Exception {
 		assertIdPositivoOCero(id);
 		assertStringNoVacio(sku);
 		Pedido pedido = this.buscarPedido(id);
@@ -218,12 +208,12 @@ public class UnqShop {
 	 * @param El sku del item que debe ser eliminado del pedido. No puede ser nulo o vacio.
 	 * @throws Exception 
 	 */
-	public void quitarItem(int id, String sku) throws Exception {
+	public void quitarItemPedido(int id, String sku) throws Exception {
 		assertIdPositivoOCero(id);
 		assertStringNoVacio(sku);
 		Pedido pedido = this.buscarPedido(id);
 		ItemCatalogo item = this.buscarItem(sku);
-		pedido.agregarItem(item);
+		pedido.quitarItem(item);
 	}
 	
 	/**
@@ -245,7 +235,7 @@ public class UnqShop {
 	 */
 	private ItemCatalogo buscarItem(String sku) throws Exception{
 		assertStringNoVacio(sku);
-		return this.inventario.stream().filter(i -> i.getSku().equals(sku)).findFirst().orElseThrow();
+		return this.inventario.stream().filter(i -> sku.equals(i.getSku())).findFirst().orElseThrow();
 	}
 	
 	

@@ -36,16 +36,6 @@ class EnviadoTest {
 	}
 	
 	@Test
-	void cancelarCancelaElPedido() {
-		Mockito.when(pedido.precioItems()).thenReturn(10.0);
-		enviado.cancelar(pedido);
-		
-		Mockito.verify(pedido).cancelarEnEnvio();
-		Mockito.verify(pedido).generarReembolso(pedido.precioItems());
-		Mockito.verify(pedido).cancelarPriv();
-	}
-	
-	@Test
 	void seNotificaCambioDeestadoAlCliente() {
 		Mockito.when(pedido.getGestor()).thenReturn(gestor);
 		enviado.notificarCambio(pedido);

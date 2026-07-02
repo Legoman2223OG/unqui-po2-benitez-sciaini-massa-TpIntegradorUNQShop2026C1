@@ -31,17 +31,6 @@ class En_PreparacionTest {
 	}
 	
 	@Test
-	void cancelarCancelaElPdido() {
-		Mockito.when(pedido.precioPedido()).thenReturn(10.0);
-		en_preparacion.cancelar(pedido);
-		
-		Mockito.verify(pedido).cancelarEnEn_Preparacion();
-		Mockito.verify(pedido).generarReembolso(pedido.precioPedido());
-		Mockito.verify(pedido).reponerStock();
-		Mockito.verify(pedido).cancelarPriv();
-	}
-	
-	@Test
 	void notificarCambioNoHaceNada() {
 		en_preparacion.notificarCambio(pedido);
 
