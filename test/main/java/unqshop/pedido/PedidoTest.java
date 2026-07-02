@@ -97,7 +97,7 @@ class PedidoTest {
 
         assertTrue(pedido.getItems().isEmpty());
     }
-	
+	 
 	@Test
     void agregarItemPrivAgregaCorrectamente() {
 
@@ -167,8 +167,9 @@ class PedidoTest {
 	}
 	
 	@Test
-	void pedidoEmpizaSinNingunSubsistema() {
-		assertTrue(pedido.getSubSistemas().isEmpty());
+	void pedidoEmpizaConTresSubsistema() {
+		
+		assertEquals(3, pedido.getSubSistemas().size());
 	}
 	
 	@Test

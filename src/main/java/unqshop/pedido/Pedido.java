@@ -65,7 +65,7 @@ public class Pedido implements Enviable {
 
 	public void confirmar() {/* Valido solo en BORRADOR */
 		this.getContexto().confirmar(this);
-	}
+	} 
 
 	public void prepararPedido() {/* Valido solo en CONFIRMADO */
 		this.getContexto().prepararPedido(this);

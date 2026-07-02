@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import main.java.unqshop.catalogo.ItemCatalogo;
-
+import static org.mockito.ArgumentMatchers.any;
 class BorradorTest {
 	
 	Borrador borrador;
@@ -15,7 +15,7 @@ class BorradorTest {
     ItemCatalogo item1;
     ItemCatalogo item2;
     
-    
+     
 	@BeforeEach
 	void setUp() throws Exception {
 		borrador = new Borrador();
@@ -33,7 +33,7 @@ class BorradorTest {
     void confirmarCambiaAConfirmadoYDescuentaStock() {
         borrador.confirmar(pedido);
 
-        Mockito.verify(pedido).cambiarContexto(new Confirmado());
+        Mockito.verify(pedido).cambiarContexto(any(Confirmado.class));
         Mockito.verify(pedido).descrementarStock();
     }
 	
