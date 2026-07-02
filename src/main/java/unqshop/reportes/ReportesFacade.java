@@ -105,5 +105,7 @@ public class ReportesFacade {
     private ItemReporte adaptarItem(ItemCatalogo item) {
         ProductoReporte producto = new ProductoReporte(item.getSku(), item.getNombre());
         return new ItemReporte(producto, 1, item.getPrecioFinal());
+    //el Pedido guarda una entrada por unidad comprada (3 auriculares = 3 objetos en la lista),
+        // por eso adaptarItem pone cantidad = 1 y es @ReporteDeProductosMasVendidos quien acumula
     }
 }
