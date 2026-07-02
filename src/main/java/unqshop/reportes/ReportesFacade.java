@@ -60,12 +60,12 @@ import java.util.stream.Collectors;
  *   - Los ítems de cada pedido tienen que ser Producto o Paquete del módulo Catálogo.
  */
 
-/// porque el Visitor resuelve el problema de los formatos, pero quien llama al módulo todavía tendría que saber construir PedidoReporte, ItemReporte, ProductoReporte
+/// el Visitor resuelve el problema de los formatos, pero quien llama al módulo todavía tendría que saber construir PedidoReporte, ItemReporte, ProductoReporte
 ///     y pasárselos al constructor de ReporteDeProductosMasVendidos.
 /// La Facade oculta eso detrás de un solo method con los parámetros que cualquiera entiende:
 ///     dame la lista de pedidos, el rango de fechas y el formato, y te devuelvo el String
 
-//punto por donde pasa el acoplamiento externo:
+//punto por donde pasa ttodo el acoplamiento externo:
 public class ReportesFacade {
 
     public String productosMasVendidos(List<Pedido> pedidos, LocalDate desde, LocalDate hasta, ReporteVisitor formato) {
