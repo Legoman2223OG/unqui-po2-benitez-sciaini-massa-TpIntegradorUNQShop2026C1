@@ -13,11 +13,13 @@ class EnviadoTest {
 	
 	Enviado enviado;
     Pedido pedido;
-
+    GestorSubsistemas gestor;
+    
 	@BeforeEach
 	void setUp() throws Exception {
 		enviado = new Enviado();
 		pedido  = Mockito.mock(Pedido.class); 
+		gestor = Mockito.mock(GestorSubsistemas.class);
 	}
 
 	@Test
@@ -42,9 +44,10 @@ class EnviadoTest {
 	
 	@Test
 	void seNotificaCambioDeestadoAlCliente() {
+		Mockito.when(pedido.getGestor()).thenReturn(gestor);
 		enviado.notificarCambio(pedido);
 		
-		Mockito.verify(pedido).notificarCambioACliente(enviado.contexto());
+		Mockito.verify(gestor).notificarCambioACliente(pedido, enviado.contexto());
 		
 	}
 	

@@ -10,11 +10,13 @@ import org.mockito.Mockito;
 class ConfirmadoTest {
 	Confirmado confirmado;
     Pedido pedido;
+    GestorSubsistemas gestor;
      
 	@BeforeEach
 	void setUp() throws Exception {
 		confirmado = new Confirmado();
 		pedido = Mockito.mock(Pedido.class);
+		gestor = Mockito.mock(GestorSubsistemas.class);
 	}
 	
 	
@@ -40,9 +42,11 @@ class ConfirmadoTest {
 	
 	@Test
 	void seNotificaCambioDeestadoAlCliente() {
+		Mockito.when(pedido.getGestor()).thenReturn(gestor);
+		
 		confirmado.notificarCambio(pedido);
 		
-		Mockito.verify(pedido).notificarCambioACliente(confirmado.contexto());
+		Mockito.verify(gestor).notificarCambioACliente(pedido, confirmado.contexto());
 		
 	}
 	

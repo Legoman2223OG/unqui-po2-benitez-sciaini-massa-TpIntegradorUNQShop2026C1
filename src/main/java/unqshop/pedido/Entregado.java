@@ -52,7 +52,8 @@ public class Entregado implements Contexto {
 
 	@Override
 	public void notificarCambio(Pedido pedido) {
-		pedido.notificarCambioACliente(this.contexto());
+		pedido.getGestor().notificarCambioACliente(pedido, this.contexto());
+//		pedido.notificarCambioACliente(this.contexto());
 		
 	}
 	
@@ -61,7 +62,8 @@ public class Entregado implements Contexto {
 
 	@Override
 	public void generarComprobanteFizcal(Pedido pedido) {
-		pedido.generarComprobanteFizcal();
+		pedido.getGestor().generarComprobanteFizcal();
+//		pedido.generarComprobanteFizcal();
 		
 	}
 	

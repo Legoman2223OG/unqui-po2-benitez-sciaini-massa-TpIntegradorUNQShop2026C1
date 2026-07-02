@@ -201,7 +201,8 @@ class PedidoTest {
 	void notificarCambioAClienteEnviaMailAtravesDeMailSender() {
 		ContextoTipo confir = ContextoTipo.CONFIRMADO;
 		
-		pedido.notificarCambioACliente(confir);
+		pedido.getGestor().notificarCambioACliente(pedido, confir);
+//		pedido.notificarCambioACliente(confir);
 		
 		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Pedido " + confir , "su pedido se encuentra " + confir, null);
 	}
@@ -209,7 +210,8 @@ class PedidoTest {
 	@Test
 	void notificarClienteCuponEnviaMailAtravesDeMailSender() {
 		
-		pedido.notificarClienteCupon(50);
+		pedido.getGestor().notificarClienteCupon(pedido, 5);
+//		pedido.notificarClienteCupon(50);
 		
 		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Cupon de Descuento" , "Por la cancelacion de su pedido se le envia un cupon del " + 50.0 + "%", null);
 		
@@ -600,7 +602,8 @@ class PedidoTest {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
         
-		pedido.generarComprobanteFizcal();
+        pedido.getGestor().generarComprobanteFizcal();
+//		pedido.generarComprobanteFizcal();
 		
 		assertEquals("Generando Comprobante fizcal", output.toString());
 		

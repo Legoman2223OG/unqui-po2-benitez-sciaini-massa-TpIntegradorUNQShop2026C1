@@ -10,11 +10,13 @@ class EntregadoTest {
 
 	Entregado entregado;
     Pedido pedido;
+    GestorSubsistemas gestor;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		entregado = new Entregado();
 		pedido  = Mockito.mock(Pedido.class); 
+		gestor = Mockito.mock(GestorSubsistemas.class);
 	}
 
 	@Test
@@ -24,9 +26,10 @@ class EntregadoTest {
 	
 	@Test
 	void seNotificaCambioDeestadoAlCliente() {
+		Mockito.when(pedido.getGestor()).thenReturn(gestor);
 		entregado.notificarCambio(pedido);
 		
-		Mockito.verify(pedido).notificarCambioACliente(entregado.contexto());
+		Mockito.verify(gestor).notificarCambioACliente(pedido, entregado.contexto());
 		
 	}
 	
@@ -39,9 +42,10 @@ class EntregadoTest {
 	
 	@Test
 	void seGeneraComprobanteFizcal() {
+		Mockito.when(pedido.getGestor()).thenReturn(gestor);
 		entregado.generarComprobanteFizcal(pedido);
 		
-		Mockito.verify(pedido).generarComprobanteFizcal();
+		Mockito.verify(gestor).generarComprobanteFizcal();
 		
 	}
 	

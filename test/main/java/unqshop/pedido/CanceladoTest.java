@@ -10,11 +10,13 @@ class CanceladoTest {
 
 	Cancelado cancelado;
     Pedido pedido;
+    GestorSubsistemas gestor;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		cancelado = new Cancelado();
 		pedido  = Mockito.mock(Pedido.class); 
+		gestor = Mockito.mock(GestorSubsistemas.class);
 	}
 
 	@Test
@@ -24,9 +26,10 @@ class CanceladoTest {
 	
 	@Test
 	void seGeneraCupon() {
+		Mockito.when(pedido.getGestor()).thenReturn(gestor);
 		cancelado.notificarCupon5Porciento(pedido);
 		
-		Mockito.verify(pedido).notificarClienteCupon(5);
+		Mockito.verify(gestor).notificarClienteCupon(pedido, 5);
 	}
 	
 	@Test

@@ -38,6 +38,7 @@ public class Pedido implements Enviable {
 	private MailSender mailSender;
 	private LocalDate fechaEntrega;
 	private int id;
+	private GestorSubsistemas gestor;
 
 	public Pedido(int id, String mailCliente, MetodoPago metodoDePago, MetodoEnvio envio, MailSender mailSender,
 			Direccion direccion) {
@@ -51,6 +52,8 @@ public class Pedido implements Enviable {
 		this.modoDeEnvio = envio;
 		this.mailSender = mailSender;
 		this.direccion = direccion;
+		
+		this.gestor = new GestorSubsistemas(mailSender);
 		
 		this.agregarSubsistema(new NotificadorDeEmail());
 		this.agregarSubsistema(new GeneradorDeFactura());
@@ -90,6 +93,10 @@ public class Pedido implements Enviable {
 	public void quitarItem(ItemCatalogo item) {
 		this.getContexto().quitarItem(this, item);
 	}
+	
+	//
+	
+	
 	/* Operaciones internas */
 
 	public void agregarItemPriv(ItemCatalogo item) {
@@ -176,21 +183,7 @@ public class Pedido implements Enviable {
 		return this.mailCliente;
 	}
 
-//Metodos relacionados a subSistemas
 
-	public void notificarCambioACliente(ContextoTipo contexto) {
-		this.getMailSender().enviarMail(this.getMailCliente(), "Pedido " + contexto,
-				"su pedido se encuentra " + contexto, null);
-	}
-
-	public void notificarClienteCupon(double porcientoCupon) {
-		this.getMailSender().enviarMail(this.getMailCliente(), "Cupon de Descuento",
-				"Por la cancelacion de su pedido se le envia un cupon del " + porcientoCupon + "%", null);
-	}
-
-	public void generarComprobanteFizcal() {
-		System.out.print("Generando Comprobante fizcal");
-	}
 
 //Metodos interface Enviable
 	@Override
@@ -207,6 +200,8 @@ public class Pedido implements Enviable {
 	public Direccion direccionEntrega() {
 		return direccion;
 	}
+	
+	
 
 	/* Getters y setters */
 
@@ -233,7 +228,7 @@ public class Pedido implements Enviable {
 	public MetodoPago getMetodoDePago() {
 		return this.metodoDePago;
 	}
-
+ 
 	public List<NotaDeCredito> getNotasDeCredito() {
 		return this.notasDeCredito;
 	}
@@ -246,10 +241,6 @@ public class Pedido implements Enviable {
 		return this.getContexto().contexto();
 	}
 
-	public MailSender getMailSender() {
-		return this.mailSender;
-	}
-
 	public LocalDate getFechaEntrega() {
 		return fechaEntrega;
 	}
@@ -260,6 +251,10 @@ public class Pedido implements Enviable {
 
 	public Direccion getDireccion() {
 		return direccion;
+	}
+	
+	public GestorSubsistemas getGestor() {
+		return this.gestor;
 	}
 
 }
