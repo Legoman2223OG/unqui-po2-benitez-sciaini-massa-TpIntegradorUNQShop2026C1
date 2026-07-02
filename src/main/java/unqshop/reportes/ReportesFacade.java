@@ -83,6 +83,7 @@ public class ReportesFacade {
         return new PedidoReporte(pedido.getFechaEntrega(), items);
     }
 
+    //especie de 'adapter'
     private ItemReporte adaptarItem(ItemCatalogo item) {
         ProductoReporte producto = new ProductoReporte(item.getSku(), item.getNombre());
         return new ItemReporte(producto, 1, item.getPrecioFinal());
