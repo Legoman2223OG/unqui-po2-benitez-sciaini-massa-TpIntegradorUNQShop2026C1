@@ -1,14 +1,20 @@
 package main.java.unqshop.pedido;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import main.java.unqshop.catalogo.Categoria;
 import main.java.unqshop.catalogo.ItemCatalogo;
+import main.java.unqshop.catalogo.Producto;
 import main.java.unqshop.envios.Direccion;
 import main.java.unqshop.envios.MetodoEnvio;
 import main.java.unqshop.pagos.BilleteraVirtual;
@@ -30,6 +36,8 @@ class PedidoTest {
     
     ItemCatalogo item1;
     ItemCatalogo item2;
+    Producto productoMock;
+    
     
     ObserverPedido notificadorMail;
     ObserverPedido generadorDeFactura;
@@ -43,9 +51,9 @@ class PedidoTest {
     Contexto enviado;
     Contexto entregado;
     Contexto cancelado;
+	 
 	
-	
-	@BeforeEach
+	@BeforeEach 
     void setUp() {
 		
         metodoPago   = Mockito.mock(MetodoPago.class);
@@ -53,6 +61,7 @@ class PedidoTest {
         
         item1 = Mockito.mock(ItemCatalogo.class);
         item2 = Mockito.mock(ItemCatalogo.class);
+        productoMock = Mockito.mock(Producto.class);
         
         mailSender   = Mockito.mock(MailSender.class);
         direccion    = Mockito.mock(Direccion.class);
@@ -71,6 +80,11 @@ class PedidoTest {
         Mockito.when(item1.getPrecioFinal()).thenReturn(100.0);
         Mockito.when(item2.getPrecioFinal()).thenReturn(250.0);
         
+        Mockito.when(item1.getPeso()).thenReturn(10.0);
+        Mockito.when(item2.getPeso()).thenReturn(5.0);
+        
+        Mockito.when(productoMock.getStock()).thenReturn(0);
+        
         Mockito.when(metodoEnvio.calcularCosto(pedido)).thenReturn(100.0);
         
         borrador       = Mockito.mock(Borrador.class);
@@ -86,7 +100,7 @@ class PedidoTest {
 
         assertTrue(pedido.getItems().isEmpty());
     }
-	
+	 
 	@Test
     void agregarItemPrivAgregaCorrectamente() {
 
@@ -103,6 +117,7 @@ class PedidoTest {
 		
 		assertTrue(pedido.getItems().isEmpty());
 	}
+	
 	
 	@Test
     void precioItemsEsLaSumaDelPrecioFinalDeCadaItem() {
@@ -155,8 +170,9 @@ class PedidoTest {
 	}
 	
 	@Test
-	void pedidoEmpizaSinNingunSubsistema() {
-		assertTrue(pedido.getSubSistemas().isEmpty());
+	void pedidoEmpizaConTresSubsistema() {
+		
+		assertEquals(3, pedido.getSubSistemas().size());
 	}
 	
 	@Test
@@ -185,7 +201,8 @@ class PedidoTest {
 	void notificarCambioAClienteEnviaMailAtravesDeMailSender() {
 		ContextoTipo confir = ContextoTipo.CONFIRMADO;
 		
-		pedido.notificarCambioACliente(confir);
+		pedido.getGestor().notificarCambioACliente(pedido, confir);
+//		pedido.notificarCambioACliente(confir);
 		
 		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Pedido " + confir , "su pedido se encuentra " + confir, null);
 	}
@@ -193,9 +210,10 @@ class PedidoTest {
 	@Test
 	void notificarClienteCuponEnviaMailAtravesDeMailSender() {
 		
-		pedido.notificarClienteCupon(50);
+		pedido.getGestor().notificarClienteCupon(pedido, 5);
+//		pedido.notificarClienteCupon(50);
 		
-		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Cupon de Descuento" , "Por la cancelacion de su pedido se le envia un cupon del " + 50 + "%", null);
+		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Cupon de Descuento" , "Por la cancelacion de su pedido se le envia un cupon del " + 50.0 + "%", null);
 		
 	}
 	
@@ -215,7 +233,7 @@ class PedidoTest {
 	
 	//Test para confirmar que el estado recibe los mensajes de manera correcta
 	@Test
-	void estadoBorradorRecibeConfirmado() {
+	void estadoBorradorRecibeConfirmado() throws Exception {
 		pedido.setContexto(borrador);
 		pedido.confirmar();
 		
@@ -273,7 +291,7 @@ class PedidoTest {
 	
 	
 	@Test
-	void estadoConfirmadoRecibeConfirmar() {
+	void estadoConfirmadoRecibeConfirmar() throws Exception { 
 		pedido.setContexto(confirmado);
 		pedido.confirmar();
 		
@@ -332,7 +350,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoEn_PreparacionRecibeConfirmar() {
+	void estadoEn_PreparacionRecibeConfirmar() throws Exception {
 		pedido.setContexto(en_preparacion);
 		pedido.confirmar();
 		
@@ -391,7 +409,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoEnviadoRecibeConfirmado() {
+	void estadoEnviadoRecibeConfirmado() throws Exception {
 		pedido.setContexto(enviado);
 		pedido.confirmar();
 		
@@ -450,7 +468,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoEntregadoRecibeConfirmar() {
+	void estadoEntregadoRecibeConfirmar() throws Exception {
 		pedido.setContexto(entregado);
 		pedido.confirmar();
 		
@@ -509,7 +527,7 @@ class PedidoTest {
 	//
 	
 	@Test
-	void estadoCanceladoRecibeConfirmar() {
+	void estadoCanceladoRecibeConfirmar() throws Exception {
 		pedido.setContexto(cancelado);
 		pedido.confirmar();
 		
@@ -565,6 +583,84 @@ class PedidoTest {
 		Mockito.verify(cancelado).quitarItem(pedido, item1);
 	}
 	
+	//
+	@Test
+	void seImprimeMensajeCorrectoAlCancelarPedido() {
+		
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        
+		pedido.cancelar();
+		
+		assertEquals("pedido cancelado" + System.lineSeparator(), output.toString());
+		
+	}
+	
+	@Test
+	void seGeneraComprobandeFizcal() {
+		
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        
+        pedido.getGestor().generarComprobanteFizcal();
+//		pedido.generarComprobanteFizcal();
+		
+		assertEquals("Generando Comprobante fizcal", output.toString());
+		
+	}
+	
+	@Test
+	void cambiarContextoFuncionaCorrectamente() {
+		pedido.cambiarContexto(new Cancelado());
+		
+		assertEquals(ContextoTipo.CANCELADO, pedido.getContextoTipo());
+	}
+	
+	@Test
+	void pesoTotalEslaSumaDelPesoDeLosItems() {
+		pedido.agregarItem(item1);
+		pedido.agregarItem(item2);
+		
+		assertEquals(15.0, pedido.pesoTotal());
+	}
+	
+	@Test
+	void totalEsIgualAlPrecioSumadoDeLosItems() {
+		pedido.agregarItem(item1);
+		pedido.agregarItem(item2);
+		
+		assertEquals(pedido.total(), pedido.precioItems());
+	}
+	
+	@Test
+	void pedidoEmpiezaEnBorrador() {
+		assertEquals(ContextoTipo.BORRADOR, pedido.getContextoTipo());
+	}
+	
+	@Test
+	void tiraExcepcionSiSeTrataDeDecrementarUnItemSinStock() throws Exception {
+		Producto productoSinStockMock = new Producto("A","I","D",Categoria.ALIMENTOS,100.0,10.0,2,300.0) {
+			@Override
+			public void decrementarStock() throws Exception {
+				throw new Exception("No es posible desincrementar el Stock, ya que no hay mas stock disponible para el item");
+			}
+		};
+		pedido.agregarItem(productoSinStockMock);
+		
+		Exception excepcion = assertThrows(Exception.class, () -> pedido.descrementarStock());
+		Assertions.assertEquals("No es posible desincrementar el Stock, ya que no hay mas stock disponible para el item", excepcion.getMessage());
+	}
+	
+	@Test
+	void direccionEntregaEsLaDirrecionDada() {
+		assertEquals(direccion, pedido.direccionEntrega());
+	}
+	
+	@Test
+	void idEsElIdDado() {
+		assertEquals(11, pedido.getId());
+	}
+	
 	// -----------------------------------------------------------
 	//Metodos Sin Mockito
 	
@@ -592,7 +688,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoCONFIRMADO() {
-		pedidoUnq.cambiarContexto(new Confirmado());
+		pedidoUnq.setContexto(new Confirmado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -621,7 +717,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoEN_PREPARACION() {
-		pedidoUnq.cambiarContexto(new En_Preparacion());
+		pedidoUnq.setContexto(new En_Preparacion());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -650,7 +746,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoENVIADO() {
-		pedidoUnq.cambiarContexto(new Enviado());
+		pedidoUnq.setContexto(new Enviado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -679,7 +775,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoENTREGADO() {
-		pedidoUnq.cambiarContexto(new Entregado());
+		pedidoUnq.setContexto(new Entregado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });
@@ -718,7 +814,7 @@ class PedidoTest {
 	
 	@Test
 	void seTesteaLasOperacionesInvalidasEnElEstadoCANCELADO() {
-		pedidoUnq.cambiarContexto(new Cancelado());
+		pedidoUnq.setContexto(new Cancelado());
 		RuntimeException ex = assertThrows(RuntimeException.class, () -> {
 			pedidoUnq.confirmar();
         });

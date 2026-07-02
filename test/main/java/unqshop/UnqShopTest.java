@@ -22,7 +22,7 @@ class UnqShopTest {
 	 * Crea un escenario donde se instancia un root de la UnqShop con 3 items cargados.
 	 * @throws Exception
 	 */
-	@BeforeEach
+	@BeforeEach 
 	void setUp() throws Exception {
 		i1 = mock(ItemCatalogo.class);
 		i2 = mock(ItemCatalogo.class);

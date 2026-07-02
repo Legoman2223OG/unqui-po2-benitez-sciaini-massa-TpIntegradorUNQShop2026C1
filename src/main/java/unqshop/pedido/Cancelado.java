@@ -57,7 +57,8 @@ public class Cancelado implements Contexto {
 
 	@Override
 	public void notificarCupon5Porciento(Pedido pedido) {
-		pedido.notificarClienteCupon(5);
+		pedido.getGestor().notificarClienteCupon(pedido, 5);
+//		pedido.notificarClienteCupon(5);
 		
 	}
 	

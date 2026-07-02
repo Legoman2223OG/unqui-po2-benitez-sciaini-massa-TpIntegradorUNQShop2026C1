@@ -33,7 +33,6 @@ public class Enviado implements Contexto {
 	public void entregar(Pedido pedido) {
 		pedido.setFechaEntrega(LocalDate.now());
 		pedido.cambiarContexto(new Entregado());
-		System.out.println("pedido entregado");
 	}
 
 	@Override
@@ -59,7 +58,8 @@ public class Enviado implements Contexto {
 
 	@Override
 	public void notificarCambio(Pedido pedido) {
-		pedido.notificarCambioACliente(this.contexto());
+		pedido.getGestor().notificarCambioACliente(pedido, this.contexto());
+	//	pedido.notificarCambioACliente(this.contexto());
 		
 	}
 	

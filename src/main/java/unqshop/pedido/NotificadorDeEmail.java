@@ -2,7 +2,7 @@ package main.java.unqshop.pedido;
 
 public class NotificadorDeEmail implements ObserverPedido{
 	
-	public NotificadorDeEmail(MailSender mailSender) {
+	public NotificadorDeEmail() {
 		super();
 	}
 

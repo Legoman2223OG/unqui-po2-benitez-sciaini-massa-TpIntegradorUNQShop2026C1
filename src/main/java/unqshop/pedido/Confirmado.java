@@ -57,7 +57,8 @@ public class Confirmado implements Contexto {
 
 	@Override
 	public void notificarCambio(Pedido pedido) {
-		pedido.notificarCambioACliente(this.contexto());
+		pedido.getGestor().notificarCambioACliente(pedido, this.contexto());
+//		pedido.notificarCambioACliente(this.contexto());
 		
 	}
 	

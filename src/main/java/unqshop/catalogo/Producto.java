@@ -20,7 +20,7 @@ public class Producto implements ItemCatalogo {
 	private AtributoDinamico atributos;
 	private int stock;
 	
-	/**
+	/** 
 	 * Crea una instancia de Producto con atributos extra.
 	 * 
 	 * @param El SKU del producto, no puede ser vacío.
