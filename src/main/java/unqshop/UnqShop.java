@@ -1,5 +1,6 @@
 package main.java.unqshop;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import main.java.unqshop.envios.Sucursal;
 import main.java.unqshop.pagos.MetodoPago;
 import main.java.unqshop.pedido.MailSender;
 import main.java.unqshop.pedido.Pedido;
+import main.java.unqshop.reportes.ReporteVisitor;
 import main.java.unqshop.reportes.ReportesFacade;
 
 /**
@@ -35,6 +37,7 @@ public class UnqShop {
 	private List<Pedido> pedidos           = new ArrayList<Pedido>();
 	private EnvioFacade envioFacade        = new EnvioFacade();
 	private List<Sucursal> sucursales      = new ArrayList<Sucursal>();
+	private ReportesFacade reporteFacade   = new ReportesFacade();
 	
 	/**
 	 * Crea una instancia de la clase Root de la UnqShop sin ningun item de catalogo cargado.
@@ -57,13 +60,15 @@ public class UnqShop {
 		this.inventario.add(item);
 	}
 	
-	/*
-	 * agrega un pedido al pedidos de la UnqShop.
-	 * @param Un pedido a agregar a pedidos, no puede ser null. 
-	 * */
-	public void agregarPedido(Pedido pedido) {
-		pedidos.add(pedido);
-	}
+	//DEPRECATED, Rompe encapsulamiento. Un cliente no deberia de poder armar los pedidos por fuera de la clase root.
+	///*
+	// * agrega un pedido al pedidos de la UnqShop.
+	// * @param Un pedido a agregar a pedidos, no puede ser null. 
+	// * */
+	//public void agregarPedido(Pedido pedido) {
+	//	pedidos.add(pedido);
+	//}
+	
 	/**
 	 * Busca items del catalogo que cumplan con el criterio indicado por el cliente.
 	 * @param El criterio dado por el cliente, no puede ser null.
@@ -219,6 +224,17 @@ public class UnqShop {
 		Pedido pedido = this.buscarPedido(id);
 		ItemCatalogo item = this.buscarItem(sku);
 		pedido.agregarItem(item);
+	}
+	
+	/**
+	 * Genera un reporte de productos más vendidos a partir de un rango de fechas y un formato en particular.
+	 * @param La fecha minima, no puede ser null.
+	 * @param La fecha maxima, no puede ser null.
+	 * @param El formato en como se debe de imprimir el reporte, no puede ser null.
+	 * @return El reporte en String dado un formato en especifico.
+	 */
+	public String generarReporte(LocalDate desde, LocalDate hasta, ReporteVisitor formato) {
+		return this.reporteFacade.productosMasVendidos(this.pedidos, desde, hasta, formato);
 	}
 	
 	/**
