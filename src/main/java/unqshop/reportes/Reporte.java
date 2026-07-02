@@ -23,12 +23,12 @@ package main.java.unqshop.reportes;
  *  - FormatoCSV / FormatoHTML / FormatoDeTexto: los visitors CONCRETOS,
  *    cada uno genera/formatea el reporte a su respectivo formato
  *
- * Paquete datosAuxiliaresPorAhora:
+ * Paquete datosDeEntrada:
  *  PedidoReporte, ItemReporte y ProductoReporte son clases de datos simples
  *  que uso internamente para no depender directamente de las clases de
  *  mis compañeros todavía. Son básicamente los datos que el reporte necesita
  *  y nada más. La ReportesFacade se encarga de convertir los objetos reales
- *  a estos DTOs antes de pasárselos al reporte.
+ *  a estos formatos antes de pasárselos al reporte.
  *
  * ---------------------------------------------------------------
  *
