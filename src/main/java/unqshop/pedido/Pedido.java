@@ -63,7 +63,7 @@ public class Pedido implements Enviable {
 		this.getSubSistemas().add(subsistema);
 	}
 
-	public void confirmar() {/* Valido solo en BORRADOR */
+	public void confirmar() throws Exception {/* Valido solo en BORRADOR */
 		this.getContexto().confirmar(this);
 	} 
 
@@ -116,13 +116,9 @@ public class Pedido implements Enviable {
 		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(estadoAnterior, estadoNuevo, this));
 	}
 
-	public void descrementarStock() {
+	public void descrementarStock() throws Exception {
 		for (ItemCatalogo item : this.getItems()) {
-			try {
-				item.decrementarStock();
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
+			item.decrementarStock();
 		}
 	}
 

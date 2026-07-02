@@ -1,6 +1,7 @@
 package main.java.unqshop.pedido;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ class En_PreparacionTest {
 	void enviarCambiaAEnviado() {
 		en_preparacion.enviar(pedido);
 		
-		Mockito.verify(pedido).cambiarContexto(new Enviado());
+		Mockito.verify(pedido).cambiarContexto(any(Enviado.class));
 	}
 	
 	@Test

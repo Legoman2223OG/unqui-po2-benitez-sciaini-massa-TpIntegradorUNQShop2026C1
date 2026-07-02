@@ -1,6 +1,7 @@
 package main.java.unqshop.pedido;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class BorradorTest {
     }
 	
 	@Test
-    void confirmarCambiaAConfirmadoYDescuentaStock() {
+    void confirmarCambiaAConfirmadoYDescuentaStock() throws Exception {
         borrador.confirmar(pedido);
 
         Mockito.verify(pedido).cambiarContexto(any(Confirmado.class));

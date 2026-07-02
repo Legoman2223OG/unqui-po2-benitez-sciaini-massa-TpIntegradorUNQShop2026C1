@@ -1,15 +1,18 @@
 package main.java.unqshop.pedido;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import main.java.unqshop.catalogo.Categoria;
 import main.java.unqshop.catalogo.ItemCatalogo;
 import main.java.unqshop.catalogo.Producto;
 import main.java.unqshop.envios.Direccion;
@@ -208,7 +211,7 @@ class PedidoTest {
 		
 		pedido.notificarClienteCupon(50);
 		
-		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Cupon de Descuento" , "Por la cancelacion de su pedido se le envia un cupon del " + 50 + "%", null);
+		Mockito.verify(mailSender).enviarMail("cliente@gmail.com", "Cupon de Descuento" , "Por la cancelacion de su pedido se le envia un cupon del " + 50.0 + "%", null);
 		
 	}
 	
@@ -632,9 +635,17 @@ class PedidoTest {
 	}
 	
 	@Test
-	void tiraExcepcionSiSeTrataDeDecrementarUnItemSinStock() {
-		pedido.agregarItem(productoMock);
-		assertThrows(RuntimeException.class, () -> pedido.descrementarStock());
+	void tiraExcepcionSiSeTrataDeDecrementarUnItemSinStock() throws Exception {
+		Producto productoSinStockMock = new Producto("A","I","D",Categoria.ALIMENTOS,100.0,10.0,2,300.0) {
+			@Override
+			public void decrementarStock() throws Exception {
+				throw new Exception("No es posible desincrementar el Stock, ya que no hay mas stock disponible para el item");
+			}
+		};
+		pedido.agregarItem(productoSinStockMock);
+		
+		Exception excepcion = assertThrows(Exception.class, () -> pedido.descrementarStock());
+		Assertions.assertEquals("No es posible desincrementar el Stock, ya que no hay mas stock disponible para el item", excepcion.getMessage());
 	}
 	
 	// -----------------------------------------------------------

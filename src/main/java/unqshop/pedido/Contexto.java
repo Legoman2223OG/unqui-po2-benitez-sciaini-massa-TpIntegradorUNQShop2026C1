@@ -10,7 +10,7 @@ public interface Contexto {
 	
 	ContextoTipo contexto();/*posible cambio*/
 	
-	void confirmar(Pedido pedido);
+	void confirmar(Pedido pedido) throws Exception;
 	
 	void prepararPedido(Pedido pedido);
 	
