@@ -28,6 +28,9 @@ import main.java.unqshop.pedido.Pedido;
  *    pedidos agregue su propia direccion, solo cambia quien construye este
  *    adapter, no el adapter en si.
  */
+
+// UTILIZADO INTERNAMENTE EN EL MODULO(sobretodo tests).
+// DESPUES DEL MERGE QUEDO SIN FUNCIONALIDAD EXTERNA AL MISMO.
 public class PedidoEnviable implements Enviable {
 
     private final Pedido pedido;

@@ -7,7 +7,7 @@ public class TarjetaCredito extends MetodoPago {
     private final String cvv;
     private final int fechaVencimiento; // SOLO AÑO!
     private boolean datosValidados; //FLAG
-    private Protocolo_tarjeta_credito banco;
+    private  Protocolo_tarjeta_credito banco;
 
     public TarjetaCredito(double monto, String numeroTarjeta, String cvv, int fechaVencimiento) {
         super(monto);
@@ -30,17 +30,17 @@ public class TarjetaCredito extends MetodoPago {
     @Override
     protected void validarDatos() {
 
-
         validarNumeroDeTarjeta();
         validarCVV();
         validarVencimiento();
-        this.setDatosValidados(true); // si tdo pasa: FLAG ==TRUE
+        this.setDatosValidados(true); // si tdo pasa: FLAG == TRUE
+
     }
 
 
     @Override
     protected void reservarFondos() {
-        //mismo caso q billeteraVirtual.
+        //mismo caso q @BilleteraVirtual.
         if (!datosValidados) throw new IllegalStateException();
         preAutorizarBancoEmisor();
     }
@@ -66,12 +66,11 @@ public class TarjetaCredito extends MetodoPago {
     //  - - - - - - - - - - - - - - - - - - - - -
 
     //METODOS PARTICULARES DE LA CLASE:
-    //llama a protocolo_tarjeta_credito inyectado
-    // validar_datos:
+    //llama a I protocolo_tarjeta_credito
+    // validar_datos():
     private void validarVencimiento() {
         this.getBanco().validarVencimiento(this.getFechaVencimiento());
     }
-
 
     private void validarCVV() {
         this.getBanco().validarCVV(this.getCvv());
@@ -91,7 +90,6 @@ public class TarjetaCredito extends MetodoPago {
     private void debitoDiferido() {
         this.getBanco().debitoDiferido();
     }
-
 
     public void setDatosValidados(boolean datosValidados) {
         this.datosValidados = datosValidados;
