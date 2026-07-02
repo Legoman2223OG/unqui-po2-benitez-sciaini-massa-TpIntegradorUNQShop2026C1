@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /*
+*libro gof:
 * ConcreteElement (AssignmentNode,VariableRefNode)
 - implements an Accept operation that takes a visitor as an argument
 * */
