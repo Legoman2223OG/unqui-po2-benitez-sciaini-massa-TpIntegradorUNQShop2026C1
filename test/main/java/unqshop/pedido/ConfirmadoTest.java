@@ -38,6 +38,8 @@ class ConfirmadoTest {
 		confirmado.cancelar(pedido);
 		
 		Mockito.verify(pedido).cancelarEnConfirmado();
+		Mockito.verify(pedido).reponerStock();
+		Mockito.verify(pedido).cancelarPriv();
 	}
 	
 	@Test
