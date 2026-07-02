@@ -46,7 +46,10 @@ public class ReporteDeProductosMasVendidos implements Reporte {
 
     @Override
     public String aceptar(ReporteVisitor visitor) {
+        //---------------------------------------
+        //DOUBLE DISPATCH 'CLAVE' para el patron:
         return visitor.visitarProductos(this);
+        //---------------------------------------
     }
 
     public List<FilaProductoVendido> getFilas() {
