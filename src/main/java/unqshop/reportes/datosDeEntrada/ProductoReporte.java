@@ -1,6 +1,6 @@
 package main.java.unqshop.reportes.datosDeEntrada;
 //la Facade los usa para construir ReporteDeProductosMasVendidos (que calcula FilaProductoVendido)
-
+//VALUE OBJECT
 public class ProductoReporte {
 
     private String sku;

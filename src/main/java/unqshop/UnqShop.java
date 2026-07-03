@@ -36,7 +36,6 @@ public class UnqShop {
 	private List<ItemCatalogo> inventario  = new ArrayList<ItemCatalogo>();
 	private List<Pedido> pedidos           = new ArrayList<Pedido>();
 	private EnvioFacade envioFacade        = new EnvioFacade();
-	private List<Sucursal> sucursales      = new ArrayList<Sucursal>();
 	private ReportesFacade reporteFacade   = new ReportesFacade();
 	
 	/**

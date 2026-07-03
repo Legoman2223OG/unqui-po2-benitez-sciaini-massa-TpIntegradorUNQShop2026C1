@@ -1,6 +1,7 @@
 package main.java.unqshop.reportes.estructurasDelReporte;
 
 // una fila del reporte de productos mas vendidos.
+//VALUE OBJECT
 public class FilaProductoVendido {
 
     private String sku;
