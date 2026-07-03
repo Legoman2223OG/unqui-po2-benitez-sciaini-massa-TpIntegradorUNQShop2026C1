@@ -125,9 +125,10 @@ class UnqShopTest {
 	
 	/**
 	 * Se verifica que al crear un pedido de envio estandar en la UnqShop sin ningun pedido anterior, devuelve un id 0.
+	 * @throws Exception 
 	 */
 	@Test
-	void test04_CrearPedidoEnvioEstandar() {
+	void test04_CrearPedidoEnvioEstandar() throws Exception {
 		//DOC
 		MetodoPago docMetPago = mock(MetodoPago.class);
 		MailSender docMailSender = mock(MailSender.class);
@@ -140,9 +141,10 @@ class UnqShopTest {
 	
 	/**
 	 * Se verifica que al crear un pedido de envio express en la UnqShop sin ningun pedido anterior, devuelve un id 0.
+	 * @throws Exception 
 	 */
 	@Test
-	void test05_CrearPedidoEnvioExpress() {
+	void test05_CrearPedidoEnvioExpress() throws Exception {
 		//DOC
 		MetodoPago docMetPago = mock(MetodoPago.class);
 		MailSender docMailSender = mock(MailSender.class);
@@ -155,9 +157,10 @@ class UnqShopTest {
 	
 	/**
 	 * Se verifica que al crear un pedido de retiro en una sucursal en la UnqShop sin ningun pedido anterior, devuelve un id 0.
+	 * @throws Exception 
 	 */
 	@Test
-	void test06_CrearPedidoRetiroEnSucursal() {
+	void test06_CrearPedidoRetiroEnSucursal() throws Exception {
 		//DOC
 		MetodoPago docMetPago = mock(MetodoPago.class);
 		MailSender docMailSender = mock(MailSender.class);
@@ -313,9 +316,9 @@ class UnqShopTest {
 	 */
 	@Test
     void test15_LanzaExcepcionSiElPedidoNoExiste() {
-        //DOC
+        //EXERCISE
         int idInexistente = 99; 
-        // EXERCISE
+        //VERIFY
         assertThrows(NoSuchElementException.class, () -> {
             sutUnqShop.confirmarPedido(idInexistente);
         });
@@ -326,11 +329,86 @@ class UnqShopTest {
 	 */
 	@Test
     void test16_LanzaExcepcionSiElItemNoExiste() {
-        //DOC
+        //EXERCISE
         String skuNoExistente = "SkDDD";
-        // EXERCISE
+        // VERIFY
         assertThrows(NoSuchElementException.class, () -> {
             sutUnqShop.agregarItemPedido(0,skuNoExistente);
         });
     }
+	
+	/**
+	 * Verifica que al insertar un id negativo para pedidos, da error.
+	 */
+	@Test
+    void test17_LanzaExcepcionSiElIDDePedidoEsNegativo() {
+        // VERIFY
+        assertThrows(Exception.class, () -> {
+        	sutUnqShop.confirmarPedido(-1);
+        });
+    }
+	
+	/**
+	 * Verifica que al insertar un SKU vacio o nulo, da una excepcion.
+	 */
+	@Test
+    void test18_LanzaExcepcionSiElSKUEsNuloOVacio() {
+        // VERIFY
+		//String vacio
+        assertThrows(Exception.class, () -> {
+        	sutUnqShop.agregarItemPedido(0,"");
+        });
+        //Cuando es null
+        assertThrows(Exception.class, () -> {
+        	sutUnqShop.agregarItemPedido(0,null);
+        });
+    }
+	
+	/**
+	 * Verifica que al instanciar un UnqShop con items, al filtrar los items 1 y 2 excepto el 3, devuelve esos items.
+	 */
+	@Test
+	void test19_UnqShopConItemsYaAgregados() {
+		//DOC
+		CriterioCatalogo cc = mock(CriterioCatalogo.class);
+		ItemCatalogo item1 = mock(ItemCatalogo.class);
+		ItemCatalogo item2 = mock(ItemCatalogo.class);
+		ItemCatalogo item3 = mock(ItemCatalogo.class);
+		when(cc.isSatisfiedBy(item1)).thenReturn(true);
+		when(cc.isSatisfiedBy(item2)).thenReturn(true);
+		when(cc.isSatisfiedBy(item3)).thenReturn(false);
+		//SUT
+		UnqShop unqShopConItems = new UnqShop(item1,item2,item3);
+		//EXERCISE
+		List<ItemCatalogo> items = unqShopConItems.buscarItems(cc);
+		//VERIFY
+		Assertions.assertEquals(item1, items.get(0));
+		Assertions.assertEquals(item2, items.get(1));
+		Assertions.assertEquals(2, items.size());
+	}
+	
+	/**
+	 * Verifica que al insertar un email sin arrobas o nulo o vacio en la creación de un pedido, da una excepcion. 
+	 */
+	@Test
+	void test20_PedidoConEmailInvalido(){
+		//DOC
+		MetodoPago docMetPago = mock(MetodoPago.class);
+		MailSender docMailSender = mock(MailSender.class);
+		Direccion docDir = mock(Direccion.class);
+		Sucursal docSucursal = mock(Sucursal.class);
+		//VERIFY
+		//Mail vacio.
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConEnvioExpress("", docMetPago, docMailSender, docDir));
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConEnvioEstandar("", docMetPago, docMailSender, docDir));
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConRetiroEnSucursal("", docMetPago, docMailSender, docDir,docSucursal));
+		//Mail nulo.
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConEnvioExpress(null, docMetPago, docMailSender, docDir));
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConEnvioEstandar(null, docMetPago, docMailSender, docDir));
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConRetiroEnSucursal(null, docMetPago, docMailSender, docDir,docSucursal));
+		//Mail sin arroba
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConEnvioExpress("Mail.com", docMetPago, docMailSender, docDir));
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConEnvioEstandar("Mail.com", docMetPago, docMailSender, docDir));
+		assertThrows(Exception.class, () -> sutUnqShop.crearPedidoConRetiroEnSucursal("Mail.com", docMetPago, docMailSender, docDir,docSucursal));
+	}
 }
