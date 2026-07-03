@@ -14,7 +14,13 @@ import java.util.stream.Collectors;
  * interfaz que el subsistema de reportes espera: PedidoReporte/ItemReporte/
  * ProductoReporte. De acá para adentro, el módulo de reportes no sabe que
  * existen Pedido ni ItemCatalogo.
- *
+ * reestructura Pedido, el único lugar que hay que tocar es PedidoReporteAdapter.
+ *  ReporteDeProductosMasVendidos ni se entera
+ *Adapter en GoF : {
+ * "convert the interface of a class
+ *  into another interface client(ReporteDeProductosMasVendidos) expect(la interfaz PedidoReporte/ItemReporte, no la de Pedido/ItemCatalogo.)'
+ *  }
+ * // Solo el Adapter 'paga el costo' de conocer el mundo externo.
  * Nota sobre cantidad=1 por ítem:
  *  El Pedido de mi compañero guarda una entrada por unidad en la lista,
  *  o sea si compraste 3 auriculares hay 3 objetos en la lista.
