@@ -36,7 +36,6 @@ public class UnqShop {
 	private List<ItemCatalogo> inventario  = new ArrayList<ItemCatalogo>();
 	private List<Pedido> pedidos           = new ArrayList<Pedido>();
 	private EnvioFacade envioFacade        = new EnvioFacade();
-	private List<Sucursal> sucursales      = new ArrayList<Sucursal>();
 	private ReportesFacade reporteFacade   = new ReportesFacade();
 	
 	/**
@@ -81,45 +80,64 @@ public class UnqShop {
 	
 	/**
 	 * Crea un pedido para el cliente usando el metodo de envio estandar y describe el id resultante para el cliente.
-	 * @param El cliente que desea realizar el pedido. No puede ser nulo.
+	 * @param El mail del cliente que desea realizar el pedido, no puede ser vacio o nulo o no tener un arroba.
 	 * @param El metodo de pago que el cliente quiere usar. No puede ser nulo.
 	 * @param El tipo de servicio de envio de mails que usara el cliente. No puede ser nulo.
 	 * @param Una direccion para el pedido. No puede ser nulo.
 	 * @return La id del pedido en int.
+	 * @throws Exception Si el Email no respeta las condiciones dichas.
 	 */
-	public int crearPedidoConEnvioEstandar(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) {
-		int id = (int) this.pedidos.stream().count();
-		this.pedidos.add(new Pedido(id, mailCliente, metodoDePago, this.envioFacade.envioEstandar(), mailSender, dir));
-		return id;
+	public int crearPedidoConEnvioEstandar(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) throws Exception {
+		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, this.envioFacade.envioEstandar(), mailSender, dir);
+		this.pedidos.add(pedidoNuevo);
+		return pedidoNuevo.getId();
 	}
 	
 	/**
 	 * Crea un pedido para el cliente usando el metodo de envio express.
-	 * @param El cliente que desea realizar el pedido. No puede ser nulo.
+	 * @param El mail del cliente que desea realizar el pedido, no puede ser vacio o nulo o no tener un arroba.
 	 * @param El metodo de pago que el cliente quiere usar. No puede ser nulo.
 	 * @param El tipo de servicio de envio de mails que usara el cliente. No puede ser nulo.
 	 * @param Una direccion para el pedido. No puede ser nulo.
 	 * @return La id del pedido en int.
+	 * @throws Exception Si el Email no respeta las condiciones dichas.
 	 */
-	public int crearPedidoConEnvioExpress(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) {
-		int id = (int) this.pedidos.stream().count();
-		this.pedidos.add(new Pedido(id, mailCliente, metodoDePago, this.envioFacade.envioExpress(), mailSender, dir));
-		return id;
+	public int crearPedidoConEnvioExpress(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) throws Exception {
+		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, this.envioFacade.envioExpress(), mailSender, dir);
+		this.pedidos.add(pedidoNuevo);
+		return pedidoNuevo.getId();
 	}
 	
 	/**
 	 * Crea un pedido para el cliente usando el metodo de retiro en sucursal especificada por el cliente.
-	 * @param El cliente que desea realizar el pedido. No puede ser nulo.
+	 * @param El mail del cliente que desea realizar el pedido, no puede ser vacio o nulo o no tener un arroba.
 	 * @param El metodo de pago que el cliente quiere usar. No puede ser nulo.
 	 * @param El tipo de servicio de envio de mails que usara el cliente. No puede ser nulo.
 	 * @param Una direccion para el pedido. No puede ser nulo.
 	 * @param Una sucursal en donde se debe retirar el pedido. No puede ser nulo.
 	 * @return La id del pedido en int.
+	 * @throws Exception Si el Email no respeta las condiciones dichas.
 	 */
-	public int crearPedidoConRetiroEnSucursal(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir,Sucursal sucursal) {
+	public int crearPedidoConRetiroEnSucursal(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir,Sucursal sucursal) throws Exception {
+		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, this.envioFacade.retiroEnSucursal(sucursal), mailSender, dir);
+		this.pedidos.add(pedidoNuevo);
+		return pedidoNuevo.getId();
+	}
+	
+	/**
+	 * Crea un pedido apartir de los argumentos dados.
+	 * @param El mail del cliente. No puede ser nulo, vacio y debe tener un arroba.
+	 * @param El Metodo de pago del cliente. No puede ser nulo o vacio.
+	 * @param El Metodo de envio que desea el cliente. No puede ser nulo.
+	 * @param El Metodo de envio de emails que desea el cliente. No puede ser nulo.
+	 * @param La direccion que especifica el cliente. No puede ser nulo.
+	 * @return Un pedido a partir de los datos especificados
+	 * @throws Exception Si el Email no respeta las condiciones dichas.
+	 */
+	private Pedido crearPedido(String mailCliente, MetodoPago metodoDePago, MetodoEnvio metodoEnvio ,MailSender mailSender, Direccion dir) throws Exception {
+		assertEmailValido(mailCliente);
 		int id = (int) this.pedidos.stream().count();
-		this.pedidos.add(new Pedido(id, mailCliente, metodoDePago, this.envioFacade.retiroEnSucursal(sucursal), mailSender, dir));
-		return id;
+		return new Pedido(id, mailCliente, metodoDePago, metodoEnvio, mailSender, dir);
 	}
 	
 	/**
@@ -249,5 +267,9 @@ public class UnqShop {
 			throw new Exception("El string ingresado es vacio");
 	}
 	
+	private void assertEmailValido(String email) throws Exception {
+		if(!email.contains("@") || email.isBlank())
+			throw new Exception("El email es vacio o le falta un arroba");
+	}
 	
 }

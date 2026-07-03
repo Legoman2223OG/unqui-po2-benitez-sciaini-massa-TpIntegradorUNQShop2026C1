@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 // pedido simplificado para armar reportes sin depender del modulo pedido todavia.
+// VALUE OBJECT
 public class PedidoReporte {
 
     private LocalDate fecha_entrega;
