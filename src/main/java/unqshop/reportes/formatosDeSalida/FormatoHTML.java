@@ -5,9 +5,13 @@ import main.java.unqshop.reportes.ReporteVisitor;
 import main.java.unqshop.reportes.estructurasDelReporte.FilaProductoVendido;
 
 /*
+ * ################################
  * Segun GoF == 'CONCRETE_VISITOR'
+ * ################################
+ *
+ *
  * serializa el reporte en formato HTML.
- * */
+ */
 public class FormatoHTML implements ReporteVisitor {
 
     @Override
