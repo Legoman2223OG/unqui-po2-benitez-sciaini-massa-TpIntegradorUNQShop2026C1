@@ -80,4 +80,17 @@ public interface ItemCatalogo {
 	 * @return La validación de si el item tiene Stock en boolean.
 	 */
 	public boolean tieneStock();
+	
+	/**
+	 * Indica la cantidad de stock que posee el item.
+	 * @return La cantidad de stock del item en int.
+	 */
+	public int getStock();
+	
+	/**
+	 * Indica si el item posee stock suficiente para comprar las n unidades especificadas.
+	 * @param La cantidad de unidades que se quiere comprar del item.
+	 * @return La validación de si el item posee suficiente stock para comprar la cantidad especificada.
+	 */
+	public boolean tieneStock(int n);
 }

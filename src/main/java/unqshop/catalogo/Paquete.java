@@ -107,6 +107,7 @@ public class Paquete implements ItemCatalogo {
 			   "Peso: " + this.getPeso() + "\n" + 
 			   "Precio Base: " + this.getPrecioBase() + "\n" +
 			   "Precio Final: " + this.getPrecioFinal() + "\n" + 
+			   "Stock actual: " + this.getStock() + "\n" +
 			   "Items Incluidos:\n"+
 			   descripcionesItems;
 	}
@@ -154,5 +155,17 @@ public class Paquete implements ItemCatalogo {
 	 */
 	public void agregarItem(ItemCatalogo item) {
 		this.items.add(item);
+	}
+
+	@Override
+	public int getStock(){
+		// TODO Auto-generated method stub
+		return items.stream().mapToInt(i -> i.getStock()).min().orElseThrow();
+	}
+
+	@Override
+	public boolean tieneStock(int n) {
+		// TODO Auto-generated method stub
+		return this.getStock() >= n;
 	}
 }

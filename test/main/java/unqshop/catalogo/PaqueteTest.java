@@ -24,6 +24,7 @@ class PaqueteTest {
 	 * Peso: 102.2
 	 * Precio Base: 200000.0
 	 * Precio Final: 180000.0
+	 * Stock actual: 30
      * Items Incluidos:
 	 * --------------------
 	 * Producto: Gabinete Gamer
@@ -45,6 +46,7 @@ class PaqueteTest {
 	 * Peso: 52.2
 	 * Precio Base: 100000.0
 	 * Precio Final: 90000.0
+	 * Stock actual: 30
 	 * Items Incluidos:
 	 * --------------------
 	 * Producto: Monitor
@@ -131,6 +133,7 @@ class PaqueteTest {
 	 * Peso: 102.2
 	 * Precio Base: 200000.0
 	 * Precio Final: 180000.0
+	 * Stock actual: 30
      * Items Incluidos:
 	 * --------------------
 	 * Producto: Gabinete Gamer
@@ -152,6 +155,7 @@ class PaqueteTest {
 	 * Peso: 52.2
 	 * Precio Base: 100000.0
 	 * Precio Final: 90000.0
+	 * Stock actual: 30
 	 * Items Incluidos:
 	 * --------------------
 	 * Producto: Monitor
@@ -190,8 +194,10 @@ class PaqueteTest {
 		//DOC
 		when(docProd.getPeso()).thenReturn(50.0);
 		when(docProd.getPrecioFinal()).thenReturn(90000.0);
+		when(docProd.getStock()).thenReturn(300);
 		when(docPaq.getPeso()).thenReturn(52.2);
 		when(docPaq.getPrecioFinal()).thenReturn(81000.0);
+		when(docPaq.getStock()).thenReturn(30);
 		when(docProd.getDescripcion()).thenReturn(
 				   "Producto: Gabinete Gamer\n" +
 				   "SKU: SKU-100\n" +
@@ -211,6 +217,7 @@ class PaqueteTest {
 				   "Peso: 52.2\n" +
 				   "Precio Base: 90000.0\n" +
 				   "Precio Final: 81000.0\n" +
+				   "Stock actual: 30\n" +
 				   "Items Incluidos:\n" +
 				   "--------------------\n" +
 				   "Producto: Monitor\n" +
@@ -234,7 +241,7 @@ class PaqueteTest {
 				   "Marca: OG\n" +
 				   "Categoria: Articulos para el Hogar\n" +
 				   "Peso: 12.2\n" +
-				   "Stock actual: 120\n" +
+				   "Stock actual: 30\n" +
 				   "Precio Base: 20000.0\n" +
 				   "Precio Final: 18000.0\n\n" +
 				   "--------------------");
@@ -248,6 +255,7 @@ class PaqueteTest {
 				   "Peso: 102.2\n" +
 				   "Precio Base: 171000.0\n" +
 				   "Precio Final: 153900.0\n" +
+				   "Stock actual: 30\n"+
 				   "Items Incluidos:\n" +
 				   "--------------------\n" +
 				   "Producto: Gabinete Gamer\n" +
@@ -267,6 +275,7 @@ class PaqueteTest {
 				   "Peso: 52.2\n" +
 				   "Precio Base: 90000.0\n" +
 				   "Precio Final: 81000.0\n" +
+				   "Stock actual: 30\n" +
 				   "Items Incluidos:\n" +
 				   "--------------------\n" +
 				   "Producto: Monitor\n" +
@@ -290,7 +299,7 @@ class PaqueteTest {
 				   "Marca: OG\n" +
 				   "Categoria: Articulos para el Hogar\n" +
 				   "Peso: 12.2\n" +
-				   "Stock actual: 120\n" +
+				   "Stock actual: 30\n" +
 				   "Precio Base: 20000.0\n" +
 				   "Precio Final: 18000.0\n\n" +
 				   "--------------------\n" +
@@ -433,5 +442,47 @@ class PaqueteTest {
 		double precioBase = sutPaqSinItems.getPrecioBase();
 		//VERIFY
 		Assertions.assertEquals(0, precioBase);
+	}
+	
+	/**
+	 * Indica que el stock total del paquete es de 30
+	 */
+	@Test
+	void test15_StockDelPaquete() {
+		//DOC
+		when(docPaq.getStock()).thenReturn(30);
+		when(docProd.getStock()).thenReturn(300);
+		//EXERCISE
+		int stock = sutPaq.getStock();
+		//VERIFY
+		Assertions.assertEquals(30, stock);
+	}
+	
+	/**
+	 * Indica que se puede comprar un total de 30 paquetes
+	 */
+	@Test
+	void test16_SePuedeComprar30Paquetes() {
+		//DOC
+		when(docPaq.getStock()).thenReturn(30);
+		when(docProd.getStock()).thenReturn(300);
+		//EXERCISE
+		boolean sePuedeComprar = sutPaq.tieneStock(30);
+		//VERIFY
+		Assertions.assertTrue(sePuedeComprar);
+	}
+	
+	/**
+	 * Indica que no es posible comprar un total de 60 paquetes
+	 */
+	@Test
+	void test17_NoSePuedeComprar60Paquetes() {
+		//DOC
+		when(docPaq.getStock()).thenReturn(30);
+		when(docProd.getStock()).thenReturn(300);
+		//EXERCISE
+		boolean sePuedeComprar = sutPaq.tieneStock(60);
+		//VERIFY
+		Assertions.assertFalse(sePuedeComprar);
 	}
 }

@@ -173,6 +173,7 @@ public class Producto implements ItemCatalogo {
 		return this.precio - descuento;
 	}
 
+	@Override
 	public int getStock() {
 		return this.stock;
 	}
@@ -214,5 +215,11 @@ public class Producto implements ItemCatalogo {
 	@Override
 	public boolean tieneStock() {
 		return this.stock > 0;
+	}
+
+	@Override
+	public boolean tieneStock(int n) {
+		// TODO Auto-generated method stub
+		return this.stock >= n;
 	}
 }

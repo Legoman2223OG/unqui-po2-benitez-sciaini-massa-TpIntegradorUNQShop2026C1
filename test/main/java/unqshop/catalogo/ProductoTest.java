@@ -347,4 +347,26 @@ class ProductoTest {
 		Assertions.assertEquals("El descuento no puede ser negativo", descuentoNeg.getMessage());
 		Assertions.assertEquals("El precio no puede ser negativo", precioNeg.getMessage());
 	}
+	
+	/**
+	 * Indica que se puede comprar al menos 3 unidades del producto.
+	 */
+	@Test
+	void test22_SePuedeComprar3Unidades() {
+		//EXERCISE
+		boolean sePuedeComprar = sutProd.tieneStock(3);
+		//VERIFY
+		Assertions.assertTrue(sePuedeComprar);
+	}
+	
+	/**
+	 * Indica que no se puede comprar al menos 6 unidades del producto.
+	 */
+	@Test
+	void test23_NoSePuedeComprar6Unidades() {
+		//EXERCISE
+		boolean sePuedeComprar = sutProd.tieneStock(6);
+		//VERIFY
+		Assertions.assertFalse(sePuedeComprar);
+	}
 }

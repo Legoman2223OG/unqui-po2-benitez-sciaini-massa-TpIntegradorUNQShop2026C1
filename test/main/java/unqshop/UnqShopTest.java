@@ -34,7 +34,7 @@ import main.java.unqshop.reportes.ReportesFacade;
 
 class UnqShopTest {
 	//DOCS
-	@Mock private EnvioFacade envioFacadeMock;
+	//@Mock private EnvioFacade envioFacadeMock; //DEPRECATED 03/07/2026 @17.00hs
     @Mock private ReportesFacade reportesFacadeMock;
     @Mock private MetodoPago metodoPagoMock;
     @Mock private MailSender mailSenderMock;
@@ -133,9 +133,9 @@ class UnqShopTest {
 		MailSender docMailSender = mock(MailSender.class);
 		Direccion docDir = mock(Direccion.class);
 		//EXERCISE
-		int idPedido = sutUnqShop.crearPedidoConEnvioEstandar("abc@gmail.com", docMetPago, docMailSender, docDir);
+		Pedido pedido = sutUnqShop.crearPedidoConEnvioEstandar("abc@gmail.com", docMetPago, docMailSender, docDir);
 		//VERIFY
-		Assertions.assertEquals(0, idPedido);
+		Assertions.assertEquals(0, pedido.getId());
 	}
 	
 	/**
@@ -149,9 +149,9 @@ class UnqShopTest {
 		MailSender docMailSender = mock(MailSender.class);
 		Direccion docDir = mock(Direccion.class);
 		//EXERCISE
-		int idPedido = sutUnqShop.crearPedidoConEnvioExpress("abc@gmail.com", docMetPago, docMailSender, docDir);
+		Pedido pedido = sutUnqShop.crearPedidoConEnvioExpress("abc@gmail.com", docMetPago, docMailSender, docDir);
 		//VERIFY
-		Assertions.assertEquals(0, idPedido);
+		Assertions.assertEquals(0, pedido.getId());
 	}
 	
 	/**
@@ -166,134 +166,16 @@ class UnqShopTest {
 		Direccion docDir = mock(Direccion.class);
 		Sucursal docSucursal = mock(Sucursal.class);
 		//EXERCISE
-		int idPedido = sutUnqShop.crearPedidoConRetiroEnSucursal("abc@gmail.com", docMetPago, docMailSender, docDir,docSucursal);
+		Pedido pedido = sutUnqShop.crearPedidoConRetiroEnSucursal("abc@gmail.com", docMetPago, docMailSender, docDir,docSucursal);
 		//VERIFY
-		Assertions.assertEquals(0, idPedido);
+		Assertions.assertEquals(0, pedido.getId());
 	}
-	
-	/**
-	 * Se verifica que al confirmar un pedido, se verifica que hubo una interaccion existosa con el pedido para confirmarlo.
-	 * @throws Exception 
-	 */
-	@Test
-	void test07_ConfirmarPedido() throws Exception {
-		//DOC
-		int idPedido = 0;
-		when(pedidoMock.getId()).thenReturn(idPedido);
-		pedidos.add(pedidoMock);
-		//EXERCISE
-		sutUnqShop.confirmarPedido(idPedido);
-		//VERIFY
-		verify(pedidoMock, times(1)).confirmar();
-	}
-	
-	/**
-	 * Se verifica que al preparar un pedido valido, se verifica que hubo una interaccion existosa con el pedido para prepararlo.
-	 * @throws Exception 
-	 */
-	@Test
-	void test08_PrepararPedido() throws Exception {
-		//DOC
-		int idPedido = 0;
-		when(pedidoMock.getId()).thenReturn(idPedido);
-		pedidos.add(pedidoMock);
-		//EXERCISE
-		sutUnqShop.prepararPedido(idPedido);
-		//VERIFY
-		verify(pedidoMock, times(1)).prepararPedido();
-	}
-	
-	/**
-	 * Se verifica que al enviar un pedido valido, se verifica que hubo una interaccion existosa con el pedido para enviarlo.
-	 * @throws Exception 
-	 */
-	@Test
-	void test09_EnviarPedido() throws Exception {
-		//DOC
-		int idPedido = 0;
-		when(pedidoMock.getId()).thenReturn(idPedido);
-		pedidos.add(pedidoMock);
-		//EXERCISE
-		sutUnqShop.enviarPedido(idPedido);
-		//VERIFY
-		verify(pedidoMock, times(1)).enviar();
-	}
-	
-	/**
-	 * Se verifica que al entregar un pedido valido, se verifica que hubo una interaccion existosa con el pedido para entregarlo.
-	 * @throws Exception 
-	 */
-	@Test
-	void test10_EntregarPedido() throws Exception {
-		//DOC
-		int idPedido = 0;
-		when(pedidoMock.getId()).thenReturn(idPedido);
-		pedidos.add(pedidoMock);
-		//EXERCISE
-		sutUnqShop.entregarPedido(idPedido);
-		//VERIFY
-		verify(pedidoMock, times(1)).entregar();
-	}
-	
-	/**
-	 * Se verifica que al cancelar un pedido valido, se verifica que hubo una interaccion existosa con el pedido para cancelarlo.
-	 * @throws Exception 
-	 */
-	@Test
-	void test11_CancelarPedido() throws Exception {
-		//DOC
-		int idPedido = 0;
-		when(pedidoMock.getId()).thenReturn(idPedido);
-		pedidos.add(pedidoMock);
-		//EXERCISE
-		sutUnqShop.cancelarPedido(idPedido);
-		//VERIFY
-		verify(pedidoMock, times(1)).cancelar();
-	}
-	
-	/**
-	 * Se verifica que se logra agregar un item del pedido al ingresar un SKU y un ID correcto de pedido e item.
-	 * @throws Exception
-	 */
-	@Test
-    void test12_AgregarItemAUnPedido() throws Exception {
-        //DOC
-        int idPedido = 0;
-        String sku = "SKU-123";
-        when(pedidoMock.getId()).thenReturn(idPedido);
-        pedidos.add(pedidoMock);
-        when(itemMock.getSku()).thenReturn(sku);
-        inventario.add(itemMock);
-        //EXERCISE
-        sutUnqShop.agregarItemPedido(idPedido, sku);
-        //VERIFY
-        verify(pedidoMock, times(1)).agregarItem(itemMock);
-    }
-	
-	/**
-	 * Se verifica que se logra quitar un item del pedido al ingresar un SKU y un ID correcto de pedido e item.
-	 * @throws Exception
-	 */
-	@Test
-    void test13_EliminarUnItemAUnPedido() throws Exception {
-        //DOC
-        int idPedido = 0;
-        String sku = "SKU-123";
-        when(pedidoMock.getId()).thenReturn(idPedido);
-        pedidos.add(pedidoMock);
-        when(itemMock.getSku()).thenReturn(sku);
-        inventario.add(itemMock);
-        //EXERCISE
-        sutUnqShop.quitarItemPedido(idPedido, sku);
-        //VERIFY
-        verify(pedidoMock, times(1)).quitarItem(itemMock);
-    }
 	
 	/**
 	 * Verifica que al generar un reporte se genera un string en un formato especifico
 	 */
 	@Test
-    void test14_GenerarReporte() {
+    void test07_GenerarReporte() {
         //DOC
         LocalDate desde = LocalDate.now().minusDays(5);
         LocalDate hasta = LocalDate.now();
@@ -311,63 +193,10 @@ class UnqShopTest {
     }
 	
 	/**
-	 * Verifica que lanza una excepcion si se trata de confirmar un pedido de un pedido que no existe.
-	 */
-	@Test
-    void test15_LanzaExcepcionSiElPedidoNoExiste() {
-        //EXERCISE
-        int idInexistente = 99; 
-        //VERIFY
-        assertThrows(NoSuchElementException.class, () -> {
-            sutUnqShop.confirmarPedido(idInexistente);
-        });
-    }
-	
-	/**
-	 * Verifica que lanza una excepcion si al intentar agregar un item del catalogo que no existe a un pedido.
-	 */
-	@Test
-    void test16_LanzaExcepcionSiElItemNoExiste() {
-        //EXERCISE
-        String skuNoExistente = "SkDDD";
-        // VERIFY
-        assertThrows(NoSuchElementException.class, () -> {
-            sutUnqShop.agregarItemPedido(0,skuNoExistente);
-        });
-    }
-	
-	/**
-	 * Verifica que al insertar un id negativo para pedidos, da error.
-	 */
-	@Test
-    void test17_LanzaExcepcionSiElIDDePedidoEsNegativo() {
-        // VERIFY
-        assertThrows(Exception.class, () -> {
-        	sutUnqShop.confirmarPedido(-1);
-        });
-    }
-	
-	/**
-	 * Verifica que al insertar un SKU vacio o nulo, da una excepcion.
-	 */
-	@Test
-    void test18_LanzaExcepcionSiElSKUEsNuloOVacio() {
-        // VERIFY
-		//String vacio
-        assertThrows(Exception.class, () -> {
-        	sutUnqShop.agregarItemPedido(0,"");
-        });
-        //Cuando es null
-        assertThrows(Exception.class, () -> {
-        	sutUnqShop.agregarItemPedido(0,null);
-        });
-    }
-	
-	/**
 	 * Verifica que al instanciar un UnqShop con items, al filtrar los items 1 y 2 excepto el 3, devuelve esos items.
 	 */
 	@Test
-	void test19_UnqShopConItemsYaAgregados() {
+	void test08_UnqShopConItemsYaAgregados() {
 		//DOC
 		CriterioCatalogo cc = mock(CriterioCatalogo.class);
 		ItemCatalogo item1 = mock(ItemCatalogo.class);
@@ -390,7 +219,7 @@ class UnqShopTest {
 	 * Verifica que al insertar un email sin arrobas o nulo o vacio en la creación de un pedido, da una excepcion. 
 	 */
 	@Test
-	void test20_PedidoConEmailInvalido(){
+	void test09_PedidoConEmailInvalido(){
 		//DOC
 		MetodoPago docMetPago = mock(MetodoPago.class);
 		MailSender docMailSender = mock(MailSender.class);

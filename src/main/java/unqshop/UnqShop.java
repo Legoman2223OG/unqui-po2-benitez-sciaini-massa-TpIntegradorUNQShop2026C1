@@ -35,7 +35,7 @@ import main.java.unqshop.reportes.ReportesFacade;
 public class UnqShop {
 	private List<ItemCatalogo> inventario  = new ArrayList<ItemCatalogo>();
 	private List<Pedido> pedidos           = new ArrayList<Pedido>();
-	private EnvioFacade envioFacade        = new EnvioFacade();
+	//private EnvioFacade envioFacade        = new EnvioFacade(); //DEPRECADO 03/07/2026 @17.00hs
 	private ReportesFacade reporteFacade   = new ReportesFacade();
 	
 	/**
@@ -87,10 +87,10 @@ public class UnqShop {
 	 * @return La id del pedido en int.
 	 * @throws Exception Si el Email no respeta las condiciones dichas.
 	 */
-	public int crearPedidoConEnvioEstandar(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) throws Exception {
-		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, this.envioFacade.envioEstandar(), mailSender, dir);
+	public Pedido crearPedidoConEnvioEstandar(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) throws Exception {
+		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, new EnvioEstandar(new CorreoArgentina()), mailSender, dir);
 		this.pedidos.add(pedidoNuevo);
-		return pedidoNuevo.getId();
+		return pedidoNuevo;
 	}
 	
 	/**
@@ -102,10 +102,10 @@ public class UnqShop {
 	 * @return La id del pedido en int.
 	 * @throws Exception Si el Email no respeta las condiciones dichas.
 	 */
-	public int crearPedidoConEnvioExpress(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) throws Exception {
-		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, this.envioFacade.envioExpress(), mailSender, dir);
+	public Pedido crearPedidoConEnvioExpress(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir) throws Exception {
+		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, new EnvioExpress(new EnvioExpressAPI()), mailSender, dir);
 		this.pedidos.add(pedidoNuevo);
-		return pedidoNuevo.getId();
+		return pedidoNuevo;
 	}
 	
 	/**
@@ -118,10 +118,10 @@ public class UnqShop {
 	 * @return La id del pedido en int.
 	 * @throws Exception Si el Email no respeta las condiciones dichas.
 	 */
-	public int crearPedidoConRetiroEnSucursal(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir,Sucursal sucursal) throws Exception {
-		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, this.envioFacade.retiroEnSucursal(sucursal), mailSender, dir);
+	public Pedido crearPedidoConRetiroEnSucursal(String mailCliente, MetodoPago metodoDePago, MailSender mailSender, Direccion dir,Sucursal sucursal) throws Exception {
+		Pedido pedidoNuevo = crearPedido(mailCliente, metodoDePago, new RetiroEnSucursal(sucursal), mailSender, dir);
 		this.pedidos.add(pedidoNuevo);
-		return pedidoNuevo.getId();
+		return pedidoNuevo;
 	}
 	
 	/**
@@ -145,73 +145,84 @@ public class UnqShop {
 	 * @param La id del pedido que se quiere buscar, no puede ser menor a 0.
 	 * @return El pedido que se necesita buscar.
 	 * @throws Exception 
-	 */
 	private Pedido buscarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		return this.pedidos.stream().filter(p -> p.getId() == id).findFirst().orElseThrow();
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Confirma el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @throws Exception 
-	 */
+	 *
 	public void confirmarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.confirmar();
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Prepara el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @throws Exception 
-	 */
+	 *
 	public void prepararPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.prepararPedido();
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Envia el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @throws Exception 
-	 */
+	 *
 	public void enviarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.enviar();
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Entrega el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @throws Exception 
-	 */
+	 *
 	public void entregarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.entregar();
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Cancela el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @throws Exception 
-	 */
+	 *
 	public void cancelarPedido(int id) throws Exception {
 		assertIdPositivoOCero(id);
 		Pedido pedido = this.buscarPedido(id);
 		pedido.cancelar();
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Agrega un item al pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @param Un sku de un item del catalogo valido. No puede ser nulo o vacio.
 	 * @throws Exception 
-	 */
+	 *
 	public void agregarItemPedido(int id, String sku) throws Exception {
 		assertIdPositivoOCero(id);
 		assertStringNoVacio(sku);
@@ -219,13 +230,15 @@ public class UnqShop {
 		ItemCatalogo item = this.buscarItem(sku);
 		pedido.agregarItem(item);
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Elimina el item en el pedido del id correspondiente.
 	 * @param El id del pedido, debe ser un id valido.
 	 * @param El sku del item que debe ser eliminado del pedido. No puede ser nulo o vacio.
 	 * @throws Exception 
-	 */
+	 *
 	public void quitarItemPedido(int id, String sku) throws Exception {
 		assertIdPositivoOCero(id);
 		assertStringNoVacio(sku);
@@ -233,6 +246,8 @@ public class UnqShop {
 		ItemCatalogo item = this.buscarItem(sku);
 		pedido.quitarItem(item);
 	}
+	* DEPRECATED (AHORA EL CLIENTE SE ENCARGA DE MANEJAR ESTAS CUESTIONES). 03/07/2026 @17.00hs
+	*/
 	
 	/**
 	 * Genera un reporte de productos más vendidos a partir de un rango de fechas y un formato en particular.
@@ -250,22 +265,29 @@ public class UnqShop {
 	 * @param Un SKU de item, no puede ser nulo o vacio.
 	 * @return El item que se quiere buscar.
 	 * @throws Exception 
-	 */
+	 *
 	private ItemCatalogo buscarItem(String sku) throws Exception{
 		assertStringNoVacio(sku);
 		return this.inventario.stream().filter(i -> sku.equals(i.getSku())).findFirst().orElseThrow();
 	}
-	
-	
+	* DEPRECATED. ERA PARA LOS PEDIDOS, YA NO ES NECESARIO 03/07/2026 @17.00hs
+	*/
+	/**
 	private void assertIdPositivoOCero(int id) throws Exception{
 		if(id < 0)
 			throw new Exception("El id ingresado es menor a 0");
 	}
+	* DEPRECATED ERA PARA LOS PEDIDOS; PERO YA NO ES NECESARIO. 03/07/2026 @17.00hs
+	*/
 	
+	/**
+	 *
 	private void assertStringNoVacio(String str) throws Exception{
 		if(str.isBlank())
 			throw new Exception("El string ingresado es vacio");
 	}
+	* DEPRECATED ERA PARA LOS PEDIDOS; PERO YA NO ES NECESARIO. 03/07/2026 @17.00hs
+	*/
 	
 	private void assertEmailValido(String email) throws Exception {
 		if(!email.contains("@") || email.isBlank())
