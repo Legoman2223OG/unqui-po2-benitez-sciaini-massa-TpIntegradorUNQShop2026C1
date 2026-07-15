@@ -53,8 +53,8 @@ class PedidoEnviableTest {
         when(item1.getPrecioFinal()).thenReturn(1000.0);
         when(item2.getPrecioFinal()).thenReturn(500.0);
 
-        pedido.agregarItemPriv(item1); //fijarse si anda si se cambia por agregarItem, el cual es metodo publico 
-        pedido.agregarItemPriv(item2);
+        pedido.agregarItem(item1); 
+        pedido.agregarItem(item2);
 
         assertEquals(1500.0, pedidoEnviable.total());
     }
@@ -73,8 +73,8 @@ class PedidoEnviableTest {
         when(item1.getPeso()).thenReturn(2.5);
         when(item2.getPeso()).thenReturn(3.5);
 
-        pedido.agregarItemPriv(item1);//fijarse si anda si se cambia por agregarItem, el cual es metodo publico 
-        pedido.agregarItemPriv(item2);
+        pedido.agregarItem(item1);
+        pedido.agregarItem(item2);
 
         assertEquals(6.0, pedidoEnviable.pesoTotal());
     }

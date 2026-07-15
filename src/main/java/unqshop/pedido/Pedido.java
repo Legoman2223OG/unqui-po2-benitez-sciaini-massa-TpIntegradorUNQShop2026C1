@@ -110,12 +110,12 @@ public class Pedido implements Enviable {
 	
 	/* Operaciones internas */
 
-	protected void agregarItemPriv(ItemCatalogo item) {
+	void agregarItemPriv(ItemCatalogo item) {
 		this.getItems().add(item);
 
 	}
 
-	protected void quitarItemPriv(ItemCatalogo item) {
+	void quitarItemPriv(ItemCatalogo item) {
 		this.getItems().remove(item);
 	}
 
