@@ -151,18 +151,18 @@ public class Pedido implements Enviable {
 
 //encapsulamiento de cancelacion en los estados 
 //-------------------------------------------
-	public void cancelarEnConfirmado() {
+	protected void cancelarEnConfirmado() {
 		this.reponerStock();
 		this.cancelarPriv();
 	}
 
-	public void cancelarEnEn_Preparacion() {
+	protected void cancelarEnEn_Preparacion() {
 		this.generarReembolso(this.precioPedido());
 		this.reponerStock();
 		this.cancelarPriv();
 	}
 
-	public void cancelarEnEnvio() {
+	protected void cancelarEnEnvio() {
 		this.generarReembolso(this.precioItems());
 		this.cancelarPriv();
 	}
