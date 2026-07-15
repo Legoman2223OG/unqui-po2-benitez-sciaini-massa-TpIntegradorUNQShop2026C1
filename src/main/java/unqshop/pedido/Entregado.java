@@ -11,38 +11,38 @@ public class Entregado implements Contexto {
 
 	@Override
 	public void confirmar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("el pedido ya fue entregado");
 	}
 
 
 	@Override
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("el pedido ya fue entregado");
 	}
 	
@@ -53,7 +53,7 @@ public class Entregado implements Contexto {
 	@Override
 	public void notificarCambio(Pedido pedido) {
 		pedido.getGestor().notificarCambioACliente(pedido, this.contexto());
-//		pedido.notificarCambioACliente(this.contexto());
+
 		
 	}
 	
@@ -63,7 +63,7 @@ public class Entregado implements Contexto {
 	@Override
 	public void generarComprobanteFizcal(Pedido pedido) {
 		pedido.getGestor().generarComprobanteFizcal();
-//		pedido.generarComprobanteFizcal();
+
 		
 	}
 	

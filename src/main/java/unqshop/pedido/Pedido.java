@@ -35,7 +35,6 @@ public class Pedido implements Enviable {
 	private MetodoEnvio modoDeEnvio;
 	private Direccion direccion;
 	private List<NotaDeCredito> notasDeCredito;
-	private MailSender mailSender;
 	private LocalDate fechaEntrega;
 	private int id;
 	private GestorSubsistemas gestor;
@@ -51,7 +50,6 @@ public class Pedido implements Enviable {
 		this.mailCliente = mailCliente;
 		this.metodoDePago = metodoDePago;
 		this.modoDeEnvio = envio;
-		this.mailSender = mailSender;
 		this.direccion = direccion;
 		
 		this.gestor = new GestorSubsistemas(mailSender);
@@ -213,15 +211,15 @@ public class Pedido implements Enviable {
 		return items;
 	}
 
-	public List<ObserverPedido> getSubSistemas() {
+	protected List<ObserverPedido> getSubSistemas() {
 		return subSistemas;
 	}
 
-	public Contexto getContexto() {
+	protected Contexto getContexto() {
 		return contexto;
 	}
 
-	public void setContexto(Contexto contexto) {
+	protected void setContexto(Contexto contexto) {
 		this.contexto = contexto;
 	}
 
@@ -237,7 +235,7 @@ public class Pedido implements Enviable {
 		return this.modoDeEnvio;
 	}
 
-	public ContextoTipo getContextoTipo() {
+	protected ContextoTipo getContextoTipo() {
 		return this.getContexto().contexto();
 	}
 
@@ -249,11 +247,11 @@ public class Pedido implements Enviable {
 		this.fechaEntrega = fecha;
 	}
 
-	public Direccion getDireccion() {
+	protected Direccion getDireccion() {
 		return direccion;
 	}
 	
-	public GestorSubsistemas getGestor() {
+	protected GestorSubsistemas getGestor() {
 		return this.gestor;
 	}
 

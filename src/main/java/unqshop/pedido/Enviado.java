@@ -13,19 +13,19 @@ public class Enviado implements Contexto {
 
 	@Override
 	public void confirmar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("No se puede enviar un pedido que se esta enviando");
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("No se puede preparar un pedido que esta siendo enviado");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("No se puede enviar un pedido que esta siendo enviado");
 	}
 
@@ -38,17 +38,14 @@ public class Enviado implements Contexto {
 	@Override
 	public void cancelar(Pedido pedido) {
 		pedido.cancelarEnEnvio();
-		/*
-		pedido.generarReembolso(pedido.precioItems());
-		pedido.cancelarPriv();
-		*/
+		
 		
 	}
 
 
 	@Override
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("Solo se pueden quitar items del pedido en BORRADOR");
 	}
 	
@@ -59,7 +56,7 @@ public class Enviado implements Contexto {
 	@Override
 	public void notificarCambio(Pedido pedido) {
 		pedido.getGestor().notificarCambioACliente(pedido, this.contexto());
-	//	pedido.notificarCambioACliente(this.contexto());
+	
 		
 	}
 	

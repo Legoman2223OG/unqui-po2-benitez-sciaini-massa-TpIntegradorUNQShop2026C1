@@ -11,7 +11,6 @@ public class Borrador implements Contexto {
 
 	@Override
 	public void confirmar(Pedido pedido) throws Exception {
-		// TODO Auto-generated method stub
 		pedido.cambiarContexto(new Confirmado());
 		pedido.descrementarStock();
 		
@@ -19,25 +18,21 @@ public class Borrador implements Contexto {
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
-		// TODO Auto-generated method stub
 		throw new RuntimeException("No se puede preparar un pedido que aun no fue CONFIRMADO");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
-		// TODO Auto-generated method stub
 		throw new RuntimeException("No se puede enviar un pedido en BORRADOR");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
-		// TODO Auto-generated method stub
 		throw new RuntimeException("No se puede se puede entregar un pedido en BORRADOR");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
-		// TODO Auto-generated method stub
 		pedido.cancelarPriv();
 		
 		
@@ -46,7 +41,6 @@ public class Borrador implements Contexto {
 
 	@Override
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
-		// TODO Auto-generated method stub
 		pedido.quitarItemPriv(item);
 	}
 	

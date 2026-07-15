@@ -11,31 +11,31 @@ public class Cancelado implements Contexto {
 
 	@Override
 	public void confirmar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("El pedido ah sido cancelado");
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("El pedido ah sido cancelado");
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("El pedido ah sido cancelado");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("El pedido ah sido cancelado");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("El pedido ah sido cancelado");
 		
 		
@@ -44,7 +44,7 @@ public class Cancelado implements Contexto {
 
 	@Override
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("El pedido ah sido cancelado");
 	}
 	
@@ -58,7 +58,7 @@ public class Cancelado implements Contexto {
 	@Override
 	public void notificarCupon5Porciento(Pedido pedido) {
 		pedido.getGestor().notificarClienteCupon(pedido, 5);
-//		pedido.notificarClienteCupon(5);
+
 		
 	}
 	

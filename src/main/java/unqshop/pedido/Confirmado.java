@@ -11,43 +11,40 @@ public class Confirmado implements Contexto {
 
 	@Override
 	public void confirmar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("No se puede confirmar un pedido ya confirmado");
 	}
 
 	@Override
 	public void prepararPedido(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		pedido.pagarPedido();
 		pedido.cambiarContexto(new En_Preparacion());
 	}
 
 	@Override
 	public void enviar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("No se puede enviar un pedido sin prepararlo");
 	}
 
 	@Override
 	public void entregar(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("No se puede se puede entregar un pedido en CONFIRMADO");
 	}
 
 	@Override
 	public void cancelar(Pedido pedido) {
 		pedido.cancelarEnConfirmado();
-		/*
-		pedido.reponerStock();
-		pedido.cancelarPriv();
-		*/
+		
 		
 	}
 
 
 	@Override
 	public void quitarItem(Pedido pedido, ItemCatalogo item) {
-		// TODO Auto-generated method stub
+		
 		throw new RuntimeException("Solo se pueden quitar items del pedido en BORRADOR");
 	}
 	
@@ -58,7 +55,6 @@ public class Confirmado implements Contexto {
 	@Override
 	public void notificarCambio(Pedido pedido) {
 		pedido.getGestor().notificarCambioACliente(pedido, this.contexto());
-//		pedido.notificarCambioACliente(this.contexto());
 		
 	}
 	
