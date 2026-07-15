@@ -95,60 +95,59 @@ public class Pedido implements Enviable {
 		this.getContexto().quitarItem(this, item);
 	}
 	
-	//
+	/* Metodos relacionado a los precios*/
 	
-	
-	/* Operaciones internas */
-
-	public void agregarItemPriv(ItemCatalogo item) {
-		this.getItems().add(item);
-
-	}
-
-	public void quitarItemPriv(ItemCatalogo item) {
-		this.getItems().remove(item);
-	}
-
-	public void cancelarPriv() {
-		System.out.println("pedido cancelado");
-		this.cambiarContexto(new Cancelado());
-	}
- 
-	public void cambiarContexto(Contexto contexto) {
-		Contexto estadoAnterior = this.getContexto();
-		this.setContexto(contexto);
-		this.actualizarSubsistemas(estadoAnterior, contexto);
-	}
-
-	public void actualizarSubsistemas(Contexto estadoAnterior, Contexto estadoNuevo) {
-		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(estadoAnterior, estadoNuevo, this));
-	}
-
-	public void descrementarStock() throws Exception {
-		for (ItemCatalogo item : this.getItems()) {
-			item.decrementarStock();
-		}
-	} 
-
 	public double precioItems() {
 		return this.getItems().stream().mapToDouble(item -> item.getPrecioFinal()).sum();
 	}
 
 	public double precioEnvio() {
-//	return this.getModoDeEnvio().calcularCosto(new PedidoEnviable(this, this.direccion));
 		return this.getModoDeEnvio().calcularCosto(this);
 	}
 
 	public double precioPedido() {
 		return this.precioItems() + this.precioEnvio();
 	}
+	
+	
+	/* Operaciones internas */
 
-	public void pagarPedido() {
+	protected void agregarItemPriv(ItemCatalogo item) {
+		this.getItems().add(item);
+
+	}
+
+	protected void quitarItemPriv(ItemCatalogo item) {
+		this.getItems().remove(item);
+	}
+
+	protected void cancelarPriv() {
+		System.out.println("pedido cancelado");
+		this.cambiarContexto(new Cancelado());
+	}
+ 
+	protected void cambiarContexto(Contexto contexto) {
+		Contexto estadoAnterior = this.getContexto();
+		this.setContexto(contexto);
+		this.actualizarSubsistemas(estadoAnterior, contexto);
+	}
+
+	protected void actualizarSubsistemas(Contexto estadoAnterior, Contexto estadoNuevo) {
+		this.getSubSistemas().stream().forEach(sub -> sub.actualizar(estadoAnterior, estadoNuevo, this));
+	}
+
+	protected void descrementarStock() throws Exception {
+		for (ItemCatalogo item : this.getItems()) {
+			item.decrementarStock();
+		}
+	} 
+
+	protected void pagarPedido() {
 		this.getMetodoDePago().setMonto(this.precioPedido());
 		this.getMetodoDePago().procesar_el_pago();
 	}
 
-	public void agregarNotaDeCredito(NotaDeCredito notaDeCredito) {
+	protected void agregarNotaDeCredito(NotaDeCredito notaDeCredito) {
 		this.getNotasDeCredito().add(notaDeCredito);
 	}
 
@@ -172,15 +171,15 @@ public class Pedido implements Enviable {
 
 //-------------------------------------------
 
-	public void generarReembolso(double montoDeReembolso) {
+	protected void generarReembolso(double montoDeReembolso) {
 		this.agregarNotaDeCredito(new NotaDeCredito(montoDeReembolso));
 	}
 
-	public void reponerStock() {
+	protected void reponerStock() {
 		this.getItems().stream().forEach(item -> item.incrementarStock());
 	}
 
-	public String getMailCliente() {
+	protected String getMailCliente() {
 		return this.mailCliente;
 	}
 

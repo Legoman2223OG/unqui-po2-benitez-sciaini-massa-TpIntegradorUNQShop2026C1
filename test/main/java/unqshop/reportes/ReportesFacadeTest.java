@@ -62,7 +62,7 @@ class ReportesFacadeTest {
         when(item.getNombre()).thenReturn(nombre);
         when(item.getPrecioFinal()).thenReturn(precioFinal);
 
-        pedido.agregarItemPriv(item);
+        pedido.agregarItemPriv(item); //fijarse si anda si se cambia por agregarItem, el cual es metodo publico 
 
         return pedido;
     }
@@ -97,7 +97,7 @@ class ReportesFacadeTest {
         when(segundoAuricular.getSku()).thenReturn("auris");
         when(segundoAuricular.getNombre()).thenReturn("Auriculares");
         when(segundoAuricular.getPrecioFinal()).thenReturn(8000.0);
-        pedido.agregarItemPriv(segundoAuricular);
+        pedido.agregarItemPriv(segundoAuricular);//fijarse si anda si se cambia por agregarItem, el cual es metodo publico 
 
         String salida = facade.productosMasVendidos(List.of(pedido), desde, hasta, new FormatoCSV());
 
